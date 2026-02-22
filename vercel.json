@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "revmeai.com" }],
+      "destination": "/flutter/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "r.revmeai.com" }],
+      "destination": "/review/index.html"
+    }
+  ]
+}
