@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>name="viewport"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>/&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;⭐ Smart AI Review Assistant&lt;/title&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>:root {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--primary: #2563eb;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--primary-dark: #1d4ed8;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg: #f8fafc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--card-bg: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--border: #e2e8f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-primary: #0f172a;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-secondary: #64748b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--shadow: 0 10px 25px rgba(0,0,0,0.08);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--radius: 18px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>* { box-sizing: border-box; }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--bg);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>min-height: 100vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-primary);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.card {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>max-width: 430px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--card-bg);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: var(--radius);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 26px 22px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.header {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 22px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.header h2 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 24px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 700;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.header p {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 6px 0 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-secondary);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stars {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 24px 0 18px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 40px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.star {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #e2e8f0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: 0.2s ease;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.star.active {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #f59e0b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transform: scale(1.1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.result {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.loading {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-secondary);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 16px 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.review-track {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>overflow-x: auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding-bottom: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>scroll-snap-type: x mandatory;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.review-track::-webkit-scrollbar {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.review-card {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex: 0 0 260px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: #ffffff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 4px 8px rgba(0,0,0,0.04);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 14.5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>scroll-snap-align: start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: 0.25s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.review-card:hover,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.review-card.selected {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-color: var(--primary);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transform: translateY(-3px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>textarea {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>min-height: 110px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>resize: vertical;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 14.5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>textarea:focus {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>outline: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-color: var(--primary);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 0 3px rgba(37,99,235,0.12);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 18px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 14px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--primary);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: 0.2s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--primary-dark);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div class="card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="header"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2&gt;AI Smart Review Generator&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;p&gt;Select your rating &amp; get professional review suggestions instantly&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="stars"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;span class="star" data-value="1"&gt;★&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;span class="star" data-value="2"&gt;★&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;span class="star" data-value="3"&gt;★&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;span class="star" data-value="4"&gt;★&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;span class="star" data-value="5"&gt;★&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="result" class="result"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;textarea id="userInput" placeholder="Tap a suggestion to use it here..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button id="ctaBtn"&gt;Copy &amp; Continue to Google Review&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script type="module"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const supabase = createClient(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>'https://iwhxyqczdfapprigyrpr.supabase.co',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>// ✅ Extract businessId from URL</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const pathParts = window.location.pathname.split('/').filter(Boolean);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">//const url = new URL("https://rateme5.com/r/348a4173-4fba-4ad0-9075-17d1e779aeb6");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const pathParts = url.pathname.split('/').filter(Boolean);</span></p>
+<p class="p1"><span class="s1">const businessId = pathParts[pathParts.length - 1];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>console.log("Business ID:", businessId);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if (!businessId || businessId.length &lt; 30) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>alert("Invalid QR Code");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1">// ---------------- FETCH GOOGLE URL ----------------</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">let googleReviewUrl = null;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const { data: business, error } = await supabase</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.from('businesses')</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.select('review_url')</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.eq('id', businessId)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.single();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">if (error || !business) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>alert("Business not found");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>console.error(error);</span></p>
+<p class="p1"><span class="s1">} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>googleReviewUrl = business.review_url;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>console.log("Google Review URL:", googleReviewUrl);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const stars = document.querySelectorAll('.star');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const resultDiv = document.getElementById('result');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const input = document.getElementById('userInput');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const btn = document.getElementById('ctaBtn');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let rating = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let loading = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let countdownInterval;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>stars.forEach(star =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>star.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const r = Number(star.dataset.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (loading || r === rating) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>rating = r;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>stars.forEach(s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.classList.toggle('active', Number(s.dataset.value) &lt;= r)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>loadReviews(r);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>async function loadReviews(r) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>loading = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let counter = 10;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>resultDiv.style.display = 'block';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>resultDiv.innerHTML = `&lt;div class="loading"&gt;Generating professional suggestions... (${counter})&lt;/div&gt;`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>countdownInterval = setInterval(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>counter--;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (counter &lt; 0) counter = 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>resultDiv.innerHTML = `&lt;div class="loading"&gt;Generating professional suggestions... (${counter})&lt;/div&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}, 1000);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const { data } = await supabase.functions.invoke('generate-review', {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>body: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>businessId: businessId,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>rating: r,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>input: input.value.trim()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>clearInterval(countdownInterval);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const reviews = data?.review || [];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>resultDiv.innerHTML = `&lt;div class="review-track"&gt;&lt;/div&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const track = resultDiv.querySelector('.review-track');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>reviews.forEach((rev) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const card = document.createElement('div');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.className = 'review-card';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.textContent = rev.review;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>card.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.review-card')</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>.forEach(c =&gt; c.classList.remove('selected'));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>card.classList.add('selected');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>input.value = rev.review;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>track.appendChild(card);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>loading = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">btn.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const text = input.value.trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if (!text) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>input.focus();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>input.select();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>input.setSelectionRange(0, 99999);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.execCommand('copy');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>btn.textContent = "Copied ✓ Opening Google...";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>setTimeout(() =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if (!googleReviewUrl) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>alert("Review link not available");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>window.open(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>googleReviewUrl,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"_blank",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"noopener,noreferrer"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}, 800);</span></p>
+<p class="p1"><span class="s1">});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
