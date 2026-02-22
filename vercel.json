@@ -2,24 +2,18 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "r.revmeai.com" }
-      ],
+      "has": [{ "type": "host", "value": "r.revmeai.com" }],
       "destination": "/review/index.html"
     },
     {
       "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "revmeai.com" }
-      ],
-      "destination": "/flutter/index.html"
+      "has": [{ "type": "host", "value": "revmeai.com" }],
+      "destination": "/index.html"
     },
     {
       "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "www.revmeai.com" }
-      ],
-      "destination": "/flutter/index.html"
+      "has": [{ "type": "host", "value": "www.revmeai.com" }],
+      "destination": "/index.html"
     }
   ]
 }
