@@ -211,8 +211,9 @@
         console.log("Business ID:", businessId);
 
         if (!businessId || businessId.length < 30) {
-          alert("Invalid QR Code ");
-        }
+  alert("Invalid QR Code");
+  throw new Error("Invalid business ID");
+}
       // ---------------- FETCH GOOGLE URL ----------------
 
       let googleReviewUrl = null;
