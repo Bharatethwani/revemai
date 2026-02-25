@@ -225,7 +225,15 @@
         .single();
 
       if (error || !business) {
-        alert("Business not found",business);
+        alert("Business not found");
+         document.body.insertAdjacentHTML(
+    "beforeend",
+    `<div style="color:red;font-size:12px;">
+      <p>Error Message: ${error?.message || "No message"}</p>
+      <p>Error Details: ${error?.details || "No details"}</p>
+      <p>Error Hint: ${error?.hint || "No hint"}</p>
+    </div>`
+  );
         console.error(error);
       } else {
         googleReviewUrl = business.review_url;
