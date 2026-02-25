@@ -166,7 +166,7 @@
       <div class="header">
         <h2>AI Smart Review Generator </h2>
         <p>
-          Select your rating & get professional review suggestions instantly
+          Select your rating & gedt professional review suggestions instantly
         </p>
       </div>
 
@@ -228,6 +228,14 @@
       if (error) throw error;
  
       if (!business) throw new Error("No businesss found");
+
+          `<div style="color:red;font-size:12px;">
+      <p>Error Message: ${error?.message || "No message"}</p>
+      <p>Error Details: ${error?.details || "No details"}</p>
+      <p>Error Hint: ${error?.hint || "No hint"}</p>
+            <p>Error Hint: ${business? || "No business"}</p>
+
+    </div>`
       
   //     if (error || !business) {
   //       alert("Business_ not found",error?.message);
