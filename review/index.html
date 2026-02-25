@@ -164,7 +164,7 @@
   <body>
     <div class="card">
       <div class="header">
-        <h2>AI Smart Review Generator revmeai</h2>
+        <h2>AI Smart Review Generator </h2>
         <p>
           Select your rating & get professional review suggestions instantly
         </p>
@@ -223,7 +223,8 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
         .select('review_url')
         .eq('id', businessId)
         .single();
-
+if (error) throw error;
+  if (!business) throw new Error("No businesss found");
       if (error || !business) {
         alert("Business_ not found",error?.message);
          document.body.insertAdjacentHTML(
