@@ -225,7 +225,7 @@
         .single();
 
       if (error || !business) {
-        alert("Business_ not found");
+        alert("Business_ not found",error?.message);
          document.body.insertAdjacentHTML(
     "beforeend",
     `<div style="color:red;font-size:12px;">
