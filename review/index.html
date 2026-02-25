@@ -203,33 +203,19 @@
 
      // const url = new URL("https://r.revmeai.com/r/348a4173-4fba-4ad0-9075-17d1e779aeb6");
      
-     function getBusinessId() {
-  const path = window.location.pathname;
 
-  // Remove trailing slash safely
-  const cleanedPath = path.endsWith('/')
-    ? path.slice(0, -1)
-    : path;
-
-  const segments = cleanedPath.split('/');
-  const lastSegment = segments[segments.length - 1];
-
-  return decodeURIComponent(lastSegment.trim());
-}
-
-const businessId = getBusinessId();
 
 console.log("Business ID:", businessId);
-  //    const url = new URL(window.location.href);
+     const url = new URL(window.location.href);
 
-  //     const pathParts = url.pathname.split('/').filter(Boolean);
-  //     const businessId = pathParts[pathParts.length - 1];
+      const pathParts = url.pathname.split('/').filter(Boolean);
+      const businessId = pathParts[pathParts.length - 1];
 
-  //       console.log("Business ID:", businessId);
+        console.log("Business ID:", businessId);
 
-  //       if (!businessId || businessId.length < 30) {
-  // alert("Invalid QR Code");
-  // throw new Error("Invalid business IDs");
+        if (!businessId || businessId.length < 30) {
+  alert("Invalid QR Code");
+  throw new Error("Invalid business IDs");
 }
       // ---------------- FETCH GOOGLE URL ----------------
 
