@@ -190,8 +190,9 @@
 
     <script type="module">
       //  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-        const supabase = createClient(
+       import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+        
+      const supabase = createClient(
           'https://iwhxyqczdfapprigyrpr.supabase.co',
           'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
         );
@@ -223,23 +224,26 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
         .select('review_url')
         .eq('id', businessId)
         .single();
-if (error) throw error;
-  if (!business) throw new Error("No businesss found");
-      if (error || !business) {
-        alert("Business_ not found",error?.message);
-         document.body.insertAdjacentHTML(
-    "beforeend",
-    `<div style="color:red;font-size:12px;">
-      <p>Error Message: ${error?.message || "No message"}</p>
-      <p>Error Details: ${error?.details || "No details"}</p>
-      <p>Error Hint: ${error?.hint || "No hint"}</p>
-    </div>`
-  );
-        console.error(error);
-      } else {
-        googleReviewUrl = business.review_url;
-        console.log("Google Review URL:", googleReviewUrl);
-      }
+      
+      if (error) throw error;
+ 
+      if (!business) throw new Error("No businesss found");
+      
+  //     if (error || !business) {
+  //       alert("Business_ not found",error?.message);
+  //        document.body.insertAdjacentHTML(
+  //   "beforeend",
+  //   `<div style="color:red;font-size:12px;">
+  //     <p>Error Message: ${error?.message || "No message"}</p>
+  //     <p>Error Details: ${error?.details || "No details"}</p>
+  //     <p>Error Hint: ${error?.hint || "No hint"}</p>
+  //   </div>`
+  // );
+  //       console.error(error);
+  //     } else {
+  //       googleReviewUrl = business.review_url;
+  //       console.log("Google Review URL:", googleReviewUrl);
+  //     }
 
 
 
