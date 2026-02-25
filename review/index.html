@@ -203,17 +203,33 @@
 
      // const url = new URL("https://r.revmeai.com/r/348a4173-4fba-4ad0-9075-17d1e779aeb6");
      
-     
-     const url = new URL(window.location.href);
+     function getBusinessId() {
+  const path = window.location.pathname;
 
-      const pathParts = url.pathname.split('/').filter(Boolean);
-      const businessId = pathParts[pathParts.length - 1];
+  // Remove trailing slash safely
+  const cleanedPath = path.endsWith('/')
+    ? path.slice(0, -1)
+    : path;
 
-        console.log("Business ID:", businessId);
+  const segments = cleanedPath.split('/');
+  const lastSegment = segments[segments.length - 1];
 
-        if (!businessId || businessId.length < 30) {
-  alert("Invalid QR Code");
-  throw new Error("Invalid business IDs");
+  return decodeURIComponent(lastSegment.trim());
+}
+
+const businessId = getBusinessId();
+
+console.log("Business ID:", businessId);
+  //    const url = new URL(window.location.href);
+
+  //     const pathParts = url.pathname.split('/').filter(Boolean);
+  //     const businessId = pathParts[pathParts.length - 1];
+
+  //       console.log("Business ID:", businessId);
+
+  //       if (!businessId || businessId.length < 30) {
+  // alert("Invalid QR Code");
+  // throw new Error("Invalid business IDs");
 }
       // ---------------- FETCH GOOGLE URL ----------------
 
@@ -225,33 +241,26 @@
         .eq('id', businessId)
         .single();
       
-    //  if (error) throw error;
+      if (error) throw error;
  
-    //  if (!business) throw new Error("No businesss found");
+      if (!business) throw new Error("No businesss found");
 
-          `<div style="color:red;font-size:12px;">
+      
+      if (error || !business) {
+        alert("Business_ not found",error?.message);
+         document.body.insertAdjacentHTML(
+    "beforeend",
+    `<div style="color:red;font-size:12px;">
       <p>Error Message: ${error?.message || "No message"}</p>
       <p>Error Details: ${error?.details || "No details"}</p>
       <p>Error Hint: ${error?.hint || "No hint"}</p>
-            <p>Error Hint: ${business? || "No business"}</p>
-
     </div>`
-      
-  //     if (error || !business) {
-  //       alert("Business_ not found",error?.message);
-  //        document.body.insertAdjacentHTML(
-  //   "beforeend",
-  //   `<div style="color:red;font-size:12px;">
-  //     <p>Error Message: ${error?.message || "No message"}</p>
-  //     <p>Error Details: ${error?.details || "No details"}</p>
-  //     <p>Error Hint: ${error?.hint || "No hint"}</p>
-  //   </div>`
-  // );
-  //       console.error(error);
-  //     } else {
-  //       googleReviewUrl = business.review_url;
-  //       console.log("Google Review URL:", googleReviewUrl);
-  //     }
+  );
+        console.error(error);
+      } else {
+        googleReviewUrl = business.review_url;
+        console.log("Google Review URL:", googleReviewUrl);
+      }
 
 
 
