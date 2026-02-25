@@ -225,7 +225,7 @@
         .single();
 
       if (error || !business) {
-        alert("Business not found");
+        alert("Business not found",business);
         console.error(error);
       } else {
         googleReviewUrl = business.review_url;
