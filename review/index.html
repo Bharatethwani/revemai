@@ -225,9 +225,9 @@
         .eq('id', businessId)
         .single();
       
-      if (error) throw error;
+    //  if (error) throw error;
  
-      if (!business) throw new Error("No businesss found");
+    //  if (!business) throw new Error("No businesss found");
 
           `<div style="color:red;font-size:12px;">
       <p>Error Message: ${error?.message || "No message"}</p>
