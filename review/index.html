@@ -209,10 +209,17 @@
       const businessId = pathParts[pathParts.length - 1];
 
         console.log("Business ID:", businessId);
+      document.body.insertAdjacentHTML(
+  "beforeend",
+  `<div style="margin-top:20px;font-size:12px;color:red;">
+     Debug ID: ${businessId} <br>
+     Length: ${businessId.length}
+   </div>`
+);
 
         if (!businessId || businessId.length < 30) {
   alert("Invalid QR Code");
-  throw new Error("Invalid business ID");
+  throw new Error("Invalid business IDs");
 }
       // ---------------- FETCH GOOGLE URL ----------------
 
@@ -327,6 +334,8 @@
           );
         }, 800);
       });
+
+      
     </script>
   </body>
 </html>
