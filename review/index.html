@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>⭐ Smart AI Reviewd Assistant</title>
+    <title>⭐ Smart AI Review Assistant</title>
 
     <style>
       :root {
@@ -155,8 +155,21 @@
         transition: 0.2s;
       }
 
-      button:hover {
+      button:disabled {
+        background: #cbd5e1;
+        cursor: not-allowed;
+      }
+
+      button:hover:not(:disabled) {
         background: var(--primary-dark);
+      }
+      
+      #error-msg {
+        color: #ef4444;
+        font-size: 13px;
+        margin-top: 10px;
+        display: none;
+        text-align: center;
       }
     </style>
   </head>
@@ -164,10 +177,9 @@
   <body>
     <div class="card">
       <div class="header">
-        <h2>AI Smart Review Generators </h2>
-        <p>
-          Select your rating & gedt professional review suggestions instantly
-        </p>
+        <h2 id="bizName">AI Smart Review Generator</h2>
+        <p id="subHeader">Select your rating & get professional suggestions instantly</p>
+        <div id="error-msg">Business not found. Please try scanning again.</div>
       </div>
 
       <div class="stars">
@@ -182,108 +194,113 @@
 
       <textarea
         id="userInput"
-        placeholder="Tap a suggestion 1 to use it here..."
+        placeholder="Tap a suggestion to use it here or write your own..."
       ></textarea>
 
-      <button id="ctaBtn">Copy & Continue to Google Review</button>
+      <button id="ctaBtn" disabled>Generate to Continue</button>
     </div>
 
     <script type="module">
-      //  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-       import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-        
-      const supabase = createClient(
-          'https://iwhxyqczdfapprigyrpr.supabase.co',
-          'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
-        );
+      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-        // ✅ Extract businessId from URL
-       // const pathParts = window.location.pathname.split('/').filter(Boolean);
+      // --- CONFIGURATION ---
+      const SUPABASE_URL = 'https://iwhxyqczdfapprigyrpr.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq';
+      const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-     // const url = new URL("https://r.revmeai.com/r/348a4173-4fba-4ad0-9075-17d1e779aeb6");
-     
-
-console.log("RAW PATH:", window.location.pathname);
-
-const rawPath = window.location.pathname;
-const cleanedPath = rawPath.replace(/\/$/, ''); // remove trailing slash
-const parts = cleanedPath.split('/');
-let businessId = parts[parts.length - 1];
-
-businessId = decodeURIComponent(businessId).trim().toLowerCase();
-
-//alert("Business ID = [" + businessId + "] Length = " + businessId.length);
-      //  const url = new URL(window.location.href);
-
-      // const pathParts = url.pathname.split('/').filter(Boolean);
-      // const businessId = pathParts[pathParts.length - 1];
-
-      //   console.log("Business ID:", businessId);
-
-      //   if (!businessId || businessId.length < 30) {
-      //      alert("Invalid QR Code");
-      //        throw new Error("Invalid business IDs");
-//}
-      // ---------------- FETCH GOOGLE URL ----------------
+      // --- DOM ELEMENTS ---
+      const stars = document.querySelectorAll('.star');
+      const resultDiv = document.getElementById('result');
+      const input = document.getElementById('userInput');
+      const btn = document.getElementById('ctaBtn');
+      const errorDiv = document.getElementById('error-msg');
+      const subHeader = document.getElementById('subHeader');
 
       let googleReviewUrl = null;
+      let businessId = null;
+      let rating = 0;
+      let loading = false;
+      let countdownInterval;
 
-      const { data: business, error } = await supabase
-        .from('businesses')
-        .select('review_url')
-        .eq('id', businessId)
-        .single();
-      
-   
-      
-      if (error || !business) {
-        alert("Business_ not found",error?.message);
-  
-        console.error(error);
-      } else {
-        googleReviewUrl = business.review_url;
-        console.log("Google Review URL:", googleReviewUrl);
+      // --- 1. ROBUST ID EXTRACTION ---
+      function extractBusinessId() {
+        const path = window.location.pathname;
+        // This regex ignores trailing slashes or URL parameters
+        const match = path.match(/([^\/]+)\/?$/);
+        return match ? decodeURIComponent(match[1]).trim().toLowerCase() : null;
       }
 
+      // --- 2. FETCH BUSINESS DATA ---
+      async function fetchBusiness() {
+        businessId = extractBusinessId();
+        console.log("Extracted Business ID:", businessId);
 
+        if (!businessId) {
+          showError("Invalid URL. Business ID missing.");
+          return;
+        }
 
-        const stars = document.querySelectorAll('.star');
-        const resultDiv = document.getElementById('result');
-        const input = document.getElementById('userInput');
-        const btn = document.getElementById('ctaBtn');
+        try {
+          const { data, error } = await supabase
+            .from('businesses')
+            .select('review_url, name')
+            .eq('id', businessId)
+            .single();
 
-        let rating = 0;
-        let loading = false;
-        let countdownInterval;
+          if (error || !data) {
+            console.error("Database Error:", error);
+            showError("Business record not found.");
+          } else {
+            googleReviewUrl = data.review_url;
+            if (data.name) document.getElementById('bizName').textContent = data.name;
+            console.log("Business Loaded Successfully");
+          }
+        } catch (err) {
+          console.error("Connection error:", err);
+          showError("Network connection issue. Please refresh.");
+        }
+      }
 
-        stars.forEach(star => {
-          star.addEventListener('click', () => {
-            const r = Number(star.dataset.value);
-            if (loading || r === rating) return;
+      function showError(msg) {
+        errorDiv.textContent = msg;
+        errorDiv.style.display = 'block';
+        subHeader.style.display = 'none';
+      }
 
-            rating = r;
-            stars.forEach(s =>
-              s.classList.toggle('active', Number(s.dataset.value) <= r)
-            );
+      // --- 3. REVIEW GENERATION LOGIC ---
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const r = Number(star.dataset.value);
+          if (loading || r === rating || !businessId) return;
 
-            loadReviews(r);
-          });
+          rating = r;
+          btn.disabled = false;
+          btn.textContent = "Copy & Continue to Google Review";
+          
+          stars.forEach(s =>
+            s.classList.toggle('active', Number(s.dataset.value) <= r)
+          );
+
+          loadReviews(r);
         });
+      });
 
-        async function loadReviews(r) {
-          loading = true;
-          let counter = 10;
+      async function loadReviews(r) {
+        loading = true;
+        let counter = 8;
 
-          resultDiv.style.display = 'block';
-          resultDiv.innerHTML = `<div class="loading">Generating professional suggestions... (${counter})</div>`;
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `<div class="loading">Generating suggestions... (${counter}s)</div>`;
 
-          countdownInterval = setInterval(() => {
-            counter--;
-            if (counter < 0) counter = 0;
-            resultDiv.innerHTML = `<div class="loading">Generating professional suggestions... (${counter})</div>`;
-          }, 1000);
+        countdownInterval = setInterval(() => {
+          counter--;
+          if (counter < 0) counter = 0;
+          const loadEl = resultDiv.querySelector('.loading');
+          if (loadEl) loadEl.textContent = `Generating suggestions... (${counter}s)`;
+        }, 1000);
 
-          const { data } = await supabase.functions.invoke('generate-review', {
+        try {
+          const { data, error } = await supabase.functions.invoke('generate-review', {
             body: {
               businessId: businessId,
               rating: r,
@@ -293,8 +310,9 @@ businessId = decodeURIComponent(businessId).trim().toLowerCase();
 
           clearInterval(countdownInterval);
 
-          const reviews = data?.review || [];
+          if (error) throw error;
 
+          const reviews = data?.review || [];
           resultDiv.innerHTML = `<div class="review-track"></div>`;
           const track = resultDiv.querySelector('.review-track');
 
@@ -304,43 +322,52 @@ businessId = decodeURIComponent(businessId).trim().toLowerCase();
             card.textContent = rev.review;
 
             card.addEventListener('click', () => {
-              document.querySelectorAll('.review-card')
-                .forEach(c => c.classList.remove('selected'));
+              document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
               card.classList.add('selected');
               input.value = rev.review;
             });
-
             track.appendChild(card);
           });
-
+        } catch (err) {
+          clearInterval(countdownInterval);
+          resultDiv.innerHTML = `<div class="loading" style="color:red">Failed to generate AI suggestions. Please type your review manually below.</div>`;
+        } finally {
           loading = false;
         }
+      }
 
+      // --- 4. CTA BUTTON ACTION ---
       btn.addEventListener('click', () => {
         const text = input.value.trim();
-        if (!text) return;
+        if (!text) {
+          alert("Please select a suggestion or write a review first.");
+          return;
+        }
 
-        input.focus();
-        input.select();
-        input.setSelectionRange(0, 99999);
-        document.execCommand('copy');
+        // Copy to clipboard
+        try {
+            input.select();
+            input.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(text);
+        } catch (err) {
+            // Fallback for older browsers
+            document.execCommand('copy');
+        }
 
         btn.textContent = "Copied ✓ Opening Google...";
+        btn.style.background = "#059669";
 
         setTimeout(() => {
           if (!googleReviewUrl) {
-            alert("Review link not available");
+            alert("Google Review link is missing for this business.");
             return;
           }
-
-          window.open(
-            googleReviewUrl,
-            "_blank",
-            "noopener,noreferrer"
-          );
+          window.location.href = googleReviewUrl;
         }, 800);
       });
 
+      // Start the process
+      fetchBusiness();
       
     </script>
   </body>
