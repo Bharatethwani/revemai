@@ -7,104 +7,105 @@
     <style>
         :root { 
             --primary: #2563eb; 
-            --primary-dark: #1d4ed8;
-            --bg: #f1f5f9; 
-            --card-bg: #ffffff;
-            --text-primary: #1e293b; 
-            --text-secondary: #64748b; 
+            --bg: #f8fafc; 
+            --card: #ffffff;
+            --text: #0f172a; 
+            --text-light: #64748b; 
         }
-        
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body { 
             margin: 0; 
-            font-family: system-ui, -apple-system, sans-serif; 
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg); 
-            color: var(--text-primary); 
+            color: var(--text); 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
             padding: 16px; 
         }
-
         .card { 
             width: 100%; 
-            max-width: 420px; 
-            background: var(--card-bg); 
-            padding: 30px 22px; 
+            max-width: 410px; 
+            background: var(--card); 
+            padding: 28px 22px; 
             border-radius: 24px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
             border: 1px solid #e2e8f0;
         }
-
         .brand { text-align: center; margin-bottom: 24px; }
         .brand h1 { margin: 0; font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
-        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); }
 
-        .biz-info {
-            background: #f8fafc;
+        .biz-box {
+            background: #f1f5f9;
             border-radius: 16px;
-            padding: 14px;
+            padding: 16px;
             text-align: center;
             margin-bottom: 20px;
-            border: 1px solid #edf2f7;
         }
-        #bizName { margin: 0; font-size: 18px; font-weight: 700; }
-        #status { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        #bizName { margin: 0; font-size: 18px; font-weight: 700; color: var(--text); }
+        #status { font-size: 12px; margin-top: 4px; color: var(--text-light); }
 
-        .stars { display: flex; justify-content: center; gap: 8px; margin: 20px 0; font-size: 44px; }
-        .star { cursor: pointer; color: #e2e8f0; transition: 0.2s ease; }
-        .star.active { color: #fbbf24; transform: scale(1.1); }
+        .stars { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 44px; line-height: 1; }
+        .star { cursor: pointer; color: #e2e8f0; transition: transform 0.1s ease; }
+        .star.active { color: #fbbf24; }
+        .star:active { transform: scale(1.2); }
 
-        .result { display: none; margin-bottom: 20px; }
-        .loading { text-align: center; font-size: 14px; color: var(--text-secondary); padding: 10px 0; }
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+        }
 
-        .review-track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; }
+        .review-track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .review-track::-webkit-scrollbar { display: none; }
-
+        
         .review-card { 
-            flex: 0 0 270px; 
+            flex: 0 0 85%; 
             padding: 16px; 
-            border-radius: 16px; 
-            background: #ffffff; 
             border: 1px solid #e2e8f0; 
-            font-size: 14.5px; 
-            cursor: pointer; 
-            scroll-snap-align: start; 
-            transition: 0.25s;
+            border-radius: 16px; 
+            font-size: 14px; 
             line-height: 1.5;
+            scroll-snap-align: start; 
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .review-card:hover, .review-card.selected { border-color: var(--primary); background: #f0f7ff; }
+        .review-card.selected { border-color: var(--primary); background: #eff6ff; }
 
         textarea { 
             width: 100%; 
             min-height: 110px; 
-            padding: 14px; 
-            border-radius: 16px; 
+            border-radius: 14px; 
             border: 1px solid #e2e8f0; 
-            resize: none; 
-            font-size: 14.5px; 
-            margin-top: 10px;
+            padding: 14px; 
+            font-size: 15px; 
+            outline: none; 
             background: #fcfcfc;
+            margin-top: 10px;
+            font-family: inherit;
         }
-        textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
+        textarea:focus { border-color: var(--primary); background: #fff; }
 
         button { 
             width: 100%; 
-            margin-top: 18px; 
+            margin-top: 20px; 
             padding: 16px; 
-            border-radius: 16px; 
+            border-radius: 14px; 
             border: none; 
             background: var(--primary); 
-            color: white; 
+            color: #fff; 
+            font-weight: 700; 
             font-size: 16px; 
-            font-weight: 600; 
             cursor: pointer; 
-            transition: 0.2s;
+            transition: opacity 0.2s;
         }
-        button:hover { background: var(--primary-dark); }
         button:disabled { background: #cbd5e1; cursor: not-allowed; }
+        button:active { opacity: 0.8; }
 
         .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
     </style>
@@ -117,26 +118,27 @@
         <p>Turn experiences into expert reviews</p>
     </div>
 
-    <div class="biz-info">
-        <h2 id="bizName">Loading...</h2>
-        <p id="status">Fetching business details</p>
+    <div class="biz-box">
+        <h2 id="bizName">RevMeAI Engine</h2>
+        <p id="status">Connecting to profile...</p>
     </div>
 
     <div class="stars">
-        <span class="star" data-value="1">★</span>
-        <span class="star" data-value="2">★</span>
-        <span class="star" data-value="3">★</span>
-        <span class="star" data-value="4">★</span>
-        <span class="star" data-value="5">★</span>
+        <span class="star" data-v="1">★</span>
+        <span class="star" data-v="2">★</span>
+        <span class="star" data-v="3">★</span>
+        <span class="star" data-v="4">★</span>
+        <span class="star" data-v="5">★</span>
     </div>
 
-    <div id="result" class="result"></div>
+    <div id="loader" class="loading-spinner">RevMeAI is writing...</div>
+    <div id="aiResult" style="display:none"></div>
 
-    <textarea id="userInput" placeholder="Select a rating to see AI suggestions..."></textarea>
-
-    <button id="ctaBtn" disabled>Copy & Continue</button>
+    <textarea id="userInput" placeholder="Rate us to see AI review suggestions..."></textarea>
     
-    <div class="footer">Powered by RevMeAI Professional Engine</div>
+    <button id="cta" disabled>Ready to Review</button>
+
+    <div class="footer">Powered by RevMeAI Professional</div>
 </div>
 
 <script type="module">
@@ -147,126 +149,129 @@
         'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
     );
 
-    // --- ID EXTRACTION ---
-    const rawPath = window.location.pathname;
-    const parts = rawPath.split('/').filter(Boolean);
-    let businessId = parts[parts.length - 1]?.split('?')[0].trim().toLowerCase();
-
-    let googleReviewUrl = null;
-    let loading = false;
-    let rating = 0;
-
-    const bizNameEl = document.getElementById('bizName');
-    const statusEl = document.getElementById('status');
-    const stars = document.querySelectorAll('.star');
-    const resultDiv = document.getElementById('result');
+    const bizName = document.getElementById('bizName');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('cta');
     const input = document.getElementById('userInput');
-    const btn = document.getElementById('ctaBtn');
+    const aiResult = document.getElementById('aiResult');
+    const loader = document.getElementById('loader');
+    const stars = document.querySelectorAll('.star');
 
-    // --- INITIAL FETCH ---
+    let googleUrl = null;
+    let bId = null;
+    let isBusy = false;
+
+    // The most reliable way to get the ID on Mobile Chrome/Safari
+    function getID() {
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(p => p.length > 0);
+        const lastPart = parts[parts.length - 1] || "";
+        return lastPart.split('?')[0].trim().toLowerCase();
+    }
+
     async function init() {
-        if (!businessId) {
-            statusEl.innerText = "Invalid review link";
+        bId = getID();
+        if (!bId || bId.length < 5) {
+            status.innerText = "Error: Use a valid RevMeAI link";
             return;
         }
 
-        const { data: business, error } = await supabase
-            .from('businesses')
-            .select('review_url, name')
-            .eq('id', businessId)
-            .single();
+        try {
+            const { data, error } = await supabase
+                .from('businesses')
+                .select('review_url, name')
+                .eq('id', bId)
+                .single();
 
-        if (error || !business) {
-            console.error(error);
-            bizNameEl.innerText = "Business Not Found";
-            statusEl.innerText = "Please check the QR code or link";
-        } else {
-            googleReviewUrl = business.review_url;
-            bizNameEl.innerText = business.name || "Share Your Feedback";
-            statusEl.innerText = "Tap stars to get AI suggestions";
-            btn.innerText = "Copy & Continue to Google";
+            if (data) {
+                googleUrl = data.review_url;
+                bizName.innerText = data.name;
+                status.innerText = "Tap stars for AI suggestions";
+            } else {
+                status.innerText = "Business profile not found";
+            }
+        } catch (e) {
+            // Keep trying in background, don't block the UI
+            console.log("Database sync pending...");
         }
     }
 
-    // --- STAR CLICK LOGIC (Original Working Logic) ---
-    stars.forEach(star => {
-        star.addEventListener('click', () => {
-            const r = Number(star.dataset.value);
-            if (loading || r === rating) return;
-
-            rating = r;
+    stars.forEach(s => {
+        s.onclick = async () => {
+            if (isBusy) return;
+            const val = s.dataset.v;
+            
+            // Visual Star Update
+            stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
+            
             btn.disabled = false;
-            stars.forEach(s => s.classList.toggle('active', Number(s.dataset.value) <= r));
-
-            loadReviews(r);
-        });
+            btn.innerText = "Copy & Go to Google";
+            
+            await fetchAI(val);
+        };
     });
 
-    async function loadReviews(r) {
-        loading = true;
-        let counter = 8;
+    async function fetchAI(rating) {
+        isBusy = true;
+        loader.style.display = 'block';
+        aiResult.style.display = 'none';
 
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `<div class="loading">RevMeAI is thinking... (${counter}s)</div>`;
-
-        const countdownInterval = setInterval(() => {
-            counter--;
-            if (counter < 0) counter = 0;
-            const loader = resultDiv.querySelector('.loading');
-            if(loader) loader.innerText = `RevMeAI is thinking... (${counter}s)`;
-        }, 1000);
-
-        // Call Edge Function
-        const { data } = await supabase.functions.invoke('generate-review', {
-            body: {
-                businessId: businessId,
-                rating: r,
-                input: input.value.trim()
-            }
-        });
-
-        clearInterval(countdownInterval);
-
-        const reviews = data?.review || [];
-        resultDiv.innerHTML = `<div class="review-track"></div>`;
-        const track = resultDiv.querySelector('.review-track');
-
-        reviews.forEach((rev) => {
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.textContent = rev.review;
-
-            card.addEventListener('click', () => {
-                document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                input.value = rev.review;
+        try {
+            const { data, error } = await supabase.functions.invoke('generate-review', {
+                body: { businessId: bId, rating: parseInt(rating), input: input.value }
             });
-            track.appendChild(card);
-        });
 
-        loading = false;
+            if (data?.review) {
+                aiResult.innerHTML = '<div class="review-track"></div>';
+                const track = aiResult.querySelector('.review-track');
+                
+                data.review.forEach(r => {
+                    const card = document.createElement('div');
+                    card.className = 'review-card';
+                    card.innerText = r.review;
+                    card.onclick = () => {
+                        input.value = r.review;
+                        document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
+                        card.classList.add('selected');
+                    };
+                    track.appendChild(card);
+                });
+                aiResult.style.display = 'block';
+            }
+        } catch (e) {
+            console.error("AI Error:", e);
+        } finally {
+            loader.style.display = 'none';
+            isBusy = false;
+        }
     }
 
-    // --- BUTTON CLICK ---
-    btn.addEventListener('click', () => {
+    btn.onclick = () => {
         const text = input.value.trim();
-        if (!text) return;
+        if (!text) return alert("Write or select a review first!");
 
-        input.select();
-        navigator.clipboard.writeText(text);
+        // Mobile Clipboard API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                redirect();
+            });
+        } else {
+            input.select();
+            document.execCommand('copy');
+            redirect();
+        }
+    };
 
-        btn.textContent = "Copied ✓ Opening Google...";
+    function redirect() {
+        btn.innerText = "Copied ✓ Opening Google...";
         btn.style.background = "#059669";
-
         setTimeout(() => {
-            if (googleReviewUrl) {
-                window.location.href = googleReviewUrl;
-            } else {
-                alert("Review link not available");
-            }
+            if (googleUrl) window.location.href = googleUrl;
+            else alert("Google Review link not found.");
         }, 800);
-    });
+    }
 
+    // Call init immediately
     init();
 </script>
 
