@@ -1,225 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>⭐ Smart AI Review Assistant</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart AI Review Assistant</title>
     <style>
-      :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --bg: #f8fafc;
-        --card-bg: #ffffff;
-        --border: #e2e8f0;
-        --text-primary: #0f172a;
-        --text-secondary: #64748b;
-        --shadow: 0 10px 25px rgba(0,0,0,0.08);
-        --radius: 18px;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: system-ui, -apple-system, sans-serif;
-        background: var(--bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        padding: 16px;
-      }
-      .card {
-        width: 100%;
-        max-width: 430px;
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        padding: 26px 22px;
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border);
-      }
-      .header { text-align: center; margin-bottom: 22px; }
-      .header h2 { margin: 0; font-size: 22px; }
-      .header p { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
-      .stars { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 42px; }
-      .star { cursor: pointer; color: #e2e8f0; transition: 0.2s; }
-      .star.active { color: #f59e0b; }
-      .result { display: none; margin-bottom: 20px; }
-      .loading { text-align: center; font-size: 14px; color: var(--text-secondary); padding: 10px; }
-      .review-track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
-      .review-card {
-        flex: 0 0 85%;
-        padding: 16px;
-        border-radius: 14px;
-        border: 1px solid var(--border);
-        background: #fff;
-        font-size: 14px;
-        scroll-snap-align: start;
-      }
-      .review-card.selected { border-color: var(--primary); background: #eff6ff; }
-      textarea {
-        width: 100%;
-        min-height: 100px;
-        padding: 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        font-size: 14px;
-        margin-top: 10px;
-      }
-      button {
-        width: 100%;
-        margin-top: 15px;
-        padding: 15px;
-        border-radius: 12px;
-        border: none;
-        background: var(--primary);
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-      }
-      button:disabled { background: #cbd5e1; opacity: 0.7; }
+        :root { --p: #2563eb; --bg: #f8fafc; --txt: #0f172a; --sec: #64748b; }
+        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--txt); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        .card { width: 100%; max-width: 400px; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .header { text-align: center; margin-bottom: 20px; }
+        #status { font-size: 14px; color: var(--sec); margin-top: 8px; }
+        .stars { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 40px; }
+        .star { cursor: pointer; color: #e2e8f0; transition: 0.2s; }
+        .star.active { color: #f59e0b; }
+        .review-track { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .review-card { flex: 0 0 85%; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; scroll-snap-align: start; cursor: pointer; background: #fff; }
+        .review-card.selected { border-color: var(--p); background: #eff6ff; }
+        textarea { width: 100%; min-height: 100px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 12px; margin-top: 10px; font-size: 14px; outline: none; }
+        textarea:focus { border-color: var(--p); }
+        button { width: 100%; margin-top: 15px; padding: 15px; border-radius: 12px; border: none; background: var(--p); color: #fff; font-weight: 600; cursor: pointer; font-size: 16px; }
+        button:disabled { background: #cbd5e1; color: #94a3b8; }
+        .error-text { color: #ef4444 !important; }
     </style>
-  </head>
-  <body>
-    <div class="card">
-      <div class="header">
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
         <h2 id="bizName">AI Review Assistant</h2>
-        <p id="statusMsg">Loading business details...</p>
-      </div>
-      <div class="stars">
-        <span class="star" data-value="1">★</span>
-        <span class="star" data-value="2">★</span>
-        <span class="star" data-value="3">★</span>
-        <span class="star" data-value="4">★</span>
-        <span class="star" data-value="5">★</span>
-      </div>
-      <div id="result" class="result"></div>
-      <textarea id="userInput" placeholder="Select stars to generate ideas..."></textarea>
-      <button id="ctaBtn" disabled>Please wait...</button>
+        <p id="status">Verifying Business...</p>
     </div>
 
-    <script type="module">
-      import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    <div class="stars">
+        <span class="star" data-v="1">★</span>
+        <span class="star" data-v="2">★</span>
+        <span class="star" data-v="3">★</span>
+        <span class="star" data-v="4">★</span>
+        <span class="star" data-v="5">★</span>
+    </div>
 
-      const supabase = createClient(
+    <div id="aiResult" style="display:none"></div>
+    <textarea id="userInput" placeholder="Tap stars to see AI suggestions..."></textarea>
+    <button id="cta" disabled>Please wait...</button>
+</div>
+
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabase = createClient(
         'https://iwhxyqczdfapprigyrpr.supabase.co',
         'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
-      );
+    );
 
-      const statusMsg = document.getElementById('statusMsg');
-      const bizName = document.getElementById('bizName');
-      const btn = document.getElementById('ctaBtn');
-      const stars = document.querySelectorAll('.star');
-      const input = document.getElementById('userInput');
-      const resultDiv = document.getElementById('result');
+    const status = document.getElementById('status');
+    const bizName = document.getElementById('bizName');
+    const btn = document.getElementById('cta');
+    const input = document.getElementById('userInput');
+    const aiResult = document.getElementById('aiResult');
+    const stars = document.querySelectorAll('.star');
 
-      let businessId = null;
-      let googleReviewUrl = null;
-      let isGenerating = false;
+    let googleUrl = null;
+    let bId = null;
 
-      // --- IMPROVED ID EXTRACTION ---
-      function getCleanId() {
-        const path = window.location.pathname;
-        const segments = path.split('/').filter(Boolean);
-        // Returns the last segment, ignoring any query strings
-        const lastSegment = segments[segments.length - 1] || "";
-        return lastSegment.split('?')[0].trim().toLowerCase();
-      }
-
-      async function init() {
-        businessId = getCleanId();
+    // --- FIX: Specific parsing for your URL structure (/r/ID) ---
+    function getID() {
+        const path = window.location.pathname; // e.g. "/r/348a4173..."
+        const segments = path.split('/').filter(s => s.length > 0);
         
-        if (!businessId || businessId.length < 5) {
-          statusMsg.innerText = "Error: Invalid link. Please re-scan QR.";
-          return;
+        // If your URL is domain.com/r/ID, the ID is the last segment
+        const id = segments[segments.length - 1] || "";
+        return id.split('?')[0].trim().toLowerCase();
+    }
+
+    async function initBusiness() {
+        bId = getID();
+        console.log("Business ID extracted:", bId);
+
+        if (!bId || bId.length < 20) {
+            status.innerHTML = '<span class="error-text">Invalid Link</span>';
+            return;
         }
 
         try {
-          const { data, error } = await supabase
-            .from('businesses')
-            .select('review_url, name')
-            .eq('id', businessId)
-            .single();
+            const { data, error } = await supabase
+                .from('businesses')
+                .select('review_url, name')
+                .eq('id', bId)
+                .maybeSingle();
 
-          if (error || !data) {
-            console.error("Fetch error:", error);
-            statusMsg.innerText = "Business not found. Try refreshing.";
-          } else {
-            googleReviewUrl = data.review_url;
-            bizName.innerText = data.name || "AI Review Assistant";
-            statusMsg.innerText = "Select stars to get AI suggestions";
-            btn.innerText = "Copy & Go to Google";
-          }
+            if (error) throw error;
+
+            if (data) {
+                googleUrl = data.review_url;
+                bizName.innerText = data.name;
+                status.innerText = "Select stars for professional suggestions";
+                btn.innerText = "Copy & Go to Google";
+                btn.disabled = false;
+            } else {
+                status.innerHTML = '<span class="error-text">Business not registered</span>';
+            }
         } catch (e) {
-          statusMsg.innerText = "Connection error. Check your internet.";
+            console.error("Supabase error:", e);
+            status.innerHTML = '<span class="error-text">Connection error. Please refresh.</span>';
         }
-      }
+    }
 
-      // --- STAR LOGIC ---
-      stars.forEach(star => {
-        star.addEventListener('click', async () => {
-          if (!businessId || isGenerating) return;
-          
-          const rating = star.dataset.value;
-          btn.disabled = false;
+    stars.forEach(s => {
+        s.onclick = async () => {
+            const val = s.dataset.v;
+            stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
+            
+            if (!bId) return;
 
-          // Visual star update
-          stars.forEach(s => s.classList.toggle('active', s.dataset.value <= rating));
+            aiResult.style.display = 'block';
+            aiResult.innerHTML = '<div style="text-align:center; font-size:13px; padding:10px; color:#64748b;">AI is writing...</div>';
 
-          // Call Edge Function
-          await fetchAISuggestions(rating);
+            try {
+                const { data } = await supabase.functions.invoke('generate-review', {
+                    body: { businessId: bId, rating: parseInt(val), input: input.value }
+                });
+
+                if (data?.review) {
+                    aiResult.innerHTML = '<div class="review-track"></div>';
+                    const track = aiResult.querySelector('.review-track');
+                    data.review.forEach(r => {
+                        const card = document.createElement('div');
+                        card.className = 'review-card';
+                        card.innerText = r.review;
+                        card.onclick = () => {
+                            input.value = r.review;
+                            document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
+                            card.classList.add('selected');
+                        };
+                        track.appendChild(card);
+                    });
+                }
+            } catch (e) {
+                aiResult.innerHTML = '';
+            }
+        };
+    });
+
+    btn.onclick = () => {
+        const text = input.value.trim();
+        if (!text) return alert("Write or select a review first!");
+        
+        // Use Clipboard API
+        navigator.clipboard.writeText(text).then(() => {
+            btn.innerText = "Copied! Opening Google...";
+            setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
+        }).catch(() => {
+            // Fallback for older Android Chrome
+            input.select();
+            document.execCommand('copy');
+            if (googleUrl) window.location.href = googleUrl;
         });
-      });
+    };
 
-      async function fetchAISuggestions(r) {
-        isGenerating = true;
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `<div class="loading">AI is thinking...</div>`;
+    // Load as soon as script parses
+    initBusiness();
+</script>
 
-        try {
-          const { data, error } = await supabase.functions.invoke('generate-review', {
-            body: { businessId, rating: r, input: input.value }
-          });
-
-          if (error) throw error;
-
-          const reviews = data?.review || [];
-          resultDiv.innerHTML = `<div class="review-track"></div>`;
-          const track = resultDiv.querySelector('.review-track');
-
-          reviews.forEach(rev => {
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.innerText = rev.review;
-            card.onclick = () => {
-              document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
-              card.classList.add('selected');
-              input.value = rev.review;
-            };
-            track.appendChild(card);
-          });
-        } catch (err) {
-          resultDiv.innerHTML = `<div class="loading">Couldn't load suggestions. Please type below!</div>`;
-        } finally {
-          isGenerating = false;
-        }
-      }
-
-      // --- FINAL ACTION ---
-      btn.onclick = () => {
-        if (!input.value.trim()) return alert("Please select or write a review first.");
-        
-        // Copy logic
-        input.select();
-        navigator.clipboard.writeText(input.value);
-        
-        btn.innerText = "Copied! Redirecting...";
-        setTimeout(() => {
-          if (googleReviewUrl) window.location.href = googleReviewUrl;
-          else alert("Review link not found.");
-        }, 1000);
-      };
-
-      // RUN ON LOAD
-      window.addEventListener('load', init);
-    </script>
-  </body>
+</body>
 </html>
