@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RevMeAI - Smart Review Assistant</title>
     <style>
         :root { 
@@ -28,40 +28,48 @@
             width: 100%; 
             max-width: 410px; 
             background: var(--card); 
-            padding: 28px 22px; 
+            padding: 30px 22px; 
             border-radius: 24px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.06);
             border: 1px solid #e2e8f0;
         }
         .brand { text-align: center; margin-bottom: 24px; }
-        .brand h1 { margin: 0; font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
-        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); }
+        .brand h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); font-weight: 500; }
 
         .biz-box {
             background: #f1f5f9;
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 16px;
             text-align: center;
             margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
         }
         #bizName { margin: 0; font-size: 18px; font-weight: 700; color: var(--text); }
         #status { font-size: 12px; margin-top: 4px; color: var(--text-light); }
 
-        .stars { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 44px; line-height: 1; }
+        .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 45px; line-height: 1; }
         .star { cursor: pointer; color: #e2e8f0; transition: transform 0.1s ease; }
         .star.active { color: #fbbf24; }
         .star:active { transform: scale(1.2); }
 
-        .loading-spinner {
+        .loading-text {
             display: none;
             text-align: center;
-            padding: 15px;
+            padding: 10px;
             font-size: 14px;
             color: var(--primary);
             font-weight: 600;
         }
 
-        .review-track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .review-track { 
+            display: flex; 
+            gap: 12px; 
+            overflow-x: auto; 
+            padding-bottom: 15px; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; 
+        }
         .review-track::-webkit-scrollbar { display: none; }
         
         .review-card { 
@@ -74,6 +82,7 @@
             scroll-snap-align: start; 
             background: #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            cursor: pointer;
         }
         .review-card.selected { border-color: var(--primary); background: #eff6ff; }
 
@@ -88,26 +97,27 @@
             background: #fcfcfc;
             margin-top: 10px;
             font-family: inherit;
+            resize: none;
         }
         textarea:focus { border-color: var(--primary); background: #fff; }
 
         button { 
             width: 100%; 
             margin-top: 20px; 
-            padding: 16px; 
-            border-radius: 14px; 
+            padding: 18px; 
+            border-radius: 16px; 
             border: none; 
             background: var(--primary); 
             color: #fff; 
             font-weight: 700; 
             font-size: 16px; 
             cursor: pointer; 
-            transition: opacity 0.2s;
+            transition: all 0.2s;
         }
         button:disabled { background: #cbd5e1; cursor: not-allowed; }
-        button:active { opacity: 0.8; }
+        button:active { transform: scale(0.98); opacity: 0.9; }
 
-        .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
+        .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -120,7 +130,7 @@
 
     <div class="biz-box">
         <h2 id="bizName">RevMeAI Engine</h2>
-        <p id="status">Connecting to profile...</p>
+        <p id="status">Syncing with profile...</p>
     </div>
 
     <div class="stars">
@@ -131,14 +141,14 @@
         <span class="star" data-v="5">★</span>
     </div>
 
-    <div id="loader" class="loading-spinner">RevMeAI is writing...</div>
+    <div id="loadingText" class="loading-text">RevMeAI is writing...</div>
     <div id="aiResult" style="display:none"></div>
 
-    <textarea id="userInput" placeholder="Rate us to see AI review suggestions..."></textarea>
+    <textarea id="userInput" placeholder="Rate your experience to see AI ideas..."></textarea>
     
-    <button id="cta" disabled>Ready to Review</button>
+    <button id="cta" disabled>Select Rating to Start</button>
 
-    <div class="footer">Powered by RevMeAI Professional</div>
+    <div class="footer">Professional Review Generation by RevMeAI</div>
 </div>
 
 <script type="module">
@@ -154,25 +164,27 @@
     const btn = document.getElementById('cta');
     const input = document.getElementById('userInput');
     const aiResult = document.getElementById('aiResult');
-    const loader = document.getElementById('loader');
+    const loadingText = document.getElementById('loadingText');
     const stars = document.querySelectorAll('.star');
 
     let googleUrl = null;
     let bId = null;
-    let isBusy = false;
 
-    // The most reliable way to get the ID on Mobile Chrome/Safari
+    // --- ULTRA-COMPATIBLE ID EXTRACTOR ---
     function getID() {
         const path = window.location.pathname;
-        const parts = path.split('/').filter(p => p.length > 0);
-        const lastPart = parts[parts.length - 1] || "";
+        // This regex finds the ID even if there are trailing slashes or query params
+        const segments = path.split('/').filter(p => p.length > 0);
+        const lastPart = segments[segments.length - 1] || "";
         return lastPart.split('?')[0].trim().toLowerCase();
     }
 
     async function init() {
         bId = getID();
-        if (!bId || bId.length < 5) {
-            status.innerText = "Error: Use a valid RevMeAI link";
+        console.log("Extracted ID:", bId);
+
+        if (!bId || bId.length < 10) {
+            status.innerHTML = '<span style="color:#ef4444">Invalid link. Please scan again.</span>';
             return;
         }
 
@@ -181,97 +193,86 @@
                 .from('businesses')
                 .select('review_url, name')
                 .eq('id', bId)
-                .single();
+                .maybeSingle();
 
             if (data) {
                 googleUrl = data.review_url;
                 bizName.innerText = data.name;
-                status.innerText = "Tap stars for AI suggestions";
+                status.innerText = "Share your rating for AI suggestions";
             } else {
-                status.innerText = "Business profile not found";
+                status.innerHTML = '<span style="color:#ef4444">Business profile not found</span>';
             }
         } catch (e) {
-            // Keep trying in background, don't block the UI
-            console.log("Database sync pending...");
+            console.error("Init Error:", e);
+            status.innerText = "Connection slow. Try pick a rating anyway.";
         }
     }
 
     stars.forEach(s => {
         s.onclick = async () => {
-            if (isBusy) return;
             const val = s.dataset.v;
-            
-            // Visual Star Update
             stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
             
             btn.disabled = false;
             btn.innerText = "Copy & Go to Google";
             
-            await fetchAI(val);
+            loadingText.style.display = 'block';
+            aiResult.style.display = 'none';
+
+            try {
+                const { data, error } = await supabase.functions.invoke('generate-review', {
+                    body: { businessId: bId, rating: parseInt(val), input: input.value }
+                });
+
+                if (data?.review) {
+                    aiResult.innerHTML = '<div class="review-track"></div>';
+                    const track = aiResult.querySelector('.review-track');
+                    data.review.forEach(r => {
+                        const card = document.createElement('div');
+                        card.className = 'review-card';
+                        card.innerText = r.review;
+                        card.onclick = () => {
+                            input.value = r.review;
+                            document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
+                            card.classList.add('selected');
+                        };
+                        track.appendChild(card);
+                    });
+                    aiResult.style.display = 'block';
+                }
+            } catch (e) {
+                console.error("AI Error:", e);
+            } finally {
+                loadingText.style.display = 'none';
+            }
         };
     });
-
-    async function fetchAI(rating) {
-        isBusy = true;
-        loader.style.display = 'block';
-        aiResult.style.display = 'none';
-
-        try {
-            const { data, error } = await supabase.functions.invoke('generate-review', {
-                body: { businessId: bId, rating: parseInt(rating), input: input.value }
-            });
-
-            if (data?.review) {
-                aiResult.innerHTML = '<div class="review-track"></div>';
-                const track = aiResult.querySelector('.review-track');
-                
-                data.review.forEach(r => {
-                    const card = document.createElement('div');
-                    card.className = 'review-card';
-                    card.innerText = r.review;
-                    card.onclick = () => {
-                        input.value = r.review;
-                        document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
-                        card.classList.add('selected');
-                    };
-                    track.appendChild(card);
-                });
-                aiResult.style.display = 'block';
-            }
-        } catch (e) {
-            console.error("AI Error:", e);
-        } finally {
-            loader.style.display = 'none';
-            isBusy = false;
-        }
-    }
 
     btn.onclick = () => {
         const text = input.value.trim();
         if (!text) return alert("Write or select a review first!");
 
-        // Mobile Clipboard API
+        // Clipboard API for Mobile
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(() => {
-                redirect();
+                finish();
             });
         } else {
             input.select();
             document.execCommand('copy');
-            redirect();
+            finish();
         }
     };
 
-    function redirect() {
+    function finish() {
         btn.innerText = "Copied ✓ Opening Google...";
         btn.style.background = "#059669";
         setTimeout(() => {
             if (googleUrl) window.location.href = googleUrl;
-            else alert("Google Review link not found.");
+            else alert("Google Review link missing.");
         }, 800);
     }
 
-    // Call init immediately
     init();
 </script>
 
