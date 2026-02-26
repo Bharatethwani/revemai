@@ -3,32 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Smart AI Review Assistant</title>
+    <title>RevMeAI - Smart Review Assistant</title>
     <style>
-        :root { --p: #2563eb; --bg: #f8fafc; --txt: #0f172a; --sec: #64748b; }
-        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--txt); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-        .card { width: 100%; max-width: 400px; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
-        .header { text-align: center; margin-bottom: 20px; }
-        #status { font-size: 14px; color: var(--sec); margin-top: 8px; }
-        .stars { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 40px; }
-        .star { cursor: pointer; color: #e2e8f0; transition: 0.2s; }
-        .star.active { color: #f59e0b; }
-        .review-track { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-        .review-card { flex: 0 0 85%; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; scroll-snap-align: start; cursor: pointer; background: #fff; }
-        .review-card.selected { border-color: var(--p); background: #eff6ff; }
-        textarea { width: 100%; min-height: 100px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 12px; margin-top: 10px; font-size: 14px; outline: none; }
-        textarea:focus { border-color: var(--p); }
-        button { width: 100%; margin-top: 15px; padding: 15px; border-radius: 12px; border: none; background: var(--p); color: #fff; font-weight: 600; cursor: pointer; font-size: 16px; }
-        button:disabled { background: #cbd5e1; color: #94a3b8; }
-        .error-text { color: #ef4444 !important; }
+        :root { 
+            --primary: #2563eb; 
+            --accent: #3b82f6;
+            --bg: #f1f5f9; 
+            --card: #ffffff;
+            --text: #1e293b; 
+            --text-light: #64748b; 
+        }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            margin: 0; 
+            font-family: 'Inter', -apple-system, system-ui, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px; 
+        }
+
+        .card { 
+            width: 100%; 
+            max-width: 420px; 
+            background: var(--card); 
+            padding: 30px 24px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Branding */
+        .brand { text-align: center; margin-bottom: 24px; }
+        .brand h1 { margin: 0; font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); font-weight: 500; }
+
+        .biz-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #bizName { margin: 0; font-size: 18px; font-weight: 700; color: var(--text); }
+        #status { font-size: 12px; margin-top: 5px; color: var(--text-light); }
+
+        /* Stars */
+        .stars { display: flex; justify-content: center; gap: 8px; margin: 10px 0 25px; font-size: 44px; }
+        .star { cursor: pointer; color: #e2e8f0; transition: transform 0.2s, color 0.2s; }
+        .star:active { transform: scale(0.9); }
+        .star.active { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.3); }
+
+        /* AI Suggestions */
+        .ai-label { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; display: none; }
+        .review-track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .review-track::-webkit-scrollbar { display: none; }
+        
+        .review-card { 
+            flex: 0 0 85%; 
+            padding: 16px; 
+            border: 2px solid #f1f5f9; 
+            border-radius: 16px; 
+            font-size: 14px; 
+            line-height: 1.5;
+            scroll-snap-align: start; 
+            cursor: pointer; 
+            background: #fff;
+            transition: all 0.2s;
+        }
+        .review-card.selected { border-color: var(--primary); background: #eff6ff; }
+
+        textarea { 
+            width: 100%; 
+            min-height: 120px; 
+            border-radius: 16px; 
+            border: 2px solid #f1f5f9; 
+            padding: 16px; 
+            font-size: 15px; 
+            outline: none; 
+            transition: border-color 0.2s;
+            background: #fcfcfc;
+        }
+        textarea:focus { border-color: var(--primary); background: #fff; }
+
+        button { 
+            width: 100%; 
+            margin-top: 20px; 
+            padding: 18px; 
+            border-radius: 16px; 
+            border: none; 
+            background: var(--primary); 
+            color: #fff; 
+            font-weight: 700; 
+            font-size: 16px; 
+            cursor: pointer; 
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            transition: all 0.2s;
+        }
+        button:active { transform: scale(0.98); }
+        button:disabled { background: #e2e8f0; color: #94a3b8; box-shadow: none; }
+
+        .error-state { color: #ef4444 !important; font-weight: 600; }
+        .footer-tag { text-align: center; font-size: 11px; color: #cbd5e1; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header">
-        <h2 id="bizName">AI Review Assistant</h2>
-        <p id="status">Verifying Business...</p>
+    <div class="brand">
+        <h1>RevMeAI.com</h1>
+        <p>Turn experiences into expert reviews</p>
+    </div>
+
+    <div class="biz-box">
+        <h2 id="bizName">Welcome</h2>
+        <p id="status">Scanning business details...</p>
     </div>
 
     <div class="stars">
@@ -39,9 +135,14 @@
         <span class="star" data-v="5">★</span>
     </div>
 
+    <div class="ai-label" id="aiLabel">AI Suggestions</div>
     <div id="aiResult" style="display:none"></div>
-    <textarea id="userInput" placeholder="Tap stars to see AI suggestions..."></textarea>
-    <button id="cta" disabled>Please wait...</button>
+
+    <textarea id="userInput" placeholder="Select stars to get AI writing suggestions..."></textarea>
+    
+    <button id="cta" disabled>Select Rating to Start</button>
+
+    <div class="footer-tag">Powered by RevMeAI Professional Engine</div>
 </div>
 
 <script type="module">
@@ -57,27 +158,23 @@
     const btn = document.getElementById('cta');
     const input = document.getElementById('userInput');
     const aiResult = document.getElementById('aiResult');
+    const aiLabel = document.getElementById('aiLabel');
     const stars = document.querySelectorAll('.star');
 
     let googleUrl = null;
     let bId = null;
 
-    // --- FIX: Specific parsing for your URL structure (/r/ID) ---
+    // Fixed ID Extraction for revmeai.com/r/ID
     function getID() {
-        const path = window.location.pathname; // e.g. "/r/348a4173..."
-        const segments = path.split('/').filter(s => s.length > 0);
-        
-        // If your URL is domain.com/r/ID, the ID is the last segment
-        const id = segments[segments.length - 1] || "";
-        return id.split('?')[0].trim().toLowerCase();
+        const path = window.location.pathname;
+        const parts = path.split('/').filter(p => p.length > 0);
+        return parts[parts.length - 1]?.split('?')[0].trim().toLowerCase() || null;
     }
 
-    async function initBusiness() {
+    async function init() {
         bId = getID();
-        console.log("Business ID extracted:", bId);
-
-        if (!bId || bId.length < 20) {
-            status.innerHTML = '<span class="error-text">Invalid Link</span>';
+        if (!bId) {
+            status.innerHTML = '<span class="error-state">Link Error: Please re-scan QR</span>';
             return;
         }
 
@@ -88,20 +185,17 @@
                 .eq('id', bId)
                 .maybeSingle();
 
-            if (error) throw error;
-
             if (data) {
                 googleUrl = data.review_url;
                 bizName.innerText = data.name;
-                status.innerText = "Select stars for professional suggestions";
-                btn.innerText = "Copy & Go to Google";
-                btn.disabled = false;
+                status.innerText = "Share your rating to begin";
+                btn.innerText = "Copy & Post Review";
             } else {
-                status.innerHTML = '<span class="error-text">Business not registered</span>';
+                // We only show error if the AI hasn't already found the business
+                if(!googleUrl) status.innerHTML = '<span class="error-state">Business Profile Not Found</span>';
             }
         } catch (e) {
-            console.error("Supabase error:", e);
-            status.innerHTML = '<span class="error-text">Connection error. Please refresh.</span>';
+            console.log("Network delay, continuing...");
         }
     }
 
@@ -112,8 +206,10 @@
             
             if (!bId) return;
 
+            btn.disabled = false;
+            aiLabel.style.display = 'block';
             aiResult.style.display = 'block';
-            aiResult.innerHTML = '<div style="text-align:center; font-size:13px; padding:10px; color:#64748b;">AI is writing...</div>';
+            aiResult.innerHTML = '<div style="text-align:center; font-size:13px; padding:15px; color:#3b82f6;">RevMeAI is writing suggestions...</div>';
 
             try {
                 const { data } = await supabase.functions.invoke('generate-review', {
@@ -136,30 +232,27 @@
                     });
                 }
             } catch (e) {
-                aiResult.innerHTML = '';
+                aiResult.innerHTML = '<div style="font-size:12px; color:#94a3b8;">Type your review below!</div>';
             }
         };
     });
 
     btn.onclick = () => {
         const text = input.value.trim();
-        if (!text) return alert("Write or select a review first!");
+        if (!text) return alert("Select a suggestion or write a review first!");
         
-        // Use Clipboard API
         navigator.clipboard.writeText(text).then(() => {
             btn.innerText = "Copied! Opening Google...";
+            btn.style.background = "#059669";
             setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
         }).catch(() => {
-            // Fallback for older Android Chrome
             input.select();
             document.execCommand('copy');
             if (googleUrl) window.location.href = googleUrl;
         });
     };
 
-    // Load as soon as script parses
-    initBusiness();
+    init();
 </script>
-
 </body>
 </html>
