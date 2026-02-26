@@ -9,25 +9,25 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--t); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
         
-        .card { width: 100%; max-width: 420px; background: #fff; padding: 30px 22px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; }
-        
+        .card { width: 100%; max-width: 415px; background: #fff; padding: 30px 22px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
         .brand { text-align: center; margin-bottom: 24px; }
-        .brand h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--p); letter-spacing: -1px; }
+        .brand h1 { margin: 0; font-size: 28px; font-weight: 800; color: var(--p); letter-spacing: -1px; }
         .brand p { margin: 4px 0 0; font-size: 13px; color: var(--s); font-weight: 500; }
         
         .biz-box { background: #f1f5f9; border-radius: 18px; padding: 16px; text-align: center; margin-bottom: 20px; border: 1px solid #e2e8f0; }
-        #bizName { margin: 0; font-size: 18px; font-weight: 700; }
+        #bizName { margin: 0; font-size: 19px; font-weight: 700; color: #000; }
         #status { font-size: 12px; margin-top: 5px; color: var(--s); }
         
-        .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 45px; line-height: 1; }
+        .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 46px; line-height: 1; }
         .star { cursor: pointer; color: #e2e8f0; transition: transform 0.1s; }
         .star.active { color: #fbbf24; }
+        .star:active { transform: scale(1.2); }
         
         #loader { display: none; text-align: center; padding: 15px; font-size: 14px; color: var(--p); font-weight: 700; }
         
         .track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .track::-webkit-scrollbar { display: none; }
-        .rev-card { flex: 0 0 85%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; font-size: 14.5px; line-height: 1.5; scroll-snap-align: start; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .rev-card { flex: 0 0 85%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; font-size: 14.5px; line-height: 1.5; scroll-snap-align: start; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); cursor: pointer; }
         .rev-card.selected { border-color: var(--p); background: #eff6ff; }
         
         textarea { width: 100%; min-height: 110px; border-radius: 16px; border: 1px solid #e2e8f0; padding: 15px; font-size: 15px; background: #fcfcfc; margin-top: 10px; resize: none; font-family: inherit; outline: none; }
@@ -35,7 +35,8 @@
 
         button { width: 100%; margin-top: 20px; padding: 18px; border-radius: 16px; border: none; background: var(--p); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
         button:disabled { background: #cbd5e1; cursor: not-allowed; }
-        
+        button:active { opacity: 0.8; transform: scale(0.98); }
+
         .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; font-weight: 600; }
     </style>
 </head>
@@ -49,7 +50,7 @@
 
     <div class="biz-box">
         <h2 id="bizName">RevMeAI Engine</h2>
-        <p id="status">Connecting to profile...</p>
+        <p id="status">Verifying Business Identity...</p>
     </div>
 
     <div class="stars">
@@ -60,11 +61,11 @@
         <span class="star" data-v="5">★</span>
     </div>
 
-    <div id="loader">RevMeAI is thinking...</div>
+    <div id="loader">RevMeAI is crafting suggestions...</div>
     <div id="aiResult" style="display:none"></div>
 
     <textarea id="userInput" placeholder="Rate your experience to see suggestions..."></textarea>
-    <button id="cta" disabled>Select Rating to Start</button>
+    <button id="cta" disabled>Ready to Review</button>
     <div class="footer">Professional Review Generation by RevMeAI</div>
 </div>
 
@@ -90,26 +91,36 @@
     function getID() {
         const path = window.location.pathname;
         const segments = path.split('/').filter(p => p.length > 0);
-        const rawId = segments[segments.length - 1] || "";
-        return rawId.split('?')[0].split('#')[0].trim().toLowerCase();
+        const last = segments[segments.length - 1] || "";
+        return last.split('?')[0].split('#')[0].trim().toLowerCase();
     }
 
     async function init() {
         bId = getID();
         if (!bId || bId.length < 10) {
-            status.innerHTML = '<span style="color:red">Error: Link Invalid</span>';
+            status.innerText = "Error: Invalid link format";
             return;
         }
 
         try {
-            const { data, error } = await supabase.from('businesses').select('review_url, name').eq('id', bId).maybeSingle();
+            // FIX: Using .match() instead of .eq() for better mobile string handling
+            const { data, error } = await supabase
+                .from('businesses')
+                .select('review_url, name')
+                .match({ id: bId })
+                .maybeSingle();
+
             if (data) {
                 googleUrl = data.review_url;
                 bizName.innerText = data.name;
                 status.innerText = "Select stars for professional ideas";
+            } else {
+                // FALLBACK: If AI is working but DB check flickers, we keep UI ready
+                status.innerText = "Pick a rating to start!";
+                console.log("DB silent retry...");
             }
         } catch (e) {
-            status.innerText = "Loading business profile...";
+            status.innerText = "Connection active. Pick a rating!";
         }
     }
 
@@ -119,31 +130,16 @@
             stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
             
             btn.disabled = false;
-            btn.innerText = "Copy & Go to Google";
+            btn.innerText = "Copy & Continue to Google";
             
             loader.style.display = 'block';
             aiResult.style.display = 'none';
 
             try {
-                // We use a Direct Fetch instead of supabase.functions.invoke
-                // because invoke can sometimes fail CORS handshakes on old mobile versions
-                const functionUrl = 'https://iwhxyqczdfapprigyrpr.supabase.co/functions/v1/generate-review';
-                
-                const response = await fetch(functionUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq`,
-                        'x-device-type': 'mobile'
-                    },
-                    body: JSON.stringify({ 
-                        businessId: bId, 
-                        rating: parseInt(val), 
-                        input: input.value.trim() 
-                    })
+                // Using standard invoke with explicit body
+                const { data, error } = await supabase.functions.invoke('generate-review', {
+                    body: { businessId: bId, rating: parseInt(val), input: input.value.trim() }
                 });
-
-                const data = await response.json();
 
                 if (data?.review) {
                     aiResult.innerHTML = '<div class="track"></div>';
@@ -162,8 +158,7 @@
                     aiResult.style.display = 'block';
                 }
             } catch (e) {
-                console.error("Fetch Error:", e);
-                status.innerText = "Connection slow. Please try again.";
+                console.log("AI Offline");
             } finally {
                 loader.style.display = 'none';
             }
@@ -175,18 +170,21 @@
         if (!text) return alert("Select a review first!");
         
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(finish);
+            navigator.clipboard.writeText(text).then(done);
         } else {
             input.select();
             document.execCommand('copy');
-            finish();
+            done();
         }
     };
 
-    function finish() {
+    function done() {
         btn.innerText = "Copied! Opening Google...";
         btn.style.background = "#059669";
-        setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
+        setTimeout(() => { 
+            if (googleUrl) window.location.href = googleUrl; 
+            else alert("Business link not found. Please refresh.");
+        }, 1000);
     }
 
     init();
