@@ -5,119 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RevMeAI - Smart Review Assistant</title>
     <style>
-        :root { 
-            --primary: #2563eb; 
-            --bg: #f8fafc; 
-            --card: #ffffff;
-            --text: #0f172a; 
-            --text-light: #64748b; 
-        }
+        :root { --primary: #2563eb; --bg: #f8fafc; --text: #0f172a; --grey: #64748b; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            margin: 0; 
-            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg); 
-            color: var(--text); 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            padding: 16px; 
-        }
-        .card { 
-            width: 100%; 
-            max-width: 410px; 
-            background: var(--card); 
-            padding: 30px 22px; 
-            border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            border: 1px solid #e2e8f0;
-        }
-        .brand { text-align: center; margin-bottom: 24px; }
-        .brand h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
-        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); font-weight: 500; }
-
-        .biz-box {
-            background: #f1f5f9;
-            border-radius: 18px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 1px solid #e2e8f0;
-        }
-        #bizName { margin: 0; font-size: 18px; font-weight: 700; color: var(--text); }
-        #status { font-size: 12px; margin-top: 4px; color: var(--text-light); }
-
-        .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 45px; line-height: 1; }
-        .star { cursor: pointer; color: #e2e8f0; transition: transform 0.1s ease; }
+        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
+        .card { width: 100%; max-width: 410px; background: #fff; padding: 30px 20px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--primary); }
+        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--grey); }
+        .biz-box { background: #f1f5f9; border-radius: 16px; padding: 15px; text-align: center; margin-bottom: 20px; }
+        #bizName { margin: 0; font-size: 18px; font-weight: 700; }
+        #status { font-size: 12px; margin-top: 4px; color: var(--grey); }
+        .stars { display: flex; justify-content: center; gap: 8px; margin: 10px 0 20px; font-size: 45px; }
+        .star { cursor: pointer; color: #e2e8f0; transition: 0.1s; }
         .star.active { color: #fbbf24; }
-        .star:active { transform: scale(1.2); }
-
-        .loading-text {
-            display: none;
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .review-track { 
-            display: flex; 
-            gap: 12px; 
-            overflow-x: auto; 
-            padding-bottom: 15px; 
-            scroll-snap-type: x mandatory; 
-            -webkit-overflow-scrolling: touch; 
-        }
+        #loadingText { display: none; text-align: center; padding: 10px; font-size: 14px; color: var(--primary); font-weight: 600; }
+        .review-track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .review-track::-webkit-scrollbar { display: none; }
-        
-        .review-card { 
-            flex: 0 0 85%; 
-            padding: 16px; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 16px; 
-            font-size: 14px; 
-            line-height: 1.5;
-            scroll-snap-align: start; 
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            cursor: pointer;
-        }
+        .review-card { flex: 0 0 85%; padding: 16px; border: 1px solid #e2e8f0; border-radius: 16px; font-size: 14px; line-height: 1.5; scroll-snap-align: start; background: #fff; }
         .review-card.selected { border-color: var(--primary); background: #eff6ff; }
-
-        textarea { 
-            width: 100%; 
-            min-height: 110px; 
-            border-radius: 14px; 
-            border: 1px solid #e2e8f0; 
-            padding: 14px; 
-            font-size: 15px; 
-            outline: none; 
-            background: #fcfcfc;
-            margin-top: 10px;
-            font-family: inherit;
-            resize: none;
-        }
-        textarea:focus { border-color: var(--primary); background: #fff; }
-
-        button { 
-            width: 100%; 
-            margin-top: 20px; 
-            padding: 18px; 
-            border-radius: 16px; 
-            border: none; 
-            background: var(--primary); 
-            color: #fff; 
-            font-weight: 700; 
-            font-size: 16px; 
-            cursor: pointer; 
-            transition: all 0.2s;
-        }
-        button:disabled { background: #cbd5e1; cursor: not-allowed; }
-        button:active { transform: scale(0.98); opacity: 0.9; }
-
-        .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; font-weight: 500; }
+        textarea { width: 100%; min-height: 110px; border-radius: 14px; border: 1px solid #e2e8f0; padding: 14px; font-size: 15px; background: #fcfcfc; margin-top: 10px; resize: none; }
+        button { width: 100%; margin-top: 20px; padding: 18px; border-radius: 16px; border: none; background: var(--primary); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; }
+        button:disabled { background: #cbd5e1; }
+        .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -130,7 +39,7 @@
 
     <div class="biz-box">
         <h2 id="bizName">RevMeAI Engine</h2>
-        <p id="status">Syncing with profile...</p>
+        <p id="status">Syncing business profile...</p>
     </div>
 
     <div class="stars">
@@ -141,14 +50,12 @@
         <span class="star" data-v="5">★</span>
     </div>
 
-    <div id="loadingText" class="loading-text">RevMeAI is writing...</div>
+    <div id="loadingText">RevMeAI is thinking...</div>
     <div id="aiResult" style="display:none"></div>
 
-    <textarea id="userInput" placeholder="Rate your experience to see AI ideas..."></textarea>
-    
-    <button id="cta" disabled>Select Rating to Start</button>
-
-    <div class="footer">Professional Review Generation by RevMeAI</div>
+    <textarea id="userInput" placeholder="Rate your experience to see suggestions..."></textarea>
+    <button id="cta" disabled>Ready to Review</button>
+    <div class="footer">Professional AI Engine by RevMeAI</div>
 </div>
 
 <script type="module">
@@ -170,41 +77,27 @@
     let googleUrl = null;
     let bId = null;
 
-    // --- ULTRA-COMPATIBLE ID EXTRACTOR ---
+    // --- IMPROVED ID EXTRACTION ---
     function getID() {
         const path = window.location.pathname;
-        // This regex finds the ID even if there are trailing slashes or query params
-        const segments = path.split('/').filter(p => p.length > 0);
-        const lastPart = segments[segments.length - 1] || "";
-        return lastPart.split('?')[0].trim().toLowerCase();
+        const parts = path.split('/').filter(p => p.length > 0);
+        // Specifically grab the last segment and strip query params
+        const last = parts[parts.length - 1] || "";
+        return last.split('?')[0].trim().toLowerCase();
     }
 
     async function init() {
         bId = getID();
-        console.log("Extracted ID:", bId);
-
         if (!bId || bId.length < 10) {
-            status.innerHTML = '<span style="color:#ef4444">Invalid link. Please scan again.</span>';
+            status.innerText = "Error: Invalid link";
             return;
         }
 
-        try {
-            const { data, error } = await supabase
-                .from('businesses')
-                .select('review_url, name')
-                .eq('id', bId)
-                .maybeSingle();
-
-            if (data) {
-                googleUrl = data.review_url;
-                bizName.innerText = data.name;
-                status.innerText = "Share your rating for AI suggestions";
-            } else {
-                status.innerHTML = '<span style="color:#ef4444">Business profile not found</span>';
-            }
-        } catch (e) {
-            console.error("Init Error:", e);
-            status.innerText = "Connection slow. Try pick a rating anyway.";
+        const { data } = await supabase.from('businesses').select('review_url, name').eq('id', bId).maybeSingle();
+        if (data) {
+            googleUrl = data.review_url;
+            bizName.innerText = data.name;
+            status.innerText = "Select stars for AI suggestions";
         }
     }
 
@@ -220,11 +113,20 @@
             aiResult.style.display = 'none';
 
             try {
+                // We use a clean object for the body to ensure mobile serialization works
+                const requestPayload = { 
+                    businessId: bId, 
+                    rating: parseInt(val), 
+                    input: input.value.trim() 
+                };
+
                 const { data, error } = await supabase.functions.invoke('generate-review', {
-                    body: { businessId: bId, rating: parseInt(val), input: input.value }
+                    body: requestPayload
                 });
 
-                if (data?.review) {
+                if (error) throw error;
+
+                if (data && data.review) {
                     aiResult.innerHTML = '<div class="review-track"></div>';
                     const track = aiResult.querySelector('.review-track');
                     data.review.forEach(r => {
@@ -241,7 +143,8 @@
                     aiResult.style.display = 'block';
                 }
             } catch (e) {
-                console.error("AI Error:", e);
+                console.error("AI Generation Error:", e);
+                status.innerText = "AI is busy. Please try another rating.";
             } finally {
                 loadingText.style.display = 'none';
             }
@@ -249,32 +152,25 @@
     });
 
     btn.onclick = () => {
-        const text = input.value.trim();
-        if (!text) return alert("Write or select a review first!");
-
-        // Clipboard API for Mobile
+        if (!input.value.trim()) return alert("Write or select a review!");
+        
+        // Modern Clipboard API
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(() => {
-                finish();
-            });
+            navigator.clipboard.writeText(input.value).then(done);
         } else {
             input.select();
             document.execCommand('copy');
-            finish();
+            done();
         }
     };
 
-    function finish() {
-        btn.innerText = "Copied ✓ Opening Google...";
+    function done() {
+        btn.innerText = "Copied! Opening Google...";
         btn.style.background = "#059669";
-        setTimeout(() => {
-            if (googleUrl) window.location.href = googleUrl;
-            else alert("Google Review link missing.");
-        }, 800);
+        setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 800);
     }
 
     init();
 </script>
-
 </body>
 </html>
