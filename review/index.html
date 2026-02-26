@@ -49,7 +49,7 @@
 
     <div class="biz-box">
         <h2 id="bizName">RevMeAI Engine</h2>
-        <p id="status">Syncing business profile...</p>
+        <p id="status">Connecting to profile...</p>
     </div>
 
     <div class="stars">
@@ -87,7 +87,6 @@
     let googleUrl = null;
     let bId = null;
 
-    // --- RELIABLE ID EXTRACTION ---
     function getID() {
         const path = window.location.pathname;
         const segments = path.split('/').filter(p => p.length > 0);
@@ -98,12 +97,11 @@
     async function init() {
         bId = getID();
         if (!bId || bId.length < 10) {
-            status.innerHTML = '<span style="color:red">Link Invalid</span>';
+            status.innerHTML = '<span style="color:red">Error: Link Invalid</span>';
             return;
         }
 
         try {
-            // Using maybeSingle to avoid crashes on mobile browsers
             const { data, error } = await supabase.from('businesses').select('review_url, name').eq('id', bId).maybeSingle();
             if (data) {
                 googleUrl = data.review_url;
@@ -111,7 +109,7 @@
                 status.innerText = "Select stars for professional ideas";
             }
         } catch (e) {
-            console.log("Syncing...");
+            status.innerText = "Loading business profile...";
         }
     }
 
@@ -127,16 +125,25 @@
             aiResult.style.display = 'none';
 
             try {
-                const { data, error } = await supabase.functions.invoke('generate-review', {
-                    body: { 
+                // We use a Direct Fetch instead of supabase.functions.invoke
+                // because invoke can sometimes fail CORS handshakes on old mobile versions
+                const functionUrl = 'https://iwhxyqczdfapprigyrpr.supabase.co/functions/v1/generate-review';
+                
+                const response = await fetch(functionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq`,
+                        'x-device-type': 'mobile'
+                    },
+                    body: JSON.stringify({ 
                         businessId: bId, 
                         rating: parseInt(val), 
                         input: input.value.trim() 
-                    },
-                    headers: { 
-                        "x-device-type": "mobile" // CRITICAL: Matches your Edge Function CORS allowed headers
-                    }
+                    })
                 });
+
+                const data = await response.json();
 
                 if (data?.review) {
                     aiResult.innerHTML = '<div class="track"></div>';
@@ -155,7 +162,7 @@
                     aiResult.style.display = 'block';
                 }
             } catch (e) {
-                console.error("AI Sync Error:", e);
+                console.error("Fetch Error:", e);
                 status.innerText = "Connection slow. Please try again.";
             } finally {
                 loader.style.display = 'none';
