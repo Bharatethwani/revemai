@@ -1,110 +1,188 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RevMeAI - Smart Review Assistant</title>
+    <style>
+        :root { --p: #2563eb; --bg: #f8fafc; --t: #1e293b; --s: #64748b; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--t); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        
+        .card { width: 100%; max-width: 420px; background: #fff; padding: 30px 22px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; }
+        
+        .brand { text-align: center; margin-bottom: 24px; }
+        .brand h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--p); letter-spacing: -1px; }
+        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--s); font-weight: 500; }
+        
+        .biz-box { background: #f1f5f9; border-radius: 18px; padding: 16px; text-align: center; margin-bottom: 20px; border: 1px solid #e2e8f0; }
+        #bizName { margin: 0; font-size: 18px; font-weight: 700; }
+        #status { font-size: 12px; margin-top: 5px; color: var(--s); }
+        
+        .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 45px; line-height: 1; }
+        .star { cursor: pointer; color: #e2e8f0; transition: transform 0.1s; }
+        .star.active { color: #fbbf24; }
+        
+        #loader { display: none; text-align: center; padding: 15px; font-size: 14px; color: var(--p); font-weight: 700; }
+        
+        .track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .track::-webkit-scrollbar { display: none; }
+        .rev-card { flex: 0 0 85%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; font-size: 14.5px; line-height: 1.5; scroll-snap-align: start; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .rev-card.selected { border-color: var(--p); background: #eff6ff; }
+        
+        textarea { width: 100%; min-height: 110px; border-radius: 16px; border: 1px solid #e2e8f0; padding: 15px; font-size: 15px; background: #fcfcfc; margin-top: 10px; resize: none; font-family: inherit; outline: none; }
+        textarea:focus { border-color: var(--p); background: #fff; }
 
-// 1. IMPROVED CORS: Mobile browsers require explicit headers
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-device-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Max-Age": "86400",
-}
+        button { width: 100%; margin-top: 20px; padding: 18px; border-radius: 16px; border: none; background: var(--p); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        button:disabled { background: #cbd5e1; cursor: not-allowed; }
+        
+        .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; font-weight: 600; }
+    </style>
+</head>
+<body>
 
-serve(async (req) => {
-  // 2. Handle OPTIONS (Preflight) correctly for Mobile Chrome/Safari
-  if (req.method === "OPTIONS") {
-    return new Response('ok', {
-      headers: corsHeaders,
-    })
-  }
+<div class="card">
+    <div class="brand">
+        <h1>RevMeAI.com</h1>
+        <p>Turn experiences into expert reviews</p>
+    </div>
 
-  try {
-    // Standard response headers
-    const responseHeaders = {
-      ...corsHeaders,
-      "Content-Type": "application/json",
+    <div class="biz-box">
+        <h2 id="bizName">RevMeAI Engine</h2>
+        <p id="status">Syncing business profile...</p>
+    </div>
+
+    <div class="stars">
+        <span class="star" data-v="1">★</span>
+        <span class="star" data-v="2">★</span>
+        <span class="star" data-v="3">★</span>
+        <span class="star" data-v="4">★</span>
+        <span class="star" data-v="5">★</span>
+    </div>
+
+    <div id="loader">RevMeAI is thinking...</div>
+    <div id="aiResult" style="display:none"></div>
+
+    <textarea id="userInput" placeholder="Rate your experience to see suggestions..."></textarea>
+    <button id="cta" disabled>Select Rating to Start</button>
+    <div class="footer">Professional Review Generation by RevMeAI</div>
+</div>
+
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    const supabase = createClient(
+        'https://iwhxyqczdfapprigyrpr.supabase.co',
+        'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
+    );
+
+    const bizName = document.getElementById('bizName');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('cta');
+    const input = document.getElementById('userInput');
+    const aiResult = document.getElementById('aiResult');
+    const loader = document.getElementById('loader');
+    const stars = document.querySelectorAll('.star');
+
+    let googleUrl = null;
+    let bId = null;
+
+    // --- RELIABLE ID EXTRACTION ---
+    function getID() {
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(p => p.length > 0);
+        const rawId = segments[segments.length - 1] || "";
+        return rawId.split('?')[0].split('#')[0].trim().toLowerCase();
     }
 
-    // 3. Robust Body Parsing
-    const body = await req.json();
-    const { businessId, rating, input } = body;
+    async function init() {
+        bId = getID();
+        if (!bId || bId.length < 10) {
+            status.innerHTML = '<span style="color:red">Link Invalid</span>';
+            return;
+        }
 
-    if (!businessId || !rating) {
-      return new Response(
-        JSON.stringify({ error: "Missing businessId or rating" }),
-        { status: 400, headers: responseHeaders }
-      )
+        try {
+            // Using maybeSingle to avoid crashes on mobile browsers
+            const { data, error } = await supabase.from('businesses').select('review_url, name').eq('id', bId).maybeSingle();
+            if (data) {
+                googleUrl = data.review_url;
+                bizName.innerText = data.name;
+                status.innerText = "Select stars for professional ideas";
+            }
+        } catch (e) {
+            console.log("Syncing...");
+        }
     }
 
-    const openaiKey = Deno.env.get("OPENAI_API_KEY")
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")
-    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+    stars.forEach(s => {
+        s.onclick = async () => {
+            const val = s.dataset.v;
+            stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
+            
+            btn.disabled = false;
+            btn.innerText = "Copy & Go to Google";
+            
+            loader.style.display = 'block';
+            aiResult.style.display = 'none';
 
-    // 4. SUPABASE FETCH FIX: Use simpler URL template for mobile compatibility
-    const supabaseEndpoint = `${supabaseUrl}/rest/v1/businesses?id=eq.${businessId}&select=*`;
-    
-    const businessRes = await fetch(supabaseEndpoint, {
-      method: 'GET',
-      headers: {
-        'apikey': serviceRoleKey,
-        'Authorization': `Bearer ${serviceRoleKey}`,
-        'Content-Type': 'application/json',
-      },
-    })
+            try {
+                const { data, error } = await supabase.functions.invoke('generate-review', {
+                    body: { 
+                        businessId: bId, 
+                        rating: parseInt(val), 
+                        input: input.value.trim() 
+                    },
+                    headers: { 
+                        "x-device-type": "mobile" // CRITICAL: Matches your Edge Function CORS allowed headers
+                    }
+                });
 
-    const businessData = await businessRes.json()
-    if (!businessData || businessData.length === 0) {
-      return new Response(
-        JSON.stringify({ error: "Business record not found in DB" }),
-        { status: 404, headers: responseHeaders }
-      )
+                if (data?.review) {
+                    aiResult.innerHTML = '<div class="track"></div>';
+                    const track = aiResult.querySelector('.track');
+                    data.review.forEach(r => {
+                        const card = document.createElement('div');
+                        card.className = 'rev-card';
+                        card.innerText = r.review;
+                        card.onclick = () => {
+                            input.value = r.review;
+                            document.querySelectorAll('.rev-card').forEach(c => c.classList.remove('selected'));
+                            card.classList.add('selected');
+                        };
+                        track.appendChild(card);
+                    });
+                    aiResult.style.display = 'block';
+                }
+            } catch (e) {
+                console.error("AI Sync Error:", e);
+                status.innerText = "Connection slow. Please try again.";
+            } finally {
+                loader.style.display = 'none';
+            }
+        };
+    });
+
+    btn.onclick = () => {
+        const text = input.value.trim();
+        if (!text) return alert("Select a review first!");
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(finish);
+        } else {
+            input.select();
+            document.execCommand('copy');
+            finish();
+        }
+    };
+
+    function finish() {
+        btn.innerText = "Copied! Opening Google...";
+        btn.style.background = "#059669";
+        setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
     }
 
-    const business = businessData[0]
-
-    // 5. OPENAI CALL: Streamlined for faster mobile response
-    const aiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${openaiKey}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        temperature: 0.8,
-        messages: [
-          {
-            role: "system",
-            content: `You are a professional review writer for RevMeAI.com. 
-            Generate 5 natural, spam-safe Google reviews for ${business.business_name} in ${business.city}.
-            Category: ${business.category}. Rating: ${rating} stars.
-            Languages: ${business.language || "English, Hindi"}.
-            Rules: No emojis, mix of English and Hinglish, everyday Indian style.
-            Output: ONLY a plain JSON array of objects: [{"review": "text"}]`
-          },
-          ...(input ? [{ role: "user", content: `Context: ${input}` }] : []),
-        ],
-      }),
-    })
-
-    const aiData = await aiRes.json()
-    const content = aiData.choices[0].message.content;
-
-    // 6. JSON CLEANING: AI sometimes adds markdown blocks ```json ... ``` which breaks JSON.parse
-    const cleanJson = content.replace(/```json/g, "").replace(/```/g, "").trim();
-    const reviews = JSON.parse(cleanJson);
-
-    return new Response(
-      JSON.stringify({ review: reviews }),
-      { status: 200, headers: responseHeaders }
-    )
-
-  } catch (err) {
-    console.error("Function Error:", err.message)
-    return new Response(
-      JSON.stringify({ error: err.message }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, "Content-Type": "application/json" } 
-      }
-    )
-  }
-})
+    init();
+</script>
+</body>
+</html>
