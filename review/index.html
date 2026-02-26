@@ -1,165 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Smart AI Review Assistant</title>
-    <style>
-        :root { --p: #2563eb; --bg: #f8fafc; --txt: #0f172a; --sec: #64748b; }
-        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--txt); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-        .card { width: 100%; max-width: 400px; background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
-        .header { text-align: center; margin-bottom: 20px; }
-        #status { font-size: 14px; color: var(--sec); margin-top: 8px; }
-        .stars { display: flex; justify-content: center; gap: 10px; margin: 20px 0; font-size: 40px; }
-        .star { cursor: pointer; color: #e2e8f0; transition: 0.2s; }
-        .star.active { color: #f59e0b; }
-        .review-track { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-        .review-card { flex: 0 0 85%; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 14px; scroll-snap-align: start; cursor: pointer; background: #fff; }
-        .review-card.selected { border-color: var(--p); background: #eff6ff; }
-        textarea { width: 100%; min-height: 100px; border-radius: 12px; border: 1px solid #e2e8f0; padding: 12px; margin-top: 10px; font-size: 14px; outline: none; }
-        textarea:focus { border-color: var(--p); }
-        button { width: 100%; margin-top: 15px; padding: 15px; border-radius: 12px; border: none; background: var(--p); color: #fff; font-weight: 600; cursor: pointer; font-size: 16px; }
-        button:disabled { background: #cbd5e1; color: #94a3b8; }
-        .error-text { color: #ef4444 !important; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RevMeAI - Smart Review Assistant</title>
+    <style>
+        :root { --p: #2563eb; --bg: #f8fafc; --t: #1e293b; --s: #64748b; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--t); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 15px; }
+        
+        /* Debug ID Badge */
+        .debug-badge { background: #fee2e2; color: #991b1b; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-family: monospace; margin-bottom: 15px; border: 1px solid #fecaca; width: 100%; max-width: 420px; text-align: center; overflow-wrap: break-word; }
+
+        .card { width: 100%; max-width: 420px; background: #fff; padding: 25px 20px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; }
+        .brand { text-align: center; margin-bottom: 20px; }
+        .brand h1 { margin: 0; font-size: 26px; font-weight: 800; color: var(--p); letter-spacing: -1px; }
+        .brand p { margin: 4px 0 0; font-size: 13px; color: var(--s); }
+        
+        .biz-box { background: #f1f5f9; border-radius: 18px; padding: 16px; text-align: center; margin-bottom: 20px; border: 1px solid #e2e8f0; }
+        #bizName { margin: 0; font-size: 18px; font-weight: 700; }
+        #status { font-size: 12px; margin-top: 5px; color: var(--s); }
+        
+        .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 45px; }
+        .star { cursor: pointer; color: #e2e8f0; transition: 0.2s; }
+        .star.active { color: #fbbf24; }
+        
+        #loader { display: none; text-align: center; padding: 15px; font-size: 14px; color: var(--p); font-weight: 700; }
+        
+        .track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .track::-webkit-scrollbar { display: none; }
+        .rev-card { flex: 0 0 85%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; font-size: 14.5px; line-height: 1.5; scroll-snap-align: start; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .rev-card.selected { border-color: var(--p); background: #eff6ff; }
+        
+        textarea { width: 100%; min-height: 110px; border-radius: 16px; border: 1px solid #e2e8f0; padding: 15px; font-size: 15px; background: #fcfcfc; margin-top: 10px; resize: none; font-family: inherit; }
+        button { width: 100%; margin-top: 20px; padding: 18px; border-radius: 16px; border: none; background: var(--p); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; }
+        button:disabled { background: #cbd5e1; }
+        .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; }
+    </style>
 </head>
 <body>
 
+<div class="debug-badge" id="debugId">Detecting ID...</div>
+
 <div class="card">
-    <div class="header">
-        <h2 id="bizName">AI Review Assistant</h2>
-        <p id="status">Verifying Business...</p>
-    </div>
+    <div class="brand">
+        <h1>RevMeAI.com</h1>
+        <p>Turn experiences into expert reviews</p>
+    </div>
 
-    <div class="stars">
-        <span class="star" data-v="1">★</span>
-        <span class="star" data-v="2">★</span>
-        <span class="star" data-v="3">★</span>
-        <span class="star" data-v="4">★</span>
-        <span class="star" data-v="5">★</span>
-    </div>
+    <div class="biz-box">
+        <h2 id="bizName">RevMeAI Engine</h2>
+        <p id="status">Verifying link...</p>
+    </div>
 
-    <div id="aiResult" style="display:none"></div>
-    <textarea id="userInput" placeholder="Tap stars to see AI suggestions..."></textarea>
-    <button id="cta" disabled>Please wait...</button>
+    <div class="stars">
+        <span class="star" data-v="1">★</span>
+        <span class="star" data-v="2">★</span>
+        <span class="star" data-v="3">★</span>
+        <span class="star" data-v="4">★</span>
+        <span class="star" data-v="5">★</span>
+    </div>
+
+    <div id="loader">RevMeAI is writing suggestions...</div>
+    <div id="aiResult" style="display:none"></div>
+
+    <textarea id="userInput" placeholder="Rate your experience to see AI suggestions..."></textarea>
+    <button id="cta" disabled>Select Rating to Start</button>
+    <div class="footer">Professional AI Engine by RevMeAI</div>
 </div>
 
 <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-    const supabase = createClient(
-        'https://iwhxyqczdfapprigyrpr.supabase.co',
-        'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
-    );
+    const supabase = createClient(
+        'https://iwhxyqczdfapprigyrpr.supabase.co',
+        'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
+    );
 
-    const status = document.getElementById('status');
-    const bizName = document.getElementById('bizName');
-    const btn = document.getElementById('cta');
-    const input = document.getElementById('userInput');
-    const aiResult = document.getElementById('aiResult');
-    const stars = document.querySelectorAll('.star');
+    const bizName = document.getElementById('bizName');
+    const status = document.getElementById('status');
+    const debugIdDisplay = document.getElementById('debugId');
+    const btn = document.getElementById('cta');
+    const input = document.getElementById('userInput');
+    const aiResult = document.getElementById('aiResult');
+    const loader = document.getElementById('loader');
+    const stars = document.querySelectorAll('.star');
 
-    let googleUrl = null;
-    let bId = null;
+    let googleUrl = null;
+    let bId = null;
 
-    // --- FIX: Specific parsing for your URL structure (/r/ID) ---
-    function getID() {
-        const path = window.location.pathname; // e.g. "/r/348a4173..."
-        const segments = path.split('/').filter(s => s.length > 0);
-        
-        // If your URL is domain.com/r/ID, the ID is the last segment
-        const id = segments[segments.length - 1] || "";
-        return id.split('?')[0].trim().toLowerCase();
-    }
+    // --- REFINED ID EXTRACTOR ---
+    function getID() {
+        const path = window.location.pathname;
+        const segments = path.split('/').filter(Boolean);
+        const id = segments[segments.length - 1] || "NOT_FOUND";
+        // Clean off query params (?fbclid=...) or hash (#...)
+        return id.split('?')[0].split('#')[0].trim().toLowerCase();
+    }
 
-    async function initBusiness() {
-        bId = getID();
-        console.log("Business ID extracted:", bId);
+    async function init() {
+        bId = getID();
+        debugIdDisplay.innerText = "DEVICE_ID_DETECTED: [" + bId + "]";
 
-        if (!bId || bId.length < 20) {
-            status.innerHTML = '<span class="error-text">Invalid Link</span>';
-            return;
-        }
+        if (!bId || bId === "not_found") {
+            status.innerHTML = '<span style="color:red">Business ID Missing</span>';
+            return;
+        }
 
-        try {
-            const { data, error } = await supabase
-                .from('businesses')
-                .select('review_url, name')
-                .eq('id', bId)
-                .maybeSingle();
+        try {
+            const { data, error } = await supabase.from('businesses').select('review_url, name').eq('id', bId).maybeSingle();
+            if (data) {
+                googleUrl = data.review_url;
+                bizName.innerText = data.name;
+                status.innerText = "Select stars for AI suggestions";
+            } else {
+                status.innerHTML = '<span style="color:red">Business ID Not in Database</span>';
+            }
+        } catch (e) {
+            status.innerText = "Network Error. Try anyway.";
+        }
+    }
 
-            if (error) throw error;
+    stars.forEach(s => {
+        s.onclick = async () => {
+            const val = s.dataset.v;
+            stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
+            
+            btn.disabled = false;
+            btn.innerText = "Copy & Continue to Google";
+            
+            loader.style.display = 'block';
+            aiResult.style.display = 'none';
 
-            if (data) {
-                googleUrl = data.review_url;
-                bizName.innerText = data.name;
-                status.innerText = "Select stars for professional suggestions";
-                btn.innerText = "Copy & Go to Google";
-                btn.disabled = false;
-            } else {
-                status.innerHTML = '<span class="error-text">Business not registered</span>';
-            }
-        } catch (e) {
-            console.error("Supabase error:", e);
-            status.innerHTML = '<span class="error-text">Connection error. Please refresh.</span>';
-        }
-    }
+            try {
+                // We send the ID exactly as displayed in the debug badge
+                const { data, error } = await supabase.functions.invoke('generate-review', {
+                    body: { businessId: bId, rating: parseInt(val), input: input.value.trim() }
+                });
 
-    stars.forEach(s => {
-        s.onclick = async () => {
-            const val = s.dataset.v;
-            stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
-            
-            if (!bId) return;
+                if (data?.review) {
+                    aiResult.innerHTML = '<div class="track"></div>';
+                    const track = aiResult.querySelector('.track');
+                    data.review.forEach(r => {
+                        const card = document.createElement('div');
+                        card.className = 'rev-card';
+                        card.innerText = r.review;
+                        card.onclick = () => {
+                            input.value = r.review;
+                            document.querySelectorAll('.rev-card').forEach(c => c.classList.remove('selected'));
+                            card.classList.add('selected');
+                        };
+                        track.appendChild(card);
+                    });
+                    aiResult.style.display = 'block';
+                } else {
+                    status.innerText = "AI returned no suggestions.";
+                }
+            } catch (e) {
+                console.error("AI Error:", e);
+                status.innerText = "AI Function Error. Check internet.";
+            } finally {
+                loader.style.display = 'none';
+            }
+        };
+    });
 
-            aiResult.style.display = 'block';
-            aiResult.innerHTML = '<div style="text-align:center; font-size:13px; padding:10px; color:#64748b;">AI is writing...</div>';
+    btn.onclick = () => {
+        const text = input.value.trim();
+        if (!text) return alert("Please select or write a review first!");
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(finish);
+        } else {
+            input.select();
+            document.execCommand('copy');
+            finish();
+        }
+    };
 
-            try {
-                const { data } = await supabase.functions.invoke('generate-review', {
-                    body: { businessId: bId, rating: parseInt(val), input: input.value }
-                });
+    function finish() {
+        btn.innerText = "Copied! Opening Google...";
+        btn.style.background = "#059669";
+        setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
+    }
 
-                if (data?.review) {
-                    aiResult.innerHTML = '<div class="review-track"></div>';
-                    const track = aiResult.querySelector('.review-track');
-                    data.review.forEach(r => {
-                        const card = document.createElement('div');
-                        card.className = 'review-card';
-                        card.innerText = r.review;
-                        card.onclick = () => {
-                            input.value = r.review;
-                            document.querySelectorAll('.review-card').forEach(c => c.classList.remove('selected'));
-                            card.classList.add('selected');
-                        };
-                        track.appendChild(card);
-                    });
-                }
-            } catch (e) {
-                aiResult.innerHTML = '';
-            }
-        };
-    });
-
-    btn.onclick = () => {
-        const text = input.value.trim();
-        if (!text) return alert("Write or select a review first!");
-        
-        // Use Clipboard API
-        navigator.clipboard.writeText(text).then(() => {
-            btn.innerText = "Copied! Opening Google...";
-            setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
-        }).catch(() => {
-            // Fallback for older Android Chrome
-            input.select();
-            document.execCommand('copy');
-            if (googleUrl) window.location.href = googleUrl;
-        });
-    };
-
-    // Load as soon as script parses
-    initBusiness();
+    init();
 </script>
-
 </body>
 </html>
