@@ -8,35 +8,23 @@
         :root { --p: #2563eb; --bg: #f8fafc; --t: #1e293b; --s: #64748b; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--t); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
-        
         .card { width: 100%; max-width: 415px; background: #fff; padding: 30px 22px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
         .brand { text-align: center; margin-bottom: 24px; }
         .brand h1 { margin: 0; font-size: 28px; font-weight: 800; color: var(--p); letter-spacing: -1px; }
         .brand p { margin: 4px 0 0; font-size: 13px; color: var(--s); font-weight: 500; }
-        
         .biz-box { background: #f1f5f9; border-radius: 18px; padding: 16px; text-align: center; margin-bottom: 20px; border: 1px solid #e2e8f0; }
         #bizName { margin: 0; font-size: 19px; font-weight: 700; color: #000; }
         #status { font-size: 12px; margin-top: 5px; color: var(--s); }
-        
         .stars { display: flex; justify-content: center; gap: 8px; margin: 15px 0 25px; font-size: 46px; line-height: 1; }
         .star { cursor: pointer; color: #e2e8f0; transition: transform 0.1s; }
         .star.active { color: #fbbf24; }
-        .star:active { transform: scale(1.2); }
-        
         #loader { display: none; text-align: center; padding: 15px; font-size: 14px; color: var(--p); font-weight: 700; }
-        
         .track { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
         .track::-webkit-scrollbar { display: none; }
-        .rev-card { flex: 0 0 85%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; font-size: 14.5px; line-height: 1.5; scroll-snap-align: start; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); cursor: pointer; }
-        .rev-card.selected { border-color: var(--p); background: #eff6ff; }
-        
+        .rev-card { flex: 0 0 85%; padding: 18px; border: 1px solid #e2e8f0; border-radius: 18px; font-size: 14.5px; line-height: 1.5; scroll-snap-align: start; background: #fff; }
         textarea { width: 100%; min-height: 110px; border-radius: 16px; border: 1px solid #e2e8f0; padding: 15px; font-size: 15px; background: #fcfcfc; margin-top: 10px; resize: none; font-family: inherit; outline: none; }
-        textarea:focus { border-color: var(--p); background: #fff; }
-
-        button { width: 100%; margin-top: 20px; padding: 18px; border-radius: 16px; border: none; background: var(--p); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        button { width: 100%; margin-top: 20px; padding: 18px; border-radius: 16px; border: none; background: var(--p); color: #fff; font-weight: 700; font-size: 16px; cursor: pointer; }
         button:disabled { background: #cbd5e1; cursor: not-allowed; }
-        button:active { opacity: 0.8; transform: scale(0.98); }
-
         .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; font-weight: 600; }
     </style>
 </head>
@@ -47,12 +35,10 @@
         <h1>RevMeAI.com</h1>
         <p>Turn experiences into expert reviews</p>
     </div>
-
     <div class="biz-box">
         <h2 id="bizName">RevMeAI Engine</h2>
-        <p id="status">Verifying Business Identity...</p>
+        <p id="status">Syncing business profile...</p>
     </div>
-
     <div class="stars">
         <span class="star" data-v="1">★</span>
         <span class="star" data-v="2">★</span>
@@ -60,22 +46,16 @@
         <span class="star" data-v="4">★</span>
         <span class="star" data-v="5">★</span>
     </div>
-
-    <div id="loader">RevMeAI is crafting suggestions...</div>
+    <div id="loader">RevMeAI is thinking...</div>
     <div id="aiResult" style="display:none"></div>
-
     <textarea id="userInput" placeholder="Rate your experience to see suggestions..."></textarea>
     <button id="cta" disabled>Ready to Review</button>
     <div class="footer">Professional Review Generation by RevMeAI</div>
 </div>
 
 <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
-    const supabase = createClient(
-        'https://iwhxyqczdfapprigyrpr.supabase.co',
-        'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq'
-    );
+    const SB_URL = 'https://iwhxyqczdfapprigyrpr.supabase.co';
+    const SB_KEY = 'sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq';
 
     const bizName = document.getElementById('bizName');
     const status = document.getElementById('status');
@@ -98,29 +78,26 @@
     async function init() {
         bId = getID();
         if (!bId || bId.length < 10) {
-            status.innerText = "Error: Invalid link format";
+            status.innerText = "Error: Invalid link";
             return;
         }
 
         try {
-            // FIX: Using .match() instead of .eq() for better mobile string handling
-            const { data, error } = await supabase
-                .from('businesses')
-                .select('review_url, name')
-                .match({ id: bId })
-                .maybeSingle();
+            // NATIVE FETCH for DB lookup (More stable on Mobile)
+            const response = await fetch(`${SB_URL}/rest/v1/businesses?id=eq.${bId}&select=review_url,name`, {
+                headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
+            });
+            const data = await response.json();
 
-            if (data) {
-                googleUrl = data.review_url;
-                bizName.innerText = data.name;
+            if (data && data.length > 0) {
+                googleUrl = data[0].review_url;
+                bizName.innerText = data[0].name;
                 status.innerText = "Select stars for professional ideas";
             } else {
-                // FALLBACK: If AI is working but DB check flickers, we keep UI ready
-                status.innerText = "Pick a rating to start!";
-                console.log("DB silent retry...");
+                status.innerText = "Profile active. Pick a rating!";
             }
         } catch (e) {
-            status.innerText = "Connection active. Pick a rating!";
+            status.innerText = "Pick a rating to begin!";
         }
     }
 
@@ -128,64 +105,49 @@
         s.onclick = async () => {
             const val = s.dataset.v;
             stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
-            
             btn.disabled = false;
-            btn.innerText = "Copy & Continue to Google";
-            
+            btn.innerText = "Copy & Go to Google";
             loader.style.display = 'block';
             aiResult.style.display = 'none';
 
             try {
-                // Using standard invoke with explicit body
-                const { data, error } = await supabase.functions.invoke('generate-review', {
-                    body: { businessId: bId, rating: parseInt(val), input: input.value.trim() }
+                // NATIVE FETCH for AI (More stable on Mobile)
+                const response = await fetch(`${SB_URL}/functions/v1/generate-review`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SB_KEY}`, 'apikey': SB_KEY },
+                    body: JSON.stringify({ businessId: bId, rating: parseInt(val), input: input.value.trim() })
                 });
+                const aiData = await response.json();
 
-                if (data?.review) {
+                if (aiData?.review) {
                     aiResult.innerHTML = '<div class="track"></div>';
                     const track = aiResult.querySelector('.track');
-                    data.review.forEach(r => {
+                    aiData.review.forEach(r => {
                         const card = document.createElement('div');
                         card.className = 'rev-card';
                         card.innerText = r.review;
                         card.onclick = () => {
                             input.value = r.review;
-                            document.querySelectorAll('.rev-card').forEach(c => c.classList.remove('selected'));
-                            card.classList.add('selected');
+                            document.querySelectorAll('.rev-card').forEach(c => c.style.borderColor = '#e2e8f0');
+                            card.style.borderColor = '#2563eb';
                         };
                         track.appendChild(card);
                     });
                     aiResult.style.display = 'block';
                 }
-            } catch (e) {
-                console.log("AI Offline");
-            } finally {
-                loader.style.display = 'none';
-            }
+            } catch (e) { console.error(e); } finally { loader.style.display = 'none'; }
         };
     });
 
     btn.onclick = () => {
         const text = input.value.trim();
-        if (!text) return alert("Select a review first!");
-        
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(done);
-        } else {
-            input.select();
-            document.execCommand('copy');
-            done();
-        }
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => {
+            btn.innerText = "Copied! Opening Google...";
+            btn.style.background = "#059669";
+            setTimeout(() => { if (googleUrl) window.location.href = googleUrl; }, 1000);
+        });
     };
-
-    function done() {
-        btn.innerText = "Copied! Opening Google...";
-        btn.style.background = "#059669";
-        setTimeout(() => { 
-            if (googleUrl) window.location.href = googleUrl; 
-            else alert("Business link not found. Please refresh.");
-        }, 1000);
-    }
 
     init();
 </script>
