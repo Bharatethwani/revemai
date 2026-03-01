@@ -1,11 +1,11 @@
 {
-    "name": "ai_suggestion",
-    "short_name": "ai_suggestion",
+    "name": "revmeai",
+    "short_name": "revmeai",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "AI-Powered Review Assistant by revmeai.com",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
