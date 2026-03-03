@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/supabase/:path*",
+      "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
+    },
+    {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "r.revmeai.com" }],
       "destination": "/review/index.html"
