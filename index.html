@@ -32,6 +32,22 @@
   <title>revmeai</title>
   <link rel="manifest" href="manifest.json">
 </head>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<script>
+  function openCashfreeCheckout(sessionId) {
+
+    const cashfree = Cashfree({
+        mode: "production"   //   "sandbox" change to production later
+    });
+
+    let checkoutOptions = {
+        paymentSessionId: sessionId,
+        redirectTarget: "_self"
+    };
+
+    cashfree.checkout(checkoutOptions);
+  }
+</script>
 <body>
   <script src="flutter_bootstrap.js" async></script>
 </body>
