@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Put your HTML text here<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,11 +32,11 @@
 
 <div class="card">
     <div class="brand">
-        <h1>RevMeAI.com</h1>
+        <h1>RevmeAi.com</h1>
         <p>Turn experiences into expert reviews</p>
     </div>
     <div class="biz-box">
-        <h2 id="bizName">RevMeAI Engine</h2>
+        <h2 id="bizName">RevmeAi Engine</h2>
         <p id="status">Syncing business profile...</p>
     </div>
     <div class="stars">
@@ -71,9 +71,11 @@
 
     let googleUrl = null;
     let bId = null;
+    let planType = null;
 
     function getID() {
         const path = window.location.pathname;
+      //  const path = "https://r.revmeai.com/r/5c355831-7ab4-4ea0-b5fc-e72f1633c105";
     
         const segments = path.split('/').filter(p => p.length > 0);
         const last = segments[segments.length - 1] || "";
@@ -81,7 +83,7 @@
     }
 
 async function init() {
-    bId = getID();
+   bId = getID();
 
     if (!bId || bId.length < 10) {
         status.innerText = "Error: Invalid link";
@@ -106,7 +108,9 @@ async function init() {
         if (result.name && result.review_url) {
             googleUrl = result.review_url;
             bizName.innerText = result.name;
-            status.innerText = "Select stars for professional ideas";
+            planType = result.plan_type;
+            status.innerText = `plan - Select stars for professional ideas`;
+            //status.innerText = "Select stars for professional ideas";
             btn.disabled = false;
         } else {
             status.innerHTML = '<span style="color:red">Business not registered</span>';
@@ -125,9 +129,11 @@ async function init() {
             btn.disabled = false;
             loader.style.display = 'block';
             aiResult.style.display = 'none';
+            
+              const endpoint =  planType === "Free" ? "generate-review-free"   : "generate-review";
 
             try {
-                const response = await fetch(`${SB_URL}/functions/v1/generate-review`, {
+                const response = await fetch(`${SB_URL}/functions/v1/${endpoint}`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json', 
@@ -137,6 +143,7 @@ async function init() {
                     body: JSON.stringify({ businessId: bId, rating: parseInt(val), input: input.value.trim() })
                 });
                 const aiData = await response.json();
+                console.log("FREE API RESPONSE:", aiData);
 
                 if (aiData?.review) {
                     aiResult.innerHTML = '<div class="track"></div>';
