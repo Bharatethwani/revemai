@@ -4,7 +4,6 @@
       "source": "/supabase/:path*",
       "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
     },
-
     {
       "source": "/(.*)",
       "has": [
@@ -12,17 +11,13 @@
       ],
       "destination": "/review/index.html"
     },
-{
-  "source": "/(.*)",
-  "has": [
-    { "type": "host", "value": "^(?!r\\.)([^.]+)\\.revmeai\\.com$" }
-  ],
-  "destination": "/template/index.html"
-},
-
-    
-
-    
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
+      ],
+      "destination": "/template/index.html"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
