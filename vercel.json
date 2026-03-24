@@ -4,19 +4,20 @@
       "source": "/supabase/:path*",
       "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
     },
-    {
-      "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
-      ],
-      "destination": "/template/index.html"
-    },
+   
     {
       "source": "/(.*)",
       "has": [
         { "type": "host", "value": "^r\\.revmeai\\.com$" }
       ],
       "destination": "/review/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "^(?!r\\.)[a-z0-9.-]+\\.revmeai\\.com$" }
+      ],
+      "destination": "/template/index.html"
     },
     
     
