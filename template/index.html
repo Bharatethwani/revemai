@@ -259,8 +259,9 @@ gym:{primary:"#111827",accent:"#ef4444"}
 // }
 
 function getSubdomain() {
-      let host = window.location.hostname; // ✅ correct way
-console.log("Host:", host);   // 👈 console log
+      let host = window.location.hostname; // 
+      console.log("HOST:", window.location.hostname);
+console.log("FULL URL:", window.location.href);
   alert("Host: " + host); 
   //let host = "https://tech.revmeai.com/";
 
