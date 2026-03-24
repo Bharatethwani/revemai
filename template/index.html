@@ -1,16 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
-</head>
-<body>
-<p class="p1">Test<span class="Apple-converted-space"> </span></p>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+/* SUPABASE CONFIG */
+const SUPABASE_URL = "https://iwhxyqczdfapprigyrpr.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq"; // 🔥 add your key
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* THEMES */
+const themes = {
+  digital:{primary:"#2563eb",accent:"#7c3aed"},
+  restaurant:{primary:"#dc2626",accent:"#f59e0b"},
+  spa:{primary:"#059669",accent:"#34d399"},
+  salon:{primary:"#db2777",accent:"#f472b6"},
+  gym:{primary:"#111827",accent:"#ef4444"}
+};
+
+/* GET SUBDOMAIN */
+function getSubdomain() {
+  const host = window.location.hostname;
+
+  // local testing support
+  if (host.includes("localhost")) return "tektrick";
+
+  return host.split('.')[0];
+}
+
+/* LOAD SITE */
+async function loadSite() {
+  const subdomain = getSubdomain();
+
+  const { data, error } = await supabase
+    .from('template')
+    .select('*')
+    .eq('subdomain', subdomain)
+    .single();
+
+  if (error || !data) {
+    document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>Website not found</h2>";
+    return;
+  }
+
+  const siteData = data.site_json;
+
+  applySite(siteData);
+}
+
+/* APPLY DATA TO UI */
+function applySite(siteData){
+
+  /* APPLY THEME */
+  const theme = themes[siteData.theme] || themes.digital;
+  document.documentElement.style.setProperty('--primary', theme.primary);
+  document.documentElement.style.setProperty('--accent', theme.accent);
+
+  document.getElementById("pageTitle").textContent = siteData.title;
+  document.getElementById("brandName").textContent = siteData.brand;
+
+  document.getElementById("heroTitle").innerHTML = siteData.hero.title;
+  document.getElementById("heroSubtitle").textContent = siteData.hero.subtitle;
+
+  document.getElementById("aboutText").textContent = siteData.about;
+
+  document.getElementById("phone").textContent = siteData.contact.phone;
+  document.getElementById("email").textContent = siteData.contact.email;
+  document.getElementById("address").textContent = siteData.contact.address;
+  document.getElementById("mapFrame").src = siteData.contact.map;
+
+  document.getElementById("footerName").textContent = siteData.footer.name;
+  document.getElementById("footerTag").textContent = siteData.footer.tag;
+  document.getElementById("copyright").textContent = siteData.footer.copyright;
+
+  /* SERVICES */
+  const container = document.getElementById("servicesContainer");
+  container.innerHTML = "";
+
+  siteData.services.forEach(s => {
+    const priceHTML = s.price ? `<div class="price-tag">${s.price}</div>` : "";
+
+    container.innerHTML += `
+    <div class="col-12 col-sm-6 col-lg-3">
+      <div class="service-card">
+        <div class="service-icon"><i class="bi ${s.icon}"></i></div>
+        <h5>${s.title}</h5>
+        <p>${s.desc}</p>
+        ${priceHTML}
+      </div>
+    </div>`;
+  });
+}
+
+/* INIT */
+loadSite();
+
+</script>
