@@ -11,9 +11,10 @@
       ],
       "destination": "/review/index.html"
     },
+    
     {
       "source": "/(.*)",
-      "destination": "/template/index.html"
+      "destination": "/index.html"
     }
   ]
 }
