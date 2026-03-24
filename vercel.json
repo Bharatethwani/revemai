@@ -5,7 +5,6 @@
       "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
     },
 
-    // 1. r.revmeai.com → review (untouched)
     {
       "source": "/(.*)",
       "has": [
@@ -14,8 +13,6 @@
       "destination": "/review/index.html"
     },
 
-    // 2. ALL other subdomains (tech.revmeai.com, etc.) → template
-    // We use two rules: one for root exactly, one for everything else
     {
       "source": "/",
       "has": [
@@ -31,7 +28,6 @@
       "destination": "/template/index.html"
     },
 
-    // 3. Main domain fallback
     {
       "source": "/(.*)",
       "destination": "/index.html"
