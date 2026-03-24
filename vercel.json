@@ -9,6 +9,14 @@
       "has": [{ "type": "host", "value": "r.revmeai.com" }],
       "destination": "/review/index.html"
     },
+
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "^(?!r\\.)(.*)\\.revmeai\\.com$" }
+      ],
+      "destination": "/template/index.html"
+    },
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "revmeai.com" }],
