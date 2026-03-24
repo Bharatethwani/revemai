@@ -11,6 +11,13 @@
       ],
       "destination": "/review/index.html"
     },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
+      ],
+      "destination": "/templates/index.html"
+    },
     
     {
       "source": "/(.*)",
