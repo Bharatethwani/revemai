@@ -5,21 +5,18 @@
       "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
     },
 
-    // ✅ Review subdomain (exact match FIRST)
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "^r\\.revmeai\\.com$" }],
       "destination": "/review/index.html"
     },
 
-    // ✅ ALL subdomains → template
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "^(.*)\\.revmeai\\.com$" }],
       "destination": "/template/index.html"
     },
 
-    // ✅ Main domain LAST
     {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "^revmeai\\.com$" }],
