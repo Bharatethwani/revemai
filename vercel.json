@@ -12,22 +12,17 @@
       ],
       "destination": "/review/index.html"
     },
+{
+  "source": "/(.*)",
+  "has": [
+    { "type": "host", "value": "^(?!r\\.)([^.]+)\\.revmeai\\.com$" }
+  ],
+  "destination": "/template/index.html"
+},
 
-    {
-      "source": "/",
-      "has": [
-        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
-      ],
-      "destination": "/template/index.html"
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
-      ],
-      "destination": "/template/index.html"
-    },
+    
 
+    
     {
       "source": "/(.*)",
       "destination": "/index.html"
