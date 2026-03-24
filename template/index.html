@@ -1,97 +1,122 @@
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-
-/* SUPABASE CONFIG */
-const SUPABASE_URL = "https://iwhxyqczdfapprigyrpr.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_d0EbyoBusVfRDhX8Zr81Nw_KT0qXUiq"; // 🔥 add your key
-
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-/* THEMES */
+/* ================== THEMES ================== */
 const themes = {
-  digital:{primary:"#2563eb",accent:"#7c3aed"},
-  restaurant:{primary:"#dc2626",accent:"#f59e0b"},
-  spa:{primary:"#059669",accent:"#34d399"},
-  salon:{primary:"#db2777",accent:"#f472b6"},
-  gym:{primary:"#111827",accent:"#ef4444"}
+  digital:    { primary: "#2563eb", accent: "#7c3aed" },
+  restaurant: { primary: "#dc2626", accent: "#f59e0b" },
+  spa:        { primary: "#059669", accent: "#34d399" },
+  salon:      { primary: "#db2777", accent: "#f472b6" },
+  gym:        { primary: "#111827", accent: "#ef4444" }
 };
 
-/* GET SUBDOMAIN */
+/* ================== GET SUBDOMAIN ================== */
 function getSubdomain() {
   const host = window.location.hostname;
-
-  // local testing support
-  if (host.includes("localhost")) return "tektrick";
-
-  return host.split('.')[0];
-}
-
-/* LOAD SITE */
-async function loadSite() {
-  const subdomain = getSubdomain();
-
-  const { data, error } = await supabase
-    .from('template')
-    .select('*')
-    .eq('subdomain', subdomain)
-    .single();
-
-  if (error || !data) {
-    document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>Website not found</h2>";
-    return;
+  if (host.includes("localhost") || host.includes("127.0.0.1")) {
+    return "lokeshartist";   // for local testing
   }
-
-  const siteData = data.site_json;
-
-  applySite(siteData);
+  return host.split('.')[0].toLowerCase();
 }
 
-/* APPLY DATA TO UI */
-function applySite(siteData){
+/* ================== APPLY SITE DATA ================== */
+function applySite(siteData) {
+  if (!siteData) return;
 
-  /* APPLY THEME */
+  // Theme
   const theme = themes[siteData.theme] || themes.digital;
   document.documentElement.style.setProperty('--primary', theme.primary);
   document.documentElement.style.setProperty('--accent', theme.accent);
 
-  document.getElementById("pageTitle").textContent = siteData.title;
-  document.getElementById("brandName").textContent = siteData.brand;
+  // Basic fields
+  document.getElementById("pageTitle").textContent = siteData.title || "Website";
+  document.getElementById("brandName").textContent = siteData.brand || "";
+  document.getElementById("heroTitle").innerHTML = siteData.hero?.title || "";
+  document.getElementById("heroSubtitle").textContent = siteData.hero?.subtitle || "";
+  document.getElementById("aboutText").textContent = siteData.about || "";
 
-  document.getElementById("heroTitle").innerHTML = siteData.hero.title;
-  document.getElementById("heroSubtitle").textContent = siteData.hero.subtitle;
+  // Contact
+  document.getElementById("phone").textContent = siteData.contact?.phone || "";
+  document.getElementById("email").textContent = siteData.contact?.email || "";
+  document.getElementById("address").textContent = siteData.contact?.address || "";
+  if (siteData.contact?.map) {
+    document.getElementById("mapFrame").src = siteData.contact.map;
+  }
 
-  document.getElementById("aboutText").textContent = siteData.about;
+  // Footer
+  document.getElementById("footerName").textContent = siteData.footer?.name || "";
+  document.getElementById("footerTag").textContent = siteData.footer?.tag || "";
+  document.getElementById("copyright").textContent = siteData.footer?.copyright || "";
 
-  document.getElementById("phone").textContent = siteData.contact.phone;
-  document.getElementById("email").textContent = siteData.contact.email;
-  document.getElementById("address").textContent = siteData.contact.address;
-  document.getElementById("mapFrame").src = siteData.contact.map;
-
-  document.getElementById("footerName").textContent = siteData.footer.name;
-  document.getElementById("footerTag").textContent = siteData.footer.tag;
-  document.getElementById("copyright").textContent = siteData.footer.copyright;
-
-  /* SERVICES */
+  // Services
   const container = document.getElementById("servicesContainer");
-  container.innerHTML = "";
-
-  siteData.services.forEach(s => {
-    const priceHTML = s.price ? `<div class="price-tag">${s.price}</div>` : "";
-
-    container.innerHTML += `
-    <div class="col-12 col-sm-6 col-lg-3">
-      <div class="service-card">
-        <div class="service-icon"><i class="bi ${s.icon}"></i></div>
-        <h5>${s.title}</h5>
-        <p>${s.desc}</p>
-        ${priceHTML}
-      </div>
-    </div>`;
-  });
+  if (container) {
+    container.innerHTML = "";
+    if (Array.isArray(siteData.services)) {
+      siteData.services.forEach(s => {
+        const priceHTML = s.price ? `<div class="price-tag">${s.price}</div>` : "";
+        container.innerHTML += `
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="service-card">
+              <div class="service-icon"><i class="bi ${s.icon || 'bi-star-fill'}"></i></div>
+              <h5>${s.title || ''}</h5>
+              <p>${s.desc || ''}</p>
+              ${priceHTML}
+            </div>
+          </div>`;
+      });
+    }
+  }
 }
 
-/* INIT */
-loadSite();
+/* ================== LOAD SITE FROM EDGE FUNCTION ================== */
+async function loadSite() {
+  const loadingHTML = `
+    <div style="text-align:center;margin-top:120px;font-family:sans-serif;color:#666;">
+      <h3>🔄 Loading website...</h3>
+    </div>`;
 
+  document.body.innerHTML = loadingHTML;   // optional: show loading
+
+  try {
+    const subdomain = getSubdomain();
+  //    const subdomain = "lokeshartist";
+
+    console.log("🌐 Subdomain detected:", subdomain);
+
+    const url = `https://iwhxyqczdfapprigyrpr.supabase.co/functions/v1/get-site?subdomain=${encodeURIComponent(subdomain)}`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        // You can add Authorization if your edge function requires it later
+      }
+    });
+
+    console.log("📡 Response status:", res.status, res.statusText);
+
+    if (!res.ok) {
+      const errorText = await res.text().catch(() => "No error details");
+      throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
+
+    const siteData = await res.json();
+    console.log("✅ Site data received:", siteData);
+
+    applySite(siteData);
+
+  } catch (err) {
+    console.error("🚨 Load error:", err);
+
+    document.body.innerHTML = `
+      <div style="text-align:center;margin-top:100px;font-family:sans-serif;color:#d32f2f;">
+        <h2>⚠️ Website not found</h2>
+        <p>Subdomain: <strong>${getSubdomain()}</strong></p>
+        <p>Error: ${err.message}</p>
+        <p style="font-size:14px;margin-top:20px;">Check browser console (F12) for details.</p>
+      </div>`;
+  }
+}
+
+/* ================== INIT ================== */
+window.addEventListener('DOMContentLoaded', loadSite);
 </script>
