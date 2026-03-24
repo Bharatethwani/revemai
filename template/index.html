@@ -258,19 +258,17 @@ gym:{primary:"#111827",accent:"#ef4444"}
 // return host.split('.')[0];
 // }
 
-  function getSubdomain() {
-  let host = window.location.hostname;   // e.g. "lokeshartist.revmeai.com"
-//let host = "https://lokeshartist.revmeai.com/";
+function getSubdomain() {
+      let host = window.location.hostname; // ✅ correct way
 
-  // For local testing
-  if (host.includes("localhost") || host.includes("127.0.0.1")) {
-    return "lokeshartist";
-  }
+  //let host = "https://tech.revmeai.com/";
 
-  // Remove any protocol if someone accidentally puts full URL
+  // Remove protocol
   host = host.replace(/^https?:\/\//, '');
 
-  // Get the first part before the first dot
+  // Remove trailing slash
+  host = host.replace(/\/$/, '');
+
   const subdomain = host.split('.')[0].toLowerCase().trim();
 
   return subdomain;
@@ -317,30 +315,38 @@ container.innerHTML += `
 
 /* LOAD FROM API */
 async function loadSite(){
-try{
+  try{
 
-const subdomain = getSubdomain();
-//const subdomain = "lokeshartist";
+    const subdomain = getSubdomain();
 
-console.log("Subdomain:", subdomain);
+    const res = await fetch(
+      `https://iwhxyqczdfapprigyrpr.supabase.co/functions/v1/web-template?subdomain=${subdomain}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "YOUR_SUPABASE_ANON_KEY",
+          "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY"
+        }
+      }
+    );
 
-const res = await fetch(`https://iwhxyqczdfapprigyrpr.supabase.co/functions/v1/web-template?subdomain=${subdomain}`);
+    // 👇 IMPORTANT DEBUG
+    const text = await res.text();
+    console.log("RAW RESPONSE:", text);
 
-if(!res.ok) throw new Error("API Error");
+    if(!res.ok) throw new Error(text);
 
-const data = await res.json();
-console.log("DATA:", data);
+    const data = JSON.parse(text);
 
-applySite(data);
+    applySite(data);
+    document.getElementById("loader").style.display = "none";
 
-document.getElementById("loader").style.display = "none";
-
-}catch(err){
-console.error(err);
-document.getElementById("loader").innerHTML = "⚠️ Failed to load website";
+  }catch(err){
+    console.error(err);
+    document.getElementById("loader").innerHTML = "⚠️ " + err.message;
+  }
 }
-}
-
 /* INIT */
 window.onload = loadSite;
 
