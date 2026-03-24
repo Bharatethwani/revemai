@@ -13,18 +13,20 @@
 
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "^(.*)\\.revmeai\\.com$" }],
+      "has": [
+        { "type": "host", "value": "^(?!r\\.)(.*)\\.revmeai\\.com$" }
+      ],
       "destination": "/template/index.html"
     },
 
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "^revmeai\\.com$" }],
+      "has": [{ "type": "host", "value": "^www\\.revmeai\\.com$" }],
       "destination": "/index.html"
     },
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "^www\\.revmeai\\.com$" }],
+      "has": [{ "type": "host", "value": "^revmeai\\.com$" }],
       "destination": "/index.html"
     }
   ]
