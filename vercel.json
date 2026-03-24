@@ -15,12 +15,10 @@
     {
       "source": "/(.*)",
       "has": [
-        { "type": "host", "value": "^(?!r\\.)[a-z0-9.-]+\\.revmeai\\.com$" }
+        { "type": "host", "value": "^.+\\.revmeai\\.com$" }
       ],
       "destination": "/template/index.html"
     },
-    
-    
     {
       "source": "/(.*)",
       "destination": "/index.html"
