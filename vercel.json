@@ -7,26 +7,30 @@
 
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "^r\\.revmeai\\.com$" }],
+      "has": [
+        { "type": "host", "value": "^r\\.revmeai\\.com$" }
+      ],
       "destination": "/review/index.html"
     },
 
     {
-      "source": "/(.*)",
+      "source": "/",
       "has": [
-        { "type": "host", "value": "^(?!r\\.)(.*)\\.revmeai\\.com$" }
+        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
       ],
       "destination": "/template/index.html"
     },
 
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "^www\\.revmeai\\.com$" }],
-      "destination": "/index.html"
+      "has": [
+        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
+      ],
+      "destination": "/template/index.html"
     },
+
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "^revmeai\\.com$" }],
       "destination": "/index.html"
     }
   ]
