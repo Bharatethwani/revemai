@@ -5,7 +5,7 @@
       "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
     },
 
-    // 1. r.revmeai.com → review/index.html (don't touch this)
+    // 1. r.revmeai.com → review (do not touch this)
     {
       "source": "/(.*)",
       "has": [
@@ -14,17 +14,17 @@
       "destination": "/review/index.html"
     },
 
-    // 2. ANY other subdomain (like tech.revmeai.com) → template/index.html
-    // This handles root + all paths cleanly
+    // 2. ALL other subdomains (tech.revmeai.com, anything.revmeai.com, etc.) → template
+    // This is the most important fix — using /:path* instead of / 
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "has": [
         { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
       ],
       "destination": "/template/index.html"
     },
 
-    // 3. Fallback for main domain (revmeai.com without subdomain)
+    // 3. Main domain fallback (revmeai.com without subdomain)
     {
       "source": "/(.*)",
       "destination": "/index.html"
