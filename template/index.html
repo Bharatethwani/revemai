@@ -260,7 +260,8 @@ gym:{primary:"#111827",accent:"#ef4444"}
 
 function getSubdomain() {
       let host = window.location.hostname; // ✅ correct way
-
+console.log("Host:", host);   // 👈 console log
+  alert("Host: " + host); 
   //let host = "https://tech.revmeai.com/";
 
   // Remove protocol
