@@ -14,9 +14,7 @@
     },
     {
       "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "^[^.]+\\.r\\.revmeai\\.com$" }
-      ],
+      "has": [{ "type": "host", "value": "^.+\\.revmeai\\.com$" }],
       "destination": "/template/index.html"
     },
     {
