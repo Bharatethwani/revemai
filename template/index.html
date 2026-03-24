@@ -251,10 +251,28 @@ gym:{primary:"#111827",accent:"#ef4444"}
 };
 
 /* GET SUBDOMAIN */
-function getSubdomain(){
-const host = window.location.hostname;
-if(host.includes("localhost")) return "lokeshartist";
-return host.split('.')[0];
+// function getSubdomain(){
+// const host = window.location.hostname;
+// if(host.includes("localhost")) return "lokeshartist";
+// return host.split('.')[0];
+// }
+
+  /* ================== GET SUBDOMAIN ================== */
+function getSubdomain() {
+  let host = window.location.hostname;   // e.g. "lokeshartist.revmeai.com"
+
+  // For local testing
+  if (host.includes("localhost") || host.includes("127.0.0.1")) {
+    return "lokeshartist";
+  }
+
+  // Remove any protocol if someone accidentally puts full URL
+  host = host.replace(/^https?:\/\//, '');
+
+  // Get the first part before the first dot
+  const subdomain = host.split('.')[0].toLowerCase().trim();
+
+  return subdomain;
 }
 
 /* APPLY DATA */
