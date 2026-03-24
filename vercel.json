@@ -13,14 +13,7 @@
     },
     {
       "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "^[^.]+\\.revmeai\\.com$" }
-      ],
       "destination": "/template/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }
