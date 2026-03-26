@@ -260,18 +260,26 @@ gym:{primary:"#111827",accent:"#ef4444"}
 
 function getSubdomain() {
       let host = window.location.hostname; // 
-      console.log("HOST:", window.location.hostname);
-console.log("FULL URL:", window.location.href);
-  alert("Host: " + host); 
+    //  console.log("HOST:", window.location.hostname);
+//console.log("FULL URL:", window.location.href);
+//  alert("Host: " + host); 
   //let host = "https://tech.revmeai.com/";
 
+
+// Remove leading and trailing slashes
+host = path.replace(/^\/|\/$/g, '');
+
+const subdomain = path.split('/')[0]?.toLowerCase().trim();
+
+console.log(subdomain);
+
   // Remove protocol
-  host = host.replace(/^https?:\/\//, '');
+  // host = host.replace(/^https?:\/\//, '');
 
-  // Remove trailing slash
-  host = host.replace(/\/$/, '');
+  // // Remove trailing slash
+  // host = host.replace(/\/$/, '');
 
-  const subdomain = host.split('.')[0].toLowerCase().trim();
+  // const subdomain = host.split('.')[0].toLowerCase().trim();
 
   return subdomain;
 }
