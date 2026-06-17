@@ -36265,7 +36265,7 @@ if(s.Q!=a){this.c=s.axj(a)
 return!0}return!1},
 agx(){var s,r,q=this,p="9999px",o=v.G,n=A.cG(o.document,"p")
 q.ok=n
-n.textContent="flutter typography measurement"
+n.textContent="Get more Google reviews and manage customer feedback with AI"
 n=q.ok
 n.toString
 s=A.al("true")
