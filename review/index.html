@@ -178,17 +178,20 @@ async function init() {
 
         // checking new feature
 
- const { error } =  supabase
-        .from("review_analytics")
-        .insert({
-            businesss_id: bId,
-            reviews: text,
-            rating: document.querySelectorAll(".star.active").length
-        });
+          supabase
+    .from("review_analytics")
+    .insert({
+        businesss_id: bId,
+        reviews: text,
+        rating: document.querySelectorAll(".star.active").length
+    })
+    .then(({ data, error }) => {
+        console.log(data);
+        console.log(error);
+    });
 
-    if (error) {
-        console.error(error);
-    }
+
+
 
         //
        
