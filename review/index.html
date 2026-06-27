@@ -176,6 +176,21 @@ async function init() {
     const text = input.value.trim();
     if (!text) return;
 
+        // checking new feature
+
+ const { error } =  supabase
+        .from("review_analytics")
+        .insert({
+            businesss_id: bId,
+            reviews: text,
+            rating: document.querySelectorAll(".star.active").length
+        });
+
+    if (error) {
+        console.error(error);
+    }
+
+        //
        
 
     // Try copying (but don't block redirect if it fails)
