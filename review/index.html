@@ -176,29 +176,7 @@ async function init() {
     const text = input.value.trim();
     if (!text) return;
 
-        //testiing new function
-
-         const payload = {
-        businessId: bId,
-        review: text,
-        rating: document.querySelectorAll(".star.active").length,
-        planType: Type
-    };
-
-    // Send in the background
-    navigator.sendBeacon(
-        "https://iwhxyqczdfapprigyrpr.supabase.co/functions/v1/save_reviews",
-        new Blob([JSON.stringify(payload)], {
-            type: "application/json"
-        })
-    );
-
-
-
-        ///
-
-
-        
+       
 
     // Try copying (but don't block redirect if it fails)
     navigator.clipboard.writeText(text).catch(() => {});
