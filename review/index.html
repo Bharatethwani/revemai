@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta name="googlebot" content="noindex,nofollow">
     <meta name="robots" content="noindex,nofollow">
-    
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RevmeAi</title>
@@ -31,8 +30,6 @@
         button:disabled { background: #cbd5e1; cursor: not-allowed; }
         .footer { text-align: center; font-size: 11px; color: #94a3b8; margin-top: 25px; font-weight: 600; }
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js?client=ca-pub-8600410125877755"
-     crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -54,7 +51,6 @@
     </div>
     <div id="loader">RevmeAi is thinking...</div>
     <div id="aiResult" style="display:none"></div>
-    <div id="adsContainer" style="display:none; margin:20px 0;"></div>
     <textarea id="userInput" placeholder="Rate your experience to see suggestions..."></textarea>
     <button id="cta" disabled>Ready to Review</button>
     <div class="footer">Professional Review Generation by RevMeAI</div>
@@ -83,7 +79,7 @@
     function getID() {
         const path = window.location.pathname;
        // const path = "https://r.revmeai.com/r/4bad628e-b155-4c91-80fc-58dc7ede3cd3";
-    
+   
         const segments = path.split('/').filter(p => p.length > 0);
         const last = segments[segments.length - 1] || "";
         return last.split('?')[0].split('#')[0].trim().toLowerCase();
@@ -119,23 +115,6 @@ async function init() {
             status.innerText = ` Select stars for professional ideas`;
             //status.innerText = "Select stars for professional ideas";
             btn.disabled = false;
-            if (Type === "Free") {
-
-    const adContainer = document.getElementById("adsContainer");
-
-    adContainer.innerHTML = `
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-8600410125877755"
-             data-ad-slot="1838497712"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-    `;
-
-    adContainer.style.display = "block";
-
-    (adsbygoogle = window.adsbygoogle || []).push({});
-}
         } else {
             status.innerHTML = '<span style="color:red">Business not registered</span>';
         }
@@ -149,20 +128,20 @@ async function init() {
         s.onclick = async () => {
             const val = s.dataset.v;
             stars.forEach(st => st.classList.toggle('active', st.dataset.v <= val));
-            
+           
             btn.disabled = false;
             loader.style.display = 'block';
             aiResult.style.display = 'none';
-            
+           
               const endpoint =  Type === "Free" ? "generate-review-free"   : "generate-review";
 
             try {
                 const response = await fetch(`${SB_URL}/functions/v1/${endpoint}`, {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json', 
-                        'Authorization': `Bearer ${SB_KEY}`, 
-                        'apikey': SB_KEY 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SB_KEY}`,
+                        'apikey': SB_KEY
                     },
                     body: JSON.stringify({ businessId: bId, rating: parseInt(val), input: input.value.trim() })
                 });
@@ -185,10 +164,10 @@ async function init() {
                     });
                     aiResult.style.display = 'block';
                 }
-            } catch (e) { 
-                console.error("AI Error:", e); 
-            } finally { 
-                loader.style.display = 'none'; 
+            } catch (e) {
+                console.error("AI Error:", e);
+            } finally {
+                loader.style.display = 'none';
             }
         };
     });
