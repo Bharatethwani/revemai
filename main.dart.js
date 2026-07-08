@@ -52676,7 +52676,7 @@ return new A.aN(B.uM,A.ch(A.c([p,s,A.dJ(A.aj(a,q,q,q,A.bk(q,q,r,q,b?B.l:B.jf,q,q
 a6C(){var s=this
 return A.c([s.fI("Unlimited QR Scans",!0),s.fI("AI Generated 5 Review Suggestions",!0),s.fI("Editable Keywords",!0),s.fI("Use Brand Name in Keyword",!0),s.fI("Smart SEO Friendly Reply",!0),s.fI("Multi-language Support",!0),s.fI("Tone Customization",!0),s.fI("Instant Website (No Domain Needed)",!0),s.fI("Included Future Updates",!0),s.fI(u.H,!0)],t.p)},
 RI(){var s=t.N
-s=A.O(["Monthly",A.O(["price","\u20b9299","mrp","\u20b9899","plan","299"],s,s),"6 Months",A.O(["price","\u20b9999","mrp","\u20b91999","plan","999"],s,s),"Yearly",A.O(["price","\u20b91699","mrp","\u20b93499","plan","1699"],s,s)],s,t.GU).h(0,this.d)
+s=A.O(["Monthly",A.O(["price","\u20b9249","mrp","\u20b9899","plan","249"],s,s),"6 Months",A.O(["price","\u20b9849","mrp","\u20b91999","plan","849"],s,s),"Yearly",A.O(["price","\u20b91499","mrp","\u20b93499","plan","1499"],s,s)],s,t.GU).h(0,this.d)
 s.toString
 return s},
 aaR(a){var s,r,q,p,o,n,m,l,k,j,i,h,g,f=this,e=null,d=f.RI(),c=f.c
@@ -52715,7 +52715,7 @@ i=A.fV(e,e,B.P,e,e,e,e,e,e,e,e,e,B.k2,e,e,e,e,e,e,e)
 if(f.x)g=A.xf(e,B.j,e,e,e,e,e,e,e,e)
 else g=r?A.aj("Extend",e,e,e,A.bk(e,e,B.j,e,e,e,e,e,e,e,e,e,e,e,e,e,e,!0,e,e,e,e,e,e,e,e),e,e):A.aj("Upgrade",e,e,e,A.bk(e,e,B.j,e,e,e,e,e,e,e,e,e,e,e,e,e,e,!0,e,e,e,e,e,e,e,e),e,e)
 return A.bH(A.t3(new A.aN(B.nI,A.bu(A.c([p,B.ax,new A.aN(B.ia,o,e),n,m,l,k,B.cz,j,B.cz,A.bH(A.ha(g,new A.aIp(f,d),i),e,1/0)],t.p),B.a9,B.r,B.u),e),e,5,e,e,new A.cq(c,new A.aO(q,2,B.z,-1))),e,250)},
-aCv(a4){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0=this,a1=null,a2=t.N,a3=A.O(["1",A.O(["6 Months","1799","Yearly","2799"],a2,a2),"2",A.O(["6 Months","2699","Yearly","3899"],a2,a2),"3",A.O(["6 Months","3699","Yearly","5299"],a2,a2),"4",A.O(["6 Months","4499","Yearly","6699"],a2,a2),"5",A.O(["6 Months","5499","Yearly","7799"],a2,a2)],a2,t.GU).h(0,a0.e).h(0,a0.f)
+aCv(a4){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0=this,a1=null,a2=t.N,a3=A.O(["1",A.O(["6 Months","1499","Yearly","2699"],a2,a2),"2",A.O(["6 Months","2299","Yearly","3999"],a2,a2),"3",A.O(["6 Months","2999","Yearly","5349"],a2,a2),"4",A.O(["6 Months","3799","Yearly","6699"],a2,a2),"5",A.O(["6 Months","4499","Yearly","7999"],a2,a2)],a2,t.GU).h(0,a0.e).h(0,a0.f)
 a3.toString
 s=A.O(["price",a3],a2,a2)
 a0.RI()
@@ -53285,9 +53285,9 @@ L(a){var s,r,q,p,o,n,m=this,l=null,k="\ud83c\udf89 Purchase any plan and get bon
 h=A.c([A.ch(A.c([B.Uc,B.j9,B.SS,new A.CM(B.U9,h,B.O,B.cJ,l,l)],g),B.v,B.r,B.u,0,l)],g)
 if(!m.d)B.b.R(h,A.c([B.qS,B.aJW,A.aj(k,l,l,l,A.bk(l,l,B.j,l,l,l,l,l,l,l,l,l,l,l,l,l,l,!0,l,l,l,l,l,l,l,l),l,l)],g))
 s=m.d?B.nq:B.uq
-r=m.KP("\u20b9299 Plan","1 Month + 15 Days More ","Total 45 Days")
-q=m.KP("\u20b9999 Plan","6 Months + 45 Days More","Total 225 Days")
-p=m.KP("\u20b91699 Plan","1 Year + 90 Days More","Total 455 Days")
+r=m.KP("\u20b9249 Plan","1 Month + 15 Days More ","Total 45 Days")
+q=m.KP("849 Plan","6 Months + 30 Days More","Total 210 Days")
+p=m.KP("\u20b91499 Plan","1 Year + 60 Days More","Total 425 Days")
 o=A.aR(51,B.j.E()>>>16&255,B.j.E()>>>8&255,B.j.E()&255)
 n=A.aE(12)
 h.push(new A.CG(B.b3,A.bu(A.c([B.Kc,r,B.fe,q,B.fe,p,B.m1,A.b9(l,A.bu(A.c([B.aJR,A.aj(k,l,l,l,A.bk(l,l,B.j,l,l,l,l,l,l,l,l,l,l,l,l,l,l,!0,l,l,l,l,l,l,l,l),l,l)],g),B.v,B.r,B.u),B.p,l,l,new A.bx(o,l,l,n,l,l,B.J),l,l,l,l,B.uO,l,l,l)],g),B.v,B.r,B.u),s,B.k_,l))
