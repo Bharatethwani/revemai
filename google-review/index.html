@@ -1,4 +1,727 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevmeAI - Boost Your Google Reviews & Local SEO with AI</title>
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-hover: #047857;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Nav */
+        header {
+            background: var(--card-bg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Demo Video Section */
+        .demo-video {
+            padding: 0 0 80px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            text-align: center;
+        }
+
+        .video-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 4px solid var(--card-bg);
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Problem & Solution Section */
+        .problem-solution {
+            padding: 80px 0;
+            background: var(--card-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--secondary);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .box {
+            padding: 30px;
+            border-radius: 12px;
+            height: 100%;
+        }
+
+        .problem-box {
+            background: #fef2f2;
+            border-left: 5px solid #ef4444;
+        }
+
+        .solution-box {
+            background: #f0fdf4;
+            border-left: 5px solid #22c55e;
+        }
+
+        .box h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .box ul {
+            list-style: none;
+        }
+
+        .box li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .problem-box li::before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+        }
+
+        .solution-box li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 80px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .step-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .flow-badge {
+            background: #f1f5f9;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Features & Keywords */
+        .features {
+            padding: 80px 0;
+            background: var(--card-bg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-item {
+            padding: 20px;
+            border-radius: 8px;
+            background: var(--background);
+            border: 1px solid var(--border);
+        }
+
+        .feature-item h4 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .keyword-section {
+            margin-top: 50px;
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .keyword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .keyword-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .keyword-card h5 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .keyword-tags span {
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .price-card.popular {
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.1);
+            transform: scale(1.03);
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .price-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .price-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .price-features li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .price-features li::before {
+            content: "✓";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: var(--card-bg);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: var(--background);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stars {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .client-name {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-top: 15px;
+        }
+
+        .client-biz {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .price-card.popular {
+                transform: none;
+            }
+            .video-wrapper {
+                border-width: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Revme<span>AI</span></div>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                </ul>
+                <a href="#pricing" class="btn">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Grow Your Google Business Profile Automatically</h1>
+            <p>Everything you need to collect 5-star, keyword-rich, localized reviews and respond seamlessly using smart AI automation.</p>
+            <p>
+Collect more Google reviews with AI. Enjoy a <strong>3-day FREE Pro trial</strong> after signup, then upgrade if you love it—or keep using the Free Plan forever.
+</p>
+            <a href=https://revmeai.com class="btn" style="padding: 16px 32px; font-size: 18px; margin-bottom: 30px;">Start Your Free Trial</a>
+        </div>
+    </section>
+
+    <!-- NEW DEMO VIDEO SECTION -->
+    <section class="demo-video">
+        <div class="container">
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/9VpTMbDhOzk?start=2" title="RevmeAi Demo Video - Free Trial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem-solution">
+        <div class="container">
+            <h2 class="section-title">The Review Dilemma We Solve</h2>
+            <div class="grid-2">
+                <div class="box problem-box">
+                    <h3>The Customer Problem</h3>
+                    <ul>
+                        <li>Don't write a review at all due to time constraints.</li>
+                        <li>Give a 5-star rating but only write short words like "Good Service" or "Nice".</li>
+                        <li>Simply don't know what to write or are in a hurry.</li>
+                        <li>Write reviews lacking critical industry keywords needed for SEO.</li>
+                    </ul>
+                </div>
+                <div class="box solution-box">
+                    <h3>The RevmeAI Benefits</h3>
+                    <ul>
+                        <li>Customers get smart, automated high-quality reviews instantly.</li>
+                        <li>Higher review completion rate with zero-friction experiences.</li>
+                        <li>Naturally rich, keyword-optimized reviews for local Google rankings.</li>
+                        <li>Builds profound credibility and trust with prospective local users.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How RevmeAI Works</h2>
+            <div class="grid-3">
+                <div class="step-card">
+                    <div class="step-icon">⭐</div>
+                    <h3>1. Smart AI Review Suggestions</h3>
+                    <p>Customers scan your customized QR code and tap their rating. RevmeAI generates an SEO-friendly, category-specific review draft instantly.</p>
+                    <div class="flow-badge">Scan QR → Select Rating → AI Draft → Copy & Paste</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">💬</div>
+                    <h3>2. AI Smart Replies</h3>
+                    <p>Analyze incoming feedback instantly. Create personalized, warm, and highly professional responses that strengthen customer loyalty.</p>
+                    <div class="flow-badge">Auto-handles Positive & Negative Feedback</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">📊</div>
+                    <h3>3. 🌐 Free AI Business Website</h3>
+                    <p>No coding. No design skills. Just one click and RevmeAI builds your AI-powered business website for free..</p>
+                    <div class="flow-badge">Without any domain</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Packed with Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4>✅ AI Review Suggestions</h4>
+                    <p>Produces human-like, natural feedback mapped perfectly to your operational vertical.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✅ Smart QR Codes</h4>
+                    <p>Unique physical and digital entry points allowing reviews to finalize in seconds.</p>
+                </div>
+                
+                  <div class="feature-item">
+                    <h4>✅ Free Website</h4>
+                    <p>RevmeAI instantly creates a professional website for your business—absolutely free.</p>
+                </div>
+                
+                
+                <div class="feature-item">
+                    <h4>✅ Multi-language Support</h4>
+                    <p>English, Hindi, Hinglish.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✅ Local SEO Optimization</h4>
+                    <p>Drives placement density by scattering essential geo-keywords logically across text updates.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✅ Advanced Analytics</h4>
+                    <p>Deep dive into behavioral scanning habits and real sentiment distributions.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✅ Management Hub</h4>
+                    <p>Review everything unfolding dynamically under one clean centralized interface control board.</p>
+                </div>
+            </div>
+
+            <div class="keyword-section">
+                <h4 style="text-align: center; color: var(--secondary); font-size: 20px;">Automated Industry-Specific Targeting</h4>
+                <div class="keyword-grid">
+                    <div class="keyword-card">
+                        <h5>Restaurant</h5>
+                        <div class="keyword-tags"><span>Best Food</span><span>Family Restaurant</span><span>Delicious Pizza</span></div>
+                    </div>
+                    <div class="keyword-card">
+                        <h5>Salon</h5>
+                        <div class="keyword-tags"><span>Haircut</span><span>Beard Styling</span><span>Hair Spa</span></div>
+                    </div>
+                    <div class="keyword-card">
+                        <h5>Hotel</h5>
+                        <div class="keyword-tags"><span>Clean Rooms</span><span>Family Stay</span><span>Budget Hotel</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Flexible Pricing for Every Business</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div>
+                        <div class="price-title">Free Plan</div>
+                        <div class="price-amount">₹0 <span style="font-size: 14px; color: var(--text-light);">/ Forever</span></div>
+                        <ul class="price-features">
+                            <li>Ulimited QR Scan</li>
+                            <li>Ai Generated 2 Reviews</li>
+                         
+                        </ul>
+                    </div>
+                    <a href="#" class="btn" style="background: #64748b;">Get Started</a>
+                </div>
+
+                <div class="price-card">
+                    <div>
+                        <div class="badge">🚀 Free Trial Included</div>
+                        <div class="price-title">Start Plan</div>
+                        <div class="price-amount">₹249 <span style="font-size: 14px; color: var(--text-light);">/ Month</span></div>
+                        <ul class="price-features">
+                            <li>+15 Days Entirely FREE</li>
+                            <li>Ulimited QR Scan</li>
+                            <li>Ai Generated 5 Reviews</li>         
+                            <li>Editable Keywords</li>
+                            <li>Multi Langauge Support</li>
+                            <li>Tone Customization</li>
+                            <li>Free Website No Domain Needed</li>
+                            <li>All Future Update</li>
+
+
+                            
+                        </ul>
+                    </div>
+                    <a href=https://revmeai.com/ class="btn">Try Free</a>
+                </div>
+
+                <div class="price-card">
+                    <div>
+                        <div class="badge">Popular Choice</div>
+                        <div class="price-title">Growth Plan</div>
+                        <div class="price-amount">₹849 <span style="font-size: 14px; color: var(--text-light);">/ 6 Months</span></div>
+                        <ul class="price-features">
+                            <li>+30 Days Entirely FREE</li>
+                            <li>Ulimited QR Scan</li>
+                            <li>Ai Generated 5 Reviews</li>         
+                            <li>Editable Keywords</li>
+                            <li>Multi Langauge Support</li>
+                            <li>Tone Customization</li>
+                            <li>Free Website No Domain Needed</li>
+                            <li>All Future Update</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+
+                <div class="price-card popular">
+                    <div>
+                        <div class="badge" style="background: var(--primary); color: white;">Best Value ⭐</div>
+                        <div class="price-title">Business Plan</div>
+                        <div class="price-amount">₹1499 <span style="font-size: 14px; color: var(--text-light);">/ Year</span></div>
+                        <ul class="price-features">
+                            <li>+60 Days Entirely FREE</li>
+                            <li>Ulimited QR Scan</li>
+                            <li>Ai Generated 5 Reviews</li>         
+                            <li>Editable Keywords</li>
+                            <li>Multi Langauge Support</li>
+                            <li>Tone Customization</li>
+                            <li>Free Website No Domain Needed</li>
+                            <li>All Future Update</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Trusted By Local Business Owners</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Within 2 months our Google reviews increased from 95 to more than 340. Customers love the AI review suggestions."</p>
+                    <div class="client-name">Rajesh Sharma</div>
+                    <div class="client-biz">Sharma Sweets, Jaipur</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"RevmeAI helped us collect genuine customer reviews every day. Our restaurant visibility on Google has improved a lot."</p>
+                    <div class="client-name">Priya Verma</div>
+                    <div class="client-biz">The Spice Kitchen Restaurant, Delhi</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Most customers don't know what to write. Now they simply scan the QR and post a great review in seconds."</p>
+                    <div class="client-name">Imran Khan</div>
+                    <div class="client-biz">Royal Men's Salon, Indore</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"The dashboard and analytics help us understand guest feedback. AI replies save us hours every week."</p>
+                    <div class="client-name">Ankit Patel</div>
+                    <div class="client-biz">Hotel Sunrise Inn, Ahmedabad</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 RevmeAI. All rights reserved. Empowering your Google Business Profile visibility.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RevmeAI - Get More Google Reviews with AI</title>
 <link rel="stylesheet" href="/google-review/style.css?v=5">
 <header class="hero"><nav><h2>RevmeAI</h2><a class="btn" href="#pricing">Start Free Trial</a></nav>
@@ -23,4 +746,4 @@
 <div class="card"><h3>₹1499 / Year</h3><p>+60 Days FREE</p><a class="btn" href="https://revmeai.com">Best Value</a></div>
 </div></section>
 <section class="cta"><h2>Start Growing Your Google Reviews Today</h2><a class="btn" href="https://revmeai.com">Start Free Trial</a></section>
-<footer>© RevmeAI</footer><script src="/google-review/script.js?v=5"></script></body></html>
+<footer>© RevmeAI</footer><script src="/google-review/script.js?v=5"></script></body></html> -->
