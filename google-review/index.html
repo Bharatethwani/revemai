@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8600410125877755" crossorigin="anonymous"></script>
 
-    
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8600410125877755"
-     crossorigin="anonymous"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSXQE9KC56"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GSXQE9KC56');
+    </script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GSXQE9KC56"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GSXQE9KC56');
-</script>
-
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RevmeAI - Boost Your Google Reviews & Local SEO with AI</title>
@@ -45,6 +39,7 @@
             background-color: var(--background);
             color: var(--text-main);
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -76,6 +71,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            text-decoration: none;
         }
 
         .logo span {
@@ -110,6 +106,7 @@
             transition: background 0.3s, transform 0.2s;
             border: none;
             cursor: pointer;
+            text-align: center;
         }
 
         .btn:hover {
@@ -138,9 +135,31 @@
             margin: 0 auto 30px;
         }
 
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        /* Trust Banner */
+        .trust-banner {
+            background: #f1f5f9;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .trust-banner p {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
         /* Demo Video Section */
         .demo-video {
-            padding: 0 0 80px;
+            padding: 80px 0 80px;
             background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
             text-align: center;
         }
@@ -150,7 +169,7 @@
             margin: 0 auto;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             border: 4px solid var(--card-bg);
             aspect-ratio: 16 / 9;
         }
@@ -161,10 +180,9 @@
             border: none;
         }
 
-        /* Problem & Solution Section */
-        .problem-solution {
+        /* Generic Section Settings */
+        .section-padding {
             padding: 80px 0;
-            background: var(--card-bg);
         }
 
         .section-title {
@@ -173,6 +191,11 @@
             color: var(--secondary);
             margin-bottom: 50px;
             position: relative;
+        }
+
+        /* Problem & Solution Section */
+        .problem-solution {
+            background: var(--card-bg);
         }
 
         .grid-2 {
@@ -204,33 +227,16 @@
             color: var(--secondary);
         }
 
-        .box ul {
-            list-style: none;
-        }
-
+        .box ul { list-style: none; }
         .box li {
             margin-bottom: 12px;
             position: relative;
             padding-left: 25px;
         }
-
-        .problem-box li::before {
-            content: "❌";
-            position: absolute;
-            left: 0;
-        }
-
-        .solution-box li::before {
-            content: "✅";
-            position: absolute;
-            left: 0;
-        }
+        .problem-box li::before { content: "❌"; position: absolute; left: 0; }
+        .solution-box li::before { content: "✅"; position: absolute; left: 0; }
 
         /* How it Works */
-        .how-it-works {
-            padding: 80px 0;
-        }
-
         .grid-3 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -268,9 +274,8 @@
             font-weight: 500;
         }
 
-        /* Features & Keywords */
+        /* Features */
         .features {
-            padding: 80px 0;
             background: var(--card-bg);
         }
 
@@ -330,10 +335,6 @@
         }
 
         /* Pricing */
-        .pricing {
-            padding: 80px 0;
-        }
-
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -406,10 +407,70 @@
             font-weight: bold;
         }
 
+        /* FAQ Section */
+        .faq {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+        }
+
+        summary {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--secondary);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-content {
+            margin-top: 15px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .faq-highlight {
+            background: #eaf8ef;
+            border-left: 5px solid #22c55e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            color: var(--secondary);
+        }
+
         /* Testimonials */
         .testimonials {
-            padding: 80px 0;
-            background: var(--card-bg);
+            background: var(--background);
         }
 
         .testimonial-grid {
@@ -419,27 +480,15 @@
         }
 
         .testimonial-card {
-            background: var(--background);
+            background: var(--card-bg);
             padding: 30px;
             border-radius: 12px;
             border: 1px solid var(--border);
         }
 
-        .stars {
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-
-        .client-name {
-            font-weight: 700;
-            color: var(--secondary);
-            margin-top: 15px;
-        }
-
-        .client-biz {
-            font-size: 13px;
-            color: var(--text-light);
-        }
+        .stars { color: var(--accent); margin-bottom: 15px; }
+        .client-name { font-weight: 700; color: var(--secondary); margin-top: 15px; }
+        .client-biz { font-size: 13px; color: var(--text-light); }
 
         /* Footer */
         footer {
@@ -452,21 +501,11 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .hero h1 {
-                font-size: 32px;
-            }
-            .nav-links {
-                display: none;
-            }
-            .price-card.popular {
-                transform: none;
-            }
-            .video-wrapper {
-                border-width: 2px;
-            }
+            .grid-2 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+            .nav-links { display: none; }
+            .price-card.popular { transform: none; }
+            .video-wrapper { border-width: 2px; }
         }
     </style>
 </head>
@@ -475,11 +514,12 @@
     <header>
         <div class="container">
             <nav>
-                <div class="logo">Revme<span>AI</span></div>
+                <a href="#" class="logo">Revme<span>AI</span></a>
                 <ul class="nav-links">
                     <li><a href="#features">Features</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                     <li><a href="#testimonials">Reviews</a></li>
                 </ul>
                 <a href="#pricing" class="btn">Get Started</a>
@@ -489,42 +529,44 @@
 
     <section class="hero">
         <div class="container">
-            <h1>Grow Your Google Business Profile Automatically</h1>
-            <p>Everything you need to collect 5-star, keyword-rich, localized reviews and respond seamlessly using smart AI automation.</p>
-            <p>
-Collect more Google reviews with AI. Enjoy a <strong>3-day FREE Pro trial</strong> after signup, then upgrade if you love it—or keep using the Free Plan forever.
-</p>
-<a href="https://revmeai.com"
-   class="btn"
-   style="padding: 16px 32px; font-size: 18px; margin-bottom: 30px;"
-   onclick="gtag('event', 'start_free_trial', {
-      'event_category': 'CTA',
-      'event_label': 'Landing Page Button'
-   });">
-   Start Your Free Trial
-</a>            
-          <script>
-document.getElementById("startTrial").addEventListener("click", function () {
-
-    gtag('event', 'start_free_trial', {
-        event_category: 'CTA',
-        event_label: 'Landing Page'
-    });
-
-});
-</script>
-            <a href="https://wa.me/918824165611?text=Hi%20RevmeAI%20Team,%20I%20want%20to%20know%20more%20about%20RevmeAI."
-   target="_blank"
-   rel="noopener noreferrer"
-   class="btn"
-   style="padding: 16px 32px; font-size: 18px; margin-bottom: 30px;">
-   Send Message on WhatsApp
-</a>
+            <h1>Get More Google Reviews With AI in Under 30 Seconds</h1>
+            <p>Customers scan your QR code, AI suggests a review, and they post it on Google in seconds.</p>
+            <p style="margin-bottom: 30px;">Collect more Google reviews with AI. Enjoy a <strong>3-day FREE Pro trial</strong> after signup, then upgrade if you love it—or keep using the Free Plan forever.</p>
             
+            <div class="hero-buttons">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <a href="https://revmeai.com" id="startTrialHero" class="btn" style="padding: 16px 32px; font-size: 18px;">
+                        Get Free Google Review QR Code
+                    </a>
+                    <span style="font-size: 13px; color: var(--text-light); margin-top: 8px;">✅ No Credit Card Required</span>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <a href="https://wa.me/918824165611?text=Hi%20RevmeAI%20Team,%20I%20want%20to%20know%20more%20about%20RevmeAI." target="_blank" rel="noopener noreferrer" class="btn" style="padding: 16px 32px; font-size: 18px; background: #25D366; color: white;">
+                        Message on WhatsApp
+                    </a>
+                    <span style="font-size: 13px; color: var(--text-light); margin-top: 8px;">⚡ Fast Reply</span>
+                </div>
+            </div>
+            
+            <script>
+                document.getElementById("startTrialHero").addEventListener("click", function () {
+                    gtag('event', 'start_free_trial', {
+                        event_category: 'CTA',
+                        event_label: 'Hero Button'
+                    });
+                });
+            </script>
         </div>
     </section>
 
-    <!-- NEW DEMO VIDEO SECTION -->
+    <!-- Trust Banner for Google Ads Optimization -->
+    <div class="trust-banner">
+        <div class="container">
+            <p>⭐⭐⭐⭐⭐ Trusted by 1,000+ local businesses, restaurants, and salons to grow their Google presence.</p>
+        </div>
+    </div>
+
     <section class="demo-video">
         <div class="container">
             <div class="video-wrapper">
@@ -533,7 +575,7 @@ document.getElementById("startTrial").addEventListener("click", function () {
         </div>
     </section>
 
-    <section class="problem-solution">
+    <section class="problem-solution section-padding">
         <div class="container">
             <h2 class="section-title">The Review Dilemma We Solve</h2>
             <div class="grid-2">
@@ -559,7 +601,7 @@ document.getElementById("startTrial").addEventListener("click", function () {
         </div>
     </section>
 
-    <section id="how-it-works" class="how-it-works">
+    <section id="how-it-works" class="section-padding">
         <div class="container">
             <h2 class="section-title">How RevmeAI Works</h2>
             <div class="grid-3">
@@ -567,25 +609,25 @@ document.getElementById("startTrial").addEventListener("click", function () {
                     <div class="step-icon">⭐</div>
                     <h3>1. Smart AI Review Suggestions</h3>
                     <p>Customers scan your customized QR code and tap their rating. RevmeAI generates an SEO-friendly, category-specific review draft instantly.</p>
-                    <div class="flow-badge">Scan QR → Select Rating → AI Draft → Copy & Paste</div>
+                    <div class="flow-badge">Scan QR → Select Rating → AI Draft</div>
                 </div>
                 <div class="step-card">
                     <div class="step-icon">💬</div>
                     <h3>2. AI Smart Replies</h3>
                     <p>Analyze incoming feedback instantly. Create personalized, warm, and highly professional responses that strengthen customer loyalty.</p>
-                    <div class="flow-badge">Auto-handles Positive & Negative Feedback</div>
+                    <div class="flow-badge">Handles Positive & Negative Feedback</div>
                 </div>
                 <div class="step-card">
                     <div class="step-icon">📊</div>
                     <h3>3. 🌐 Free AI Business Website</h3>
-                    <p>No coding. No design skills. Just one click and RevmeAI builds your AI-powered business website for free..</p>
-                    <div class="flow-badge">Without any domain</div>
+                    <p>No coding. No design skills. Just one click and RevmeAI builds your AI-powered business website for free.</p>
+                    <div class="flow-badge">No Domain Required</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <section id="features" class="features section-padding">
         <div class="container">
             <h2 class="section-title">Packed with Powerful Features</h2>
             <div class="features-grid">
@@ -597,28 +639,21 @@ document.getElementById("startTrial").addEventListener("click", function () {
                     <h4>✅ Smart QR Codes</h4>
                     <p>Unique physical and digital entry points allowing reviews to finalize in seconds.</p>
                 </div>
-                
-                  <div class="feature-item">
+                <div class="feature-item">
                     <h4>✅ Free Website</h4>
                     <p>RevmeAI instantly creates a professional website for your business—absolutely free.</p>
                 </div>
-                
-                
                 <div class="feature-item">
                     <h4>✅ Multi-language Support</h4>
-                    <p>English, Hindi, Hinglish.</p>
+                    <p>Available in English, Hindi, and Hinglish.</p>
                 </div>
                 <div class="feature-item">
                     <h4>✅ Local SEO Optimization</h4>
-                    <p>Drives placement density by scattering essential geo-keywords logically across text updates.</p>
+                    <p>Drives placement density by scattering essential geo-keywords logically.</p>
                 </div>
                 <div class="feature-item">
                     <h4>✅ Advanced Analytics</h4>
                     <p>Deep dive into behavioral scanning habits and real sentiment distributions.</p>
-                </div>
-                <div class="feature-item">
-                    <h4>✅ Management Hub</h4>
-                    <p>Review everything unfolding dynamically under one clean centralized interface control board.</p>
                 </div>
             </div>
 
@@ -637,132 +672,21 @@ document.getElementById("startTrial").addEventListener("click", function () {
                         <h5>Hotel</h5>
                         <div class="keyword-tags"><span>Clean Rooms</span><span>Family Stay</span><span>Budget Hotel</span></div>
                     </div>
-                    
-                   <div class="keyword-card">
-    <h5>Gym</h5>
-    <div class="keyword-tags">
-        <span>Modern Equipment</span>
-        <span>Personal Training</span>
-        <span>Certified Trainers</span>
-    </div>
-</div>
-
-<div class="keyword-card">
-    <h5>+1000 Other Businesses...</h5>
-    <div class="keyword-tags">
-        <span>Custom Keywords</span>
-        <span>SEO Optimized</span>
-        <span>AI Generated Reviews</span>
-        <span>Multi-language</span>
-       
-    </div>
-</div>
+                    <div class="keyword-card">
+                        <h5>Gym</h5>
+                        <div class="keyword-tags"><span>Modern Equipment</span><span>Personal Training</span><span>Certified Trainers</span></div>
+                    </div>
+                    <div class="keyword-card">
+                        <h5>+1000 Other Businesses...</h5>
+                        <div class="keyword-tags"><span>Custom Keywords</span><span>SEO Optimized</span><span>Multi-language</span></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section class="pricing" style="padding-top:40px;">
-    <div class="container">
 
-        <h2 class="section-title">Will Google Remove AI-Generated Reviews?</h2>
-
-        <div class="price-card" style="max-width:900px;margin:auto;text-align:left;">
-
-            <div class="badge" style="background:#1565ff;color:#fff;">
-                Google Review Policy
-            </div>
-
-            <h3 style="margin-top:20px;color:#1565ff;">
-                No — not simply because AI was used to help write them.
-            </h3>
-
-            <p style="margin-top:15px;">
-                Google's policies focus on the <strong>authenticity</strong> of the review,
-                not whether AI assisted in writing it.
-            </p>
-
-            <p>
-                <strong>RevmeAI</strong> does not automatically post reviews or submit anything
-                to Google. Instead, it simply helps customers write better reviews based on
-                their genuine experience.
-            </p>
-
-            <div style="background:#f7f9fc;padding:20px;border-radius:12px;margin:25px 0;">
-
-                <h4 style="margin-bottom:15px;">How RevmeAI Works</h4>
-
-                <ul class="price-features">
-                    <li>✅ The customer scans your Google Review QR Code.</li>
-                    <li>✅ RevmeAI suggests a review based on the customer's experience.</li>
-                    <li>✅ The customer can edit, rewrite, or ignore the suggested review.</li>
-                    <li>✅ The customer manually copies and pastes the review into Google.</li>
-                </ul>
-
-            </div>
-
-            <p>
-                This means the customer remains in complete control of what is submitted.
-            </p>
-
-            <hr style="margin:35px 0;border:none;border-top:1px solid #e5e7eb;">
-
-            <h3>What Google Actually Removes</h3>
-
-            <p>
-                Google may remove reviews that violate its policies, including:
-            </p>
-
-            <ul class="price-features">
-                <li>❌ Fake or fabricated reviews.</li>
-                <li>❌ Reviews written by someone who never visited the business.</li>
-                <li>❌ Spam or repetitive content.</li>
-                <li>❌ Reviews posted to manipulate ratings.</li>
-                <li>❌ Reviews that violate Google's content policies.</li>
-            </ul>
-
-            <hr style="margin:35px 0;border:none;border-top:1px solid #e5e7eb;">
-
-            <h3>How RevmeAI Helps</h3>
-
-            <p>
-                RevmeAI is an AI writing assistant, similar to other AI writing tools.
-                It helps customers express their genuine experience more clearly and naturally.
-                It <strong>does not</strong> create fake experiences or automatically post
-                reviews to Google.
-            </p>
-
-            <p>
-                As long as the review reflects the customer's real experience and follows
-                Google's review policies, using AI to help draft the wording does not,
-                by itself, mean the review will be removed.
-            </p>
-
-            <div style="background:#eaf8ef;border-left:5px solid #22c55e;padding:20px;border-radius:12px;margin-top:30px;">
-
-                <h3 style="margin-top:0;">✅ Key Takeaway</h3>
-
-                <p style="margin-bottom:0;">
-                    RevmeAI is a writing assistant—not an automatic review posting tool.
-                    Customers always decide whether to edit, copy, and submit the final review.
-                    This helps businesses collect authentic Google reviews while respecting
-                    Google's review policies.
-                </p>
-
-            </div>
-
-            <div style="text-align:center;margin-top:40px;">
-                <a href="https://revmeai.com" class="btn">
-                    🚀 Start Your Free Trial
-                </a>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-    <section id="pricing" class="pricing">
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="section-padding">
         <div class="container">
             <h2 class="section-title">Flexible Pricing for Every Business</h2>
             <div class="pricing-grid">
@@ -771,12 +695,11 @@ document.getElementById("startTrial").addEventListener("click", function () {
                         <div class="price-title">Free Plan</div>
                         <div class="price-amount">₹0 <span style="font-size: 14px; color: var(--text-light);">/ Forever</span></div>
                         <ul class="price-features">
-                            <li>Ulimited QR Scan</li>
-                            <li>Ai Generated 2 Reviews</li>
-                         
+                            <li>Unlimited QR Scans</li>
+                            <li>AI Generated 2 Reviews</li>
                         </ul>
                     </div>
-                    <a href="#" class="btn" style="background: #64748b;">Get Started</a>
+                    <a href="https://revmeai.com" class="btn" style="background: #64748b;">Get Started Free</a>
                 </div>
 
                 <div class="price-card">
@@ -786,53 +709,35 @@ document.getElementById("startTrial").addEventListener("click", function () {
                         <div class="price-amount">₹249 <span style="font-size: 14px; color: var(--text-light);">/ Month</span></div>
                         <ul class="price-features">
                             <li>+15 Days Entirely FREE</li>
-                            <li>Ulimited QR Scan</li>
-                            <li>Ai Generated 5 Reviews</li>         
+                            <li>Unlimited QR Scans</li>
+                            <li>AI Generated 5 Reviews</li>         
                             <li>Editable Keywords</li>
-                            <li>Multi Langauge Support</li>
+                            <li>Multi-Language Support</li>
                             <li>Tone Customization</li>
-                            <li>Free Website No Domain Needed</li>
-                            <li>All Future Update</li>
-
-
-                            
+                            <li>Free Website (No Domain Needed)</li>
+                            <li>All Future Updates</li>
                         </ul>
                     </div>
-<a href="https://revmeai.com/"
-   class="btn"
-   onclick="gtag('event', 'start_free_trial');">
-   Try Free
-</a>  
-
-                  <script>
-document.getElementById("startTrial").addEventListener("click", function () {
-
-    gtag('event', 'start_free_trial', {
-        event_category: 'CTA',
-        event_label: 'Landing Page'
-    });
-
-});
-</script>
+                    <a href="https://revmeai.com/" id="startTrialPricing1" class="btn">Start Free Trial</a>  
                 </div>
 
                 <div class="price-card">
                     <div>
-                        <div class="badge">Popular Choice</div>
+                        <div class="badge" style="background: #e2e8f0; color: #334155;">Popular Choice</div>
                         <div class="price-title">Growth Plan</div>
                         <div class="price-amount">₹849 <span style="font-size: 14px; color: var(--text-light);">/ 6 Months</span></div>
                         <ul class="price-features">
                             <li>+30 Days Entirely FREE</li>
-                            <li>Ulimited QR Scan</li>
-                            <li>Ai Generated 5 Reviews</li>         
+                            <li>Unlimited QR Scans</li>
+                            <li>AI Generated 5 Reviews</li>         
                             <li>Editable Keywords</li>
-                            <li>Multi Langauge Support</li>
+                            <li>Multi-Language Support</li>
                             <li>Tone Customization</li>
-                            <li>Free Website No Domain Needed</li>
-                            <li>All Future Update</li>
+                            <li>Free Website (No Domain Needed)</li>
+                            <li>All Future Updates</li>
                         </ul>
                     </div>
-                    <a href=https://revmeai.com/ class="btn">Buy Now</a>
+                    <a href="https://revmeai.com/" class="btn">Buy Growth Plan</a>
                 </div>
 
                 <div class="price-card popular">
@@ -842,24 +747,78 @@ document.getElementById("startTrial").addEventListener("click", function () {
                         <div class="price-amount">₹1499 <span style="font-size: 14px; color: var(--text-light);">/ Year</span></div>
                         <ul class="price-features">
                             <li>+60 Days Entirely FREE</li>
-                            <li>Ulimited QR Scan</li>
-                            <li>Ai Generated 5 Reviews</li>         
+                            <li>Unlimited QR Scans</li>
+                            <li>AI Generated 5 Reviews</li>         
                             <li>Editable Keywords</li>
-                            <li>Multi Langauge Support</li>
+                            <li>Multi-Language Support</li>
                             <li>Tone Customization</li>
-                            <li>Free Website No Domain Needed</li>
-                            <li>All Future Update</li>
+                            <li>Free Website (No Domain Needed)</li>
+                            <li>All Future Updates</li>
                         </ul>
                     </div>
-                    <a href=https://revmeai.com/ class="btn">Buy Now</a>
+                    <a href="https://revmeai.com/" class="btn">Buy Annual Plan</a>
                 </div>
             </div>
+            
+            <script>
+                document.getElementById("startTrialPricing1").addEventListener("click", function () {
+                    gtag('event', 'start_free_trial', {
+                        event_category: 'CTA',
+                        event_label: 'Pricing Card Button'
+                    });
+                });
+            </script>
         </div>
     </section>
     
-    
+    <!-- FAQ SECTION -->
+    <section id="faq" class="faq section-padding">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <details open>
+                    <summary>Will Google Remove AI-Generated Reviews?</summary>
+                    <div class="faq-content">
+                        <p><strong>No — not simply because AI was used to help write them.</strong></p>
+                        <p>Google's policies focus on the <strong>authenticity</strong> of the review, not whether AI assisted in writing it. RevmeAI does not automatically post reviews or submit anything to Google. Instead, it acts as a writing assistant to help customers express their genuine experiences more clearly and naturally.</p>
+                        <div class="faq-highlight">
+                            <strong>How it works securely:</strong>
+                            <ul style="margin-top: 10px; padding-left: 20px;">
+                                <li>The customer scans your Google Review QR Code.</li>
+                                <li>RevmeAI suggests a review based on their experience.</li>
+                                <li>The customer manually edits and chooses to copy/paste the review into Google.</li>
+                            </ul>
+                        </div>
+                        <p style="margin-top: 15px;">Google only removes reviews that are fabricated, from non-visitors, manipulative, or spam content. As long as your customers reflect their real experience, using AI to draft the wording is entirely compliant.</p>
+                    </div>
+                </details>
 
-    <section id="testimonials" class="testimonials">
+                <details>
+                    <summary>How does the Free Trial work?</summary>
+                    <div class="faq-content">
+                        <p>When you select a paid plan, you are granted a completely free period (e.g., 15, 30, or 60 days depending on the plan). During this time, you have full access to all features to test out the platform before your official billing period begins.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Do I need to buy a domain for the free website?</summary>
+                    <div class="faq-content">
+                        <p>No! RevmeAI provides you with a free, fully-hosted AI-generated business website out of the box. You do not need to purchase a domain name or pay for separate web hosting.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Do my customers need to download an app?</summary>
+                    <div class="faq-content">
+                        <p>Not at all. Your customers simply open their smartphone camera, scan the QR code you display, and the RevmeAI web app opens instantly in their default browser.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials section-padding">
         <div class="container">
             <h2 class="section-title">Trusted By Local Business Owners</h2>
             <div class="testimonial-grid">
@@ -893,38 +852,17 @@ document.getElementById("startTrial").addEventListener("click", function () {
 
     <footer>
         <div class="container">
+            <div style="margin-bottom: 20px;">
+                <a href="/privacy-policy" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Privacy Policy</a> | 
+                <a href="/terms" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
+                <a href="mailto:support@revmeai.com" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Contact Support</a>
+            </div>
             <p>&copy; 2026 RevmeAI. All rights reserved. Empowering your Google Business Profile visibility.</p>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">
+                *RevmeAI is an independent software tool and is not affiliated with or endorsed by Google LLC.
+            </p>
         </div>
     </footer>
 
 </body>
-
 </html>
-
-
-<!-- <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RevmeAI - Get More Google Reviews with AI</title>
-<link rel="stylesheet" href="/google-review/style.css?v=5">
-<header class="hero"><nav><h2>RevmeAI</h2><a class="btn" href="#pricing">Start Free Trial</a></nav>
-<div class="wrap"><div><h1>Get More Google Reviews with AI 🚀</h1>
-<p>Help customers write natural Google reviews in seconds using AI suggestions and QR Codes. Improve your Google Business Profile and Local SEO.</p>
-<a class="btn" href="#pricing">Start Free Trial</a>
-<a class="btn secondary" href="https://youtube.com/shorts/9VpTMbDhOzk?si=0GqkXFZruY5aHk5b" target="_blank">Watch Demo</a>
-</div>
-<div class="card"><iframe width="100%" height="315" src="https://www.youtube.com/embed/9VpTMbDhOzk" allowfullscreen></iframe></div></div></header>
-<section><h2>How It Works</h2><div class="grid">
-<div class="card"><h3>1. Scan QR</h3><p>Customer scans your Google Review QR Code.</p></div>
-<div class="card"><h3>2. AI Suggests</h3><p>RevmeAI creates a natural review suggestion.</p></div>
-<div class="card"><h3>3. Post Review</h3><p>Customer posts review to Google in seconds.</p></div>
-</div></section>
-<section><h2>Features</h2><div class="grid">
-<div class="card">✅ AI Review Suggestions</div><div class="card">✅ Smart QR Codes</div><div class="card">✅ Multi-language</div><div class="card">✅ Review Dashboard</div><div class="card">✅ Local SEO</div><div class="card">✅ Analytics</div>
-</div></section>
-<section id="pricing"><h2>Pricing</h2><div class="grid">
-<div class="card"><h3>Free Trial</h3><p>Try RevmeAI Free</p><a class="btn" href="https://revmeai.com">Start</a></div>
-<div class="card popular"><h3>₹249 / Month</h3><p>+15 Days FREE</p><a class="btn" href="https://revmeai.com">Buy Now</a></div>
-<div class="card"><h3>₹849 / 6 Months</h3><p>+30 Days FREE</p><a class="btn" href="https://revmeai.com">Buy Now</a></div>
-<div class="card"><h3>₹1499 / Year</h3><p>+60 Days FREE</p><a class="btn" href="https://revmeai.com">Best Value</a></div>
-</div></section>
-<section class="cta"><h2>Start Growing Your Google Reviews Today</h2><a class="btn" href="https://revmeai.com">Start Free Trial</a></section>
-<footer>© RevmeAI</footer><script src="/google-review/script.js?v=5"></script></body></html> -->
