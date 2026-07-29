@@ -1,91 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>RevmeAI Blog | Google Reviews, Google Business Profile & Local SEO</title>
-
-    <meta name="description"
-        content="Learn how to increase Google reviews, improve your Google Business Profile, rank higher on Google Maps, and grow your business with AI-powered review management.">
-
-    <meta name="keywords"
-        content="Google Reviews, Google Business Profile, Local SEO, Google Review QR Code, Review Management">
-
-    <link rel="canonical" href="https://revmeai.com/blog/">
-
+    
+    <title>RevmeAI Blog | Latest Articles</title>
+    <meta name="description" content="Read the latest insights, guides, and updates on local SEO, Google Reviews, and AI from RevmeAI.">
+    
     <style>
+        /* Base / Dark Theme Variables */
+        :root, [data-theme="dark"] {
+            --bg-base: #050505;
+            --text-main: #ededed;
+            --text-muted: #a1a1aa;
+            --accent-glow: #6366f1; /* Indigo glow */
+            --accent-secondary: #ec4899; /* Pink glow */
+            --dock-bg: rgba(20, 20, 20, 0.6);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-hover-bg: rgba(255, 255, 255, 0.04);
+            --hover-bg: rgba(255, 255, 255, 0.1);
+            
+            --font-display: 'Newsreader', 'Georgia', serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Light Theme Override */
+        [data-theme="light"] {
+            --bg-base: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --dock-bg: rgba(255, 255, 255, 0.7);
+            --border-subtle: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+            --card-hover-bg: #f3f4f6;
+            --hover-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: auto;
-            padding: 40px 20px;
-            background: #f8f9fc;
-            color: #333;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        h1 {
-            color: #1565ff;
+        /* Ambient Mesh Gradient Background */
+        .ambient-glow {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            opacity: 0.15;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulse 10s ease-in-out infinite alternate;
         }
 
-        .article {
-            background: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.08);
+        .ambient-glow.two {
+            top: 40%;
+            left: 60%;
+            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 60%);
+            animation-delay: -5s;
         }
 
-        a {
-            color: #1565ff;
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            100% { transform: scale(1.2); opacity: 0.2; }
+        }
+
+        /* Header */
+        header.site-header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
             text-decoration: none;
-            font-weight: bold;
         }
 
-        .btn {
-            display: inline-block;
-            background: #1565ff;
-            color: white;
-            padding: 14px 24px;
-            border-radius: 8px;
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            background: var(--hover-bg);
+            transform: scale(1.05);
+        }
+        .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+        [data-theme="light"] .icon-sun { display: none; }
+        [data-theme="dark"] .icon-moon { display: none; }
+
+        /* Main Container */
+        .blog-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem 10rem 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .blog-header h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .blog-header p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Article Grid */
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Article Card */
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
             text-decoration: none;
-            margin-top: 20px;
+            color: inherit;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover-bg);
+            border-color: var(--accent-glow);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-glow);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1.2rem;
+        }
+
+        /* Spatial UI Floating Dock */
+        .spatial-dock {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dock-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            padding: 0.5rem;
+            border-radius: 100px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .dock-item {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            padding: 0.8rem 1.5rem;
+            border-radius: 100px;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: inherit;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .dock-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .dock-item.highlight {
+            background: var(--text-main);
+            color: var(--bg-base);
         }
     </style>
 </head>
+<body data-theme="dark">
 
-<body>
+    <!-- Ambient Lighting Effects -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow two"></div>
 
-<h1>📚 RevmeAI Blog</h1>
+    <!-- Header -->
+    <header class="site-header">
+        <a href="/" class="brand">RevmeAI.</a>
+        
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" />
+            </svg>
+        </button>
+    </header>
 
-<p>
-Learn how to get more Google reviews, improve your Google Business Profile,
-rank higher on Google Maps, and grow your business using AI.
-</p>
+    <main class="blog-container">
+        <!-- Page Header -->
+        <div class="blog-header">
+            <h1>Insights & Guides</h1>
+            <p>Strategies, tips, and AI tools to help your local business dominate local search and build customer trust.</p>
+        </div>
 
-<div class="article">
-<h2><a href="how-to-increase-google-reviews.html">How to Increase Google Reviews in 2026</a></h2>
-<p>10 proven ways to get more Google reviews from real customers.</p>
-</div>
+        <!-- Grid for Article Cards -->
+        <div class="article-grid" id="article-grid">
+            <!-- JavaScript will inject cards here -->
+        </div>
+    </main>
 
-<div class="article">
-<h2><a href="google-review-qr-code.html">Google Review QR Code Guide</a></h2>
-<p>Learn how QR codes help businesses collect reviews faster.</p>
-</div>
+    <!-- Spatial Floating Dock -->
+    <nav class="spatial-dock">
+        <a href="/" class="dock-item">Home</a>
+        <button class="dock-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Top</button>
+        <a href="https://revmeai.com" class="dock-item highlight">Start Free Trial</a>
+    </nav>
 
-<div class="article">
-<h2><a href="google-business-profile-guide.html">Google Business Profile Optimization</a></h2>
-<p>Improve your Google Business Profile to attract more local customers.</p>
-</div>
 
-<div class="article">
-<h2><a href="how-to-rank-higher-on-google-maps.html">How to Rank Higher on Google Maps</a></h2>
-<p>Simple Local SEO tips to improve your Google Maps ranking.</p>
-</div>
+    <!-- ============================================== -->
+    <!-- LOGIC: JSON DATA, RENDERING & THEME TOGGLE -->
+    <!-- ============================================== -->
+    <script>
+        // --- THEME TOGGLE LOGIC ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        
+        const savedTheme = localStorage.getItem('revmeai-theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+        } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                document.body.setAttribute('data-theme', 'light');
+            }
+        }
 
-<a class="btn" href="https://revmeai.com">Start Your Free Trial</a>
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('revmeai-theme', newTheme);
+        });
 
+        // --- JSON DATA (List of Articles) ---
+        const blogPosts = [
+            {
+                "url": "/how-to-generate-5-star-google-reviews-2026",
+                "category": "Google Reviews",
+                "title": "How to Generate 5-Star Google Reviews for Free in 2026 (Complete Guide)",
+                "description": "Learn the best free strategies to generate more authentic 5-star Google reviews. Improve local SEO, increase customer trust, and grow your business.",
+                "publishDate": "2026-07-29",
+                "readTime": "6 min read",
+                "featuredImage": "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "url": "/ai-tools-for-local-business",
+                "category": "AI Tech",
+                "title": "Why Every Local Business Needs an AI Assistant in 2026",
+                "description": "Discover how artificial intelligence is changing the landscape for small businesses, from automating customer replies to generating review drafts.",
+                "publishDate": "2026-07-21",
+                "readTime": "5 min read",
+                "featuredImage": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "url": "/local-seo-ranking-factors",
+                "category": "Local SEO",
+                "title": "The Top 3 Local SEO Ranking Factors You Can't Ignore",
+                "description": "Google's algorithm has shifted. Find out why review velocity and keyword density in customer feedback are now the strongest ranking signals.",
+                "publishDate": "2026-07-15",
+                "readTime": "8 min read",
+                "featuredImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                "url": "/how-to-respond-to-negative-reviews",
+                "category": "Reputation",
+                "title": "How to Turn a 1-Star Review into a Loyal Customer",
+                "description": "Negative reviews happen to everyone. Learn the exact templates and response strategies to mitigate damage and win back trust.",
+                "publishDate": "2026-07-02",
+                "readTime": "4 min read",
+                "featuredImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // --- RENDERING ENGINE FOR HOMEPAGE ---
+        function buildBlogGrid(articles) {
+            const grid = document.getElementById('article-grid');
+            let htmlContent = '';
+
+            articles.forEach(article => {
+                // Format the date
+                const formattedDate = new Date(article.publishDate).toLocaleDateString('en-US', {
+                    month: 'short', day: 'numeric', year: 'numeric'
+                });
+
+                htmlContent += `
+                    <a href="${article.url}" class="article-card">
+                        <div class="card-image-wrapper">
+                            <img src="${article.featuredImage}" alt="${article.title}" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-category">${article.category}</span>
+                            <h2 class="card-title">${article.title}</h2>
+                            <p class="card-description">${article.description}</p>
+                            
+                            <div class="card-meta">
+                                <span>${formattedDate}</span>
+                                <span>${article.readTime}</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            });
+
+            grid.innerHTML = htmlContent;
+        }
+
+        // Run instantly
+        buildBlogGrid(blogPosts);
+    </script>
 </body>
-
 </html>
