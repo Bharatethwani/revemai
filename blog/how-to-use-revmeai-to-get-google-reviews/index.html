@@ -1,1 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8600410125877755"
+     crossorigin="anonymous"></script>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <!-- Dynamic SEO & Meta Tags -->
+   <title>How to Use RevmeAI to Get More Google Reviews (Step-by-Step Guide)</title>
+  <meta name="Learn how to use RevmeAI to collect authentic Google reviews with AI-powered review suggestions, AI reply generator, QR codes, and a free 3-day trial.">
+  <!-- <meta name="description" id="meta-desc" content=""> -->
+
+  <link rel="canonical" href="https://revmeai.com/blog/how-to-use-revmeai-to-get-google-reviews/">
+   
+    <style>
+        /* Base / Dark Theme Variables */
+        :root, [data-theme="dark"] {
+            --bg-base: #050505;
+            --text-main: #ededed;
+            --text-muted: #a1a1aa;
+            --accent-glow: #6366f1; /* Indigo glow */
+            --accent-secondary: #ec4899; /* Pink glow */
+            --dock-bg: rgba(20, 20, 20, 0.6);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --widget-bg: rgba(255, 255, 255, 0.03);
+            --blockquote-bg: rgba(255, 255, 255, 0.02);
+            --hover-bg: rgba(255, 255, 255, 0.1);
+           
+            --font-display: 'Newsreader', 'Georgia', serif;
+            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Light Theme Override */
+        [data-theme="light"] {
+            --bg-base: #f9fafb;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --dock-bg: rgba(255, 255, 255, 0.7);
+            --border-subtle: rgba(0, 0, 0, 0.1);
+            --widget-bg: rgba(0, 0, 0, 0.02);
+            --blockquote-bg: rgba(0, 0, 0, 0.03);
+            --hover-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Ambient Mesh Gradient Background (Fixed z-index and pointer-events) */
+        .ambient-glow {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            opacity: 0.15;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none; /* Prevents it from blocking content */
+            animation: pulse 10s ease-in-out infinite alternate;
+        }
+
+        .ambient-glow.two {
+            top: 40%;
+            left: 60%;
+            background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 60%);
+            animation-delay: -5s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.1; }
+            100% { transform: scale(1.2); opacity: 0.2; }
+        }
+
+        /* Minimal Header */
+        header.site-header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover {
+            background: var(--hover-bg);
+            transform: scale(1.05);
+        }
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Hide specific icon based on theme */
+        [data-theme="light"] .icon-sun { display: none; }
+        [data-theme="dark"] .icon-moon { display: none; }
+
+        /* Editorial Layout Constraints */
+        .reading-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 6rem 1.5rem 10rem 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-section {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .pill-badge {
+            display: inline-block;
+            border: 1px solid var(--border-subtle);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h1.article-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .author-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-glow), var(--accent-secondary));
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Article Typography */
+        .content h2, .content h3 {
+            font-family: var(--font-display);
+            color: var(--text-main);
+        }
+       
+        .content h2 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin: 3.5rem 0 1.5rem;
+        }
+       
+        .content h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .content p {
+            font-size: 1.15rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-muted);
+        }
+
+        .content strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+       
+        .content ul, .content ol {
+            font-size: 1.15rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-muted);
+            padding-left: 2rem;
+        }
+       
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Custom Blockquote */
+        .content blockquote {
+            border-left: 4px solid var(--accent-glow);
+            padding: 1.5rem 2rem;
+            margin: 2.5rem 0;
+            background: var(--blockquote-bg);
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        /* Inline CTA Widget */
+        .inline-widget {
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: var(--widget-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inline-widget::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent-glow), var(--accent-secondary));
+        }
+
+        .inline-widget h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .inline-widget p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg-base);
+            padding: 0.8rem 1.8rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* Tags Container */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .tag {
+            border: 1px solid var(--border-subtle);
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+        .tag:hover {
+            background: var(--hover-bg);
+            color: var(--text-main);
+        }
+
+        /* Spatial UI Floating Dock */
+        .spatial-dock {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dock-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            padding: 0.5rem;
+            border-radius: 100px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .dock-item {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            padding: 0.8rem 1.5rem;
+            border-radius: 100px;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: inherit;
+            transition: background 0.3s ease;
+        }
+
+        .dock-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .dock-item.highlight {
+            background: var(--text-main);
+            color: var(--bg-base);
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <!-- Ambient Lighting Effects -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow two"></div>
+
+    <header class="site-header">
+        <a href="/" class="brand">RevmeAI.</a>
+        <div class="header-controls">
+            <div id="nav-read-time" style="color: var(--text-muted); font-size: 0.9rem;"></div>
+           
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="reading-container">
+        <article>
+            <header class="hero-section" id="hero-section">
+                <!-- Javascript will populate Category, Title, and Meta here -->
+            </header>
+
+  
+
+          <div id="featured-image-container" style="display: none;">
+    <img
+        id="featured-image"
+        src=""
+        alt="Featured Article Image"
+        style="
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-subtle);
+            display: block;
+        ">
+</div>
+
+            <!-- Dynamic Article Body -->
+            <div class="content" id="article-content">
+                <!-- Javascript will inject content here -->
+            </div>
+
+            <!-- Tags -->
+            <div class="tags-container" id="article-tags">
+            </div>
+        </article>
+    </main>
+
+    <!-- Spatial Floating Dock -->
+    <nav class="spatial-dock">
+        <!-- <button class="dock-item" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Top</button>
+        <button class="dock-item" onclick="navigator.clipboard.writeText(window.location.href); alert('Link Copied!')">Copy Link</button> -->
+        <a href="https://revmeai.com" id="dock-cta" class="dock-item highlight" style="text-decoration: none; display: flex; align-items: center;">Start Free Trial</a>
+    </nav>
+
+
+    <script>
+        // --- THEME TOGGLE LOGIC ---
+        const toggleBtn = document.getElementById('theme-toggle');
+       
+        const savedTheme = localStorage.getItem('revmeai-theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+        } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                document.body.setAttribute('data-theme', 'light');
+            }
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+           
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('revmeai-theme', newTheme);
+        });
+
+        // --- JSON DATA ---
+
+      
+const articleData = {
+  "category": "RevmeAI Guide",
+  "title": "How to Use RevmeAI to Get More Google Reviews (Step-by-Step Guide)",
+  "description": "Learn how to use RevmeAI to collect authentic Google reviews with AI-powered review suggestions, AI reply generator, QR codes, and a free 3-day trial.",
+  "author": "RevmeAI Team",
+  "publishDate": "2026-07-31",
+  "readTime": "4 min read",
+  "featuredImage": "https://i.pinimg.com/736x/41/a5/8f/41a58f2f9557c5863e7d09622f9b7644.jpg",
+  "content": [
+    {
+      "type": "paragraph",
+      "text": "RevmeAI helps businesses collect more authentic Google reviews without making the review process complicated. Customers simply scan your QR code, select a star rating, receive an AI-generated review suggestion, customize it if they want, and post it directly on Google. Whether you own a restaurant, salon, hotel, clinic, gym, or retail store, RevmeAI makes getting quality reviews faster and easier."
+    },
+    {
+      "type": "heading",
+      "text": "How to Get Started"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Create your free RevmeAI account.",
+        "Start your 3-day free Pro trial with no complicated setup.",
+        "Add your business details and Google Business Profile.",
+        "Generate your unique QR code.",
+        "Print or display the QR code where customers can easily scan it."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "How Customers Leave Reviews"
+    },
+    {
+      "type": "paragraph",
+      "text": "When customers scan your QR code, they choose a star rating. RevmeAI instantly creates an AI-powered review suggestion based on the selected rating. Customers can edit, personalize, or completely rewrite the review before posting it to Google, ensuring every review reflects their real experience."
+    },
+    {
+      "type": "heading",
+      "text": "More Than Just AI Reviews"
+    },
+    {
+      "type": "list",
+      "items": [
+        "AI Review Generator for unique review suggestions.",
+        "AI Reply Generator to create professional responses to customer reviews.",
+        "Multi-language support for customers.",
+        "SEO-friendly review suggestions.",
+        "Easy QR code sharing for offline and online businesses."
+      ]
+    },
+    
+    {
+      "type": "heading",
+      "text": "Why Choose RevmeAI?"
+    },
+    {
+      "type": "paragraph",
+      "text": "RevmeAI saves time for both businesses and customers while encouraging authentic, personalized Google reviews. You also get an AI Reply Generator to respond professionally to customer feedback, helping improve engagement and your online reputation. Start today with the 3-day free Pro trial and experience how AI can simplify your review management."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Does RevmeAI offer a free trial?",
+      "answer": "Yes. Every new user gets a 3-day free Pro trial to explore all premium features."
+    },
+    {
+      "question": "Can customers edit AI-generated reviews?",
+      "answer": "Yes. Customers can modify, personalize, or completely rewrite the AI suggestion before posting it."
+    },
+    {
+      "question": "What is the AI Reply Generator?",
+      "answer": "It helps businesses create professional and personalized replies to Google reviews in seconds."
+    },
+    {
+      "question": "Where can I watch the RevmeAI demo?",
+      "answer": "Visit https://revmeai.com/demo to see RevmeAI in action."
+    }
+  ],
+  "keywords": [
+    "how to use RevmeAI",
+    "RevmeAI guide",
+    "AI review generator",
+    "AI reply generator",
+    "Google review QR code",
+    "Google review tool",
+    "Google review software",
+    "3 day free trial",
+    "Google Business reviews",
+    "RevmeAI"
+  ]
+};
+      
+   //   --- RENDERING ENGINE ---
+        function buildPage(data) {
+            document.title = `${data.title} | RevmeAI`;
+            // document.getElementById('meta-desc').setAttribute('content', data.description);
+            document.getElementById('nav-read-time').innerText = `Reading Time: ${data.readTime}`;
+           
+            const formattedDate = new Date(data.publishDate).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            const heroSection = document.getElementById('hero-section');
+            heroSection.innerHTML = `
+                <span class="pill-badge">${data.category}</span>
+                <h1 class="article-title">${data.title}</h1>
+                <div class="author-meta">
+                    <div class="author-avatar"></div>
+                    <div>
+                        <div>Written by <strong>${data.author}</strong></div>
+                        <div>Published • ${formattedDate}</div>
+                    </div>
+                </div>
+            `;
+
+            if (data.featuredImage) {
+                const imgContainer = document.getElementById('featured-image-container');
+                document.getElementById('featured-image').src = data.featuredImage;
+                imgContainer.style.display = 'block';
+            }
+
+            const contentDiv = document.getElementById('article-content');
+            let contentHTML = '';
+
+            data.content.forEach(block => {
+                if (block.type === 'paragraph') {
+                    contentHTML += `<p>${block.text}</p>`;
+                } else if (block.type === 'heading') {
+                    contentHTML += `<h${block.level}>${block.text}</h${block.level}>`;
+                } else if (block.type === 'blockquote') {
+                    contentHTML += `<blockquote>"${block.text}"</blockquote>`;
+                } else if (block.type === 'list') {
+                    let listItems = block.items.map(item => `<li>${item}</li>`).join('');
+                    contentHTML += `<ul>${listItems}</ul>`;
+                }
+            });
+
+            if (data.cta) {
+                contentHTML += `
+                    <div class="inline-widget">
+                        <h3>${data.cta.title}</h3>
+                        <p>${data.cta.description}</p>
+                        <a href="${data.cta.buttonUrl}" target="_blank" class="btn-primary">${data.cta.buttonText}</a>
+                    </div>
+                `;
+                document.getElementById('dock-cta').href = data.cta.buttonUrl;
+                document.getElementById('dock-cta').innerText = data.cta.buttonText;
+            }
+
+            contentDiv.innerHTML = contentHTML;
+
+            const tagsDiv = document.getElementById('article-tags');
+            if (data.tags && data.tags.length > 0) {
+                tagsDiv.innerHTML = data.tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
+            }
+        }
+
+        // Run instantly
+        buildPage(articleData);
+    </script>
+</body>
+</html>
