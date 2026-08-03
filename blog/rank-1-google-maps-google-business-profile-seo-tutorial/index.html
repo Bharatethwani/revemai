@@ -395,7 +395,10 @@
                 <!-- Javascript will populate Category, Title, and Meta here -->
             </header>
 
-        <img
+  
+
+          <div id="featured-image-container" style="display: none;">
+    <img
         id="featured-image"
         src=""
         alt="Featured Article Image"
@@ -409,7 +412,7 @@
             border: 1px solid var(--border-subtle);
             display: block;
         ">
-        </div>
+</div>
 
             <!-- Dynamic Article Body -->
             <div class="content" id="article-content">
@@ -452,7 +455,10 @@
         });
 
         // --- JSON DATA ---
-   const articleData = {
+
+      
+
+const articleData = {
   "category": "Google Business Profile",
   "title": "Rank #1 on Google Maps | Complete Google Business Profile SEO Tutorial",
   "description": "Learn how to optimize your Google Business Profile to rank higher on Google Maps. Discover proven Google Business Profile SEO tips that improve local visibility, attract more customers, and grow your business.",
@@ -552,7 +558,8 @@
     }
   ]
 };
-        // --- RENDERING ENGINE ---
+      
+   //   --- RENDERING ENGINE ---
         function buildPage(data) {
             document.title = `${data.title} | RevmeAI`;
             // document.getElementById('meta-desc').setAttribute('content', data.description);
