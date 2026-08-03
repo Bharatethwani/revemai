@@ -395,9 +395,20 @@
                 <!-- Javascript will populate Category, Title, and Meta here -->
             </header>
 
-            <div id="featured-image-container" style="display: none;">
-                <img id="featured-image" src="" alt="Featured Article Image" style="width: 100%; border-radius: 16px; margin-bottom: 3rem; border: 1px solid var(--border-subtle);">
-            </div>
+        <img
+        id="featured-image"
+        src=""
+        alt="Featured Article Image"
+        style="
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-subtle);
+            display: block;
+        ">
 
             <!-- Dynamic Article Body -->
             <div class="content" id="article-content">
