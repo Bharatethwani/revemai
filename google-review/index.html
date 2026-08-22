@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8600410125877755" crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GSXQE9KC56"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GSXQE9KC56');
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-GSXQE9KC56');
     </script>
 
     <meta charset="UTF-8">
@@ -51,7 +55,7 @@
         /* Header & Nav */
         header {
             background: var(--card-bg);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -151,6 +155,7 @@
             border-top: 1px solid #e2e8f0;
             border-bottom: 1px solid #e2e8f0;
         }
+
         .trust-banner p {
             font-size: 16px;
             color: var(--text-light);
@@ -227,17 +232,30 @@
             color: var(--secondary);
         }
 
-        .box ul { list-style: none; }
+        .box ul {
+            list-style: none;
+        }
+
         .box li {
             margin-bottom: 12px;
             position: relative;
             padding-left: 25px;
         }
-        .problem-box li::before { content: "❌"; position: absolute; left: 0; }
-        .solution-box li::before { content: "✅"; position: absolute; left: 0; }
+
+        .problem-box li::before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+        }
+
+        .solution-box li::before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
 
         /* How it Works */
-        .grid-3 {
+        .grid-4 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
@@ -247,7 +265,7 @@
             background: var(--card-bg);
             padding: 40px 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             text-align: center;
             border: 1px solid var(--border);
         }
@@ -316,7 +334,7 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         .keyword-card h5 {
@@ -413,7 +431,7 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
-        
+
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
@@ -486,9 +504,21 @@
             border: 1px solid var(--border);
         }
 
-        .stars { color: var(--accent); margin-bottom: 15px; }
-        .client-name { font-weight: 700; color: var(--secondary); margin-top: 15px; }
-        .client-biz { font-size: 13px; color: var(--text-light); }
+        .stars {
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .client-name {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-top: 15px;
+        }
+
+        .client-biz {
+            font-size: 13px;
+            color: var(--text-light);
+        }
 
         /* Footer */
         footer {
@@ -501,14 +531,29 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 32px; }
-            .nav-links { display: none; }
-            .price-card.popular { transform: none; }
-            .video-wrapper { border-width: 2px; }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .price-card.popular {
+                transform: none;
+            }
+
+            .video-wrapper {
+                border-width: 2px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -532,7 +577,7 @@
             <h1>Get More Google Reviews With AI in Under 30 Seconds</h1>
             <p>Customers scan your QR code, AI suggests a review, and they post it on Google in seconds.</p>
             <p style="margin-bottom: 30px;">Collect more Google reviews with AI. Enjoy a <strong>3-day FREE Pro trial</strong> after signup, then upgrade if you love it—or keep using the Free Plan forever.</p>
-            
+
             <div class="hero-buttons">
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <a href="https://revmeai.com" id="startTrialHero" class="btn" style="padding: 16px 32px; font-size: 18px;">
@@ -540,7 +585,7 @@
                     </a>
                     <span style="font-size: 13px; color: var(--text-light); margin-top: 8px;">✅ No Credit Card Required</span>
                 </div>
-                
+
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <a href="https://wa.me/918824165611?text=Hi%20RevmeAI%20Team,%20I%20want%20to%20know%20more%20about%20RevmeAI." target="_blank" rel="noopener noreferrer" class="btn" style="padding: 16px 32px; font-size: 18px; background: #25D366; color: white;">
                         Message on WhatsApp
@@ -548,9 +593,9 @@
                     <span style="font-size: 13px; color: var(--text-light); margin-top: 8px;">⚡ Fast Reply</span>
                 </div>
             </div>
-            
+
             <script>
-                document.getElementById("startTrialHero").addEventListener("click", function () {
+                document.getElementById("startTrialHero").addEventListener("click", function() {
                     gtag('event', 'start_free_trial', {
                         event_category: 'CTA',
                         event_label: 'Hero Button'
@@ -604,22 +649,33 @@
     <section id="how-it-works" class="section-padding">
         <div class="container">
             <h2 class="section-title">How RevmeAI Works</h2>
-            <div class="grid-3">
+            <div class="grid-4">
                 <div class="step-card">
                     <div class="step-icon">⭐</div>
                     <h3>1. Smart AI Review Suggestions</h3>
                     <p>Customers scan your customized QR code and tap their rating. RevmeAI generates an SEO-friendly, category-specific review draft instantly.</p>
                     <div class="flow-badge">Scan QR → Select Rating → AI Draft</div>
                 </div>
+
+
+                <div class="step-card">
+                    <div class="step-icon">📢</div>
+                    <h3>2. AI Google Business Posts</h3>
+                    <p>Create engaging, SEO-friendly Google Business Profile posts with AI. Get <strong>2 AI-generated posts every week</strong> to keep your business profile active and engaging.</p>
+                    <div class="flow-badge">Choose Topic → AI Generate → Publish</div>
+                </div>
+
+
+
                 <div class="step-card">
                     <div class="step-icon">💬</div>
-                    <h3>2. AI Smart Replies</h3>
+                    <h3>3. AI Smart Replies</h3>
                     <p>Analyze incoming feedback instantly. Create personalized, warm, and highly professional responses that strengthen customer loyalty.</p>
                     <div class="flow-badge">Handles Positive & Negative Feedback</div>
                 </div>
                 <div class="step-card">
                     <div class="step-icon">📊</div>
-                    <h3>3. 🌐 Free AI Business Website</h3>
+                    <h3>4. 🌐 Free AI Business Website</h3>
                     <p>No coding. No design skills. Just one click and RevmeAI builds your AI-powered business website for free.</p>
                     <div class="flow-badge">No Domain Required</div>
                 </div>
@@ -710,7 +766,7 @@
                         <ul class="price-features">
                             <li>+15 Days Entirely FREE</li>
                             <li>Unlimited QR Scans</li>
-                            <li>AI Generated 5 Reviews</li>         
+                            <li>AI Generated 5 Reviews</li>
                             <li>Editable Keywords</li>
                             <li>Multi-Language Support</li>
                             <li>Tone Customization</li>
@@ -718,7 +774,7 @@
                             <li>All Future Updates</li>
                         </ul>
                     </div>
-                    <a href="https://revmeai.com/" id="startTrialPricing1" class="btn">Start Free Trial</a>  
+                    <a href="https://revmeai.com/" id="startTrialPricing1" class="btn">Start Free Trial</a>
                 </div>
 
                 <div class="price-card">
@@ -729,7 +785,7 @@
                         <ul class="price-features">
                             <li>+30 Days Entirely FREE</li>
                             <li>Unlimited QR Scans</li>
-                            <li>AI Generated 5 Reviews</li>         
+                            <li>AI Generated 5 Reviews</li>
                             <li>Editable Keywords</li>
                             <li>Multi-Language Support</li>
                             <li>Tone Customization</li>
@@ -748,7 +804,7 @@
                         <ul class="price-features">
                             <li>+60 Days Entirely FREE</li>
                             <li>Unlimited QR Scans</li>
-                            <li>AI Generated 5 Reviews</li>         
+                            <li>AI Generated 5 Reviews</li>
                             <li>Editable Keywords</li>
                             <li>Multi-Language Support</li>
                             <li>Tone Customization</li>
@@ -759,9 +815,9 @@
                     <a href="https://revmeai.com/" class="btn">Buy Annual Plan</a>
                 </div>
             </div>
-            
+
             <script>
-                document.getElementById("startTrialPricing1").addEventListener("click", function () {
+                document.getElementById("startTrialPricing1").addEventListener("click", function() {
                     gtag('event', 'start_free_trial', {
                         event_category: 'CTA',
                         event_label: 'Pricing Card Button'
@@ -770,12 +826,12 @@
             </script>
         </div>
     </section>
-    
+
     <!-- FAQ SECTION -->
     <section id="faq" class="faq section-padding">
         <div class="container">
             <h2 class="section-title">Frequently Asked Questions</h2>
-            
+
             <div class="faq-container">
                 <details open>
                     <summary>Will Google Remove AI-Generated Reviews?</summary>
@@ -853,8 +909,8 @@
     <footer>
         <div class="container">
             <div style="margin-bottom: 20px;">
-                <a href="/privacy-policy" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Privacy Policy</a> | 
-                <a href="/terms" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
+                <a href="/privacy-policy" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+                <a href="/terms" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Terms of Service</a> |
                 <a href="mailto:support@revmeai.com" style="color: #cbd5e1; text-decoration: none; margin: 0 10px;">Contact Support</a>
             </div>
             <p>&copy; 2026 RevmeAI. All rights reserved. Empowering your Google Business Profile visibility.</p>
@@ -865,4 +921,5 @@
     </footer>
 
 </body>
+
 </html>
