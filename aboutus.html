@@ -1,16 +1,320 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+```html
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About Us - RevmeAI</title>
+
+  <meta
+    name="description"
+    content="Learn about RevmeAI, an AI-powered platform helping businesses manage customer reviews, generate review content, and build stronger digital reputations."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f9fafc;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    .hero {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      text-align: center;
+      padding: 60px 24px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      max-width: 850px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    .section p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      color: #1f2937;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .feature {
+      background: white;
+      padding: 24px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .feature h3 {
+      font-size: 19px;
+      font-weight: 600;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      font-size: 15px;
+      line-height: 1.45;
+      color: #374151;
+    }
+
+    .business-info {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 28px;
+      margin-top: 20px;
+    }
+
+    .business-info h2 {
+      margin-bottom: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .info-label {
+      font-weight: 600;
+      min-width: 180px;
+      color: #374151;
+    }
+
+    .info-value {
+      color: #111827;
+    }
+
+    .info-value a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .info-value a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 24px;
+      border-top: 1px solid #e5e7eb;
+      color: #9ca3af;
+      font-size: 14px;
+      background: white;
+    }
+
+    @media (max-width: 700px) {
+      .hero {
+        padding: 45px 20px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 40px 20px;
+      }
+
+      .section h2 {
+        font-size: 25px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .info-label {
+        min-width: 100%;
+        margin-bottom: 3px;
+      }
+    }
   </style>
 </head>
+
 <body>
-<p class="p1">Privasy</p>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>About RevmeAI</h1>
+
+    <p>
+      Empowering businesses with AI-powered review generation and management
+      to transform customer feedback into growth opportunities.
+    </p>
+  </header>
+
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Who We Are -->
+    <section class="section">
+      <h2>Who We Are</h2>
+
+      <p>
+        RevmeAI is a next-generation AI platform designed to help modern
+        businesses generate smarter, faster, and more impactful customer reviews.
+      </p>
+
+      <p>
+        We believe reviews are more than just feedback — they are powerful
+        tools that influence trust, reputation, and revenue. Our mission is
+        to help businesses turn everyday customer experiences into compelling
+        social proof.
+      </p>
+    </section>
+
+
+    <!-- Our Mission -->
+    <section class="section">
+      <h2>Our Mission</h2>
+
+      <p>
+        To empower businesses of all sizes with intelligent automation that
+        simplifies review management, increases engagement, and strengthens
+        brand credibility.
+      </p>
+    </section>
+
+
+    <!-- What Makes RevmeAI Different -->
+    <section class="section">
+      <h2>What Makes RevmeAI Different?</h2>
+
+      <div class="features">
+
+        <div class="feature">
+          <h3>AI-Generated Reviews</h3>
+          <p>
+            Generate natural, high-quality review content powered by advanced
+            AI models.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Smart Responses</h3>
+          <p>
+            Instantly craft professional and personalized responses to
+            customer feedback.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Sentiment Insights</h3>
+          <p>
+            Analyze customer sentiment and improve engagement strategies with
+            intelligent suggestions.
+          </p>
+        </div>
+
+        <div class="feature">
+          <h3>Scalable Platform</h3>
+          <p>
+            Built for startups, agencies, and growing enterprises with secure
+            cloud infrastructure.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Our Vision -->
+    <section class="section">
+      <h2>Our Vision</h2>
+
+      <p>
+        We envision a future where every business — regardless of size —
+        can leverage artificial intelligence to build stronger relationships
+        with customers and grow through authentic digital reputation.
+      </p>
+    </section>
+
+
+    <!-- Business Information -->
+    <section class="section">
+      <div class="business-info">
+
+        <h2>Business Information</h2>
+
+        <div class="info-row">
+          <div class="info-label">Legal Business Name:</div>
+          <div class="info-value">BHARAT JETHWANI</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Business / Brand Name:</div>
+          <div class="info-value">RevmeAI</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Email:</div>
+          <div class="info-value">
+            <a href="mailto:bjethwani65@gmail.com">
+              bjethwani65@gmail.com
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer>
+    © 2026 RevmeAI. All Rights Reserved.
+  </footer>
+
 </body>
 </html>
+```
