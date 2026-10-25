@@ -4,7 +4,14 @@
       "source": "/supabase/:path*",
       "destination": "https://iwhxyqczdfapprigyrpr.supabase.co/:path*"
     },
-
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/ads.txt",
+      "destination": "/ads.txt"
+    },
     {
       "source": "/(.*)",
       "has": [
@@ -12,14 +19,13 @@
       ],
       "destination": "/review/index.html"
     },
-   {
+    {
       "source": "/(.*)",
       "has": [
         { "type": "host", "value": "^w\\.revmeai\\.com$" }
       ],
       "destination": "/template/index.html"
     },
-
     {
       "source": "/(.*)",
       "destination": "/index.html"
