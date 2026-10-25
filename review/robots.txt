@@ -1,0 +1,8 @@
+User-agent: Googlebot
+Disallow: /r/
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: *
+Disallow: /r/
